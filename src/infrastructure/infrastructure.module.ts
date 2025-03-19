@@ -10,7 +10,6 @@ import { RequestEntity } from './entities/request.entity'
 import { ProviderEntity } from './entities/provider.entity'
 
 const config = configuration()
-console.log(process.env)
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
