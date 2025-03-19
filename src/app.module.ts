@@ -17,6 +17,7 @@ import configuration from './config/configuration'
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
       envFilePath: ['.env.development'],
       load: [configuration],
     }),
