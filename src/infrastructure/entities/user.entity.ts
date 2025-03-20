@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { AuditEntity } from './audit.entity'
 
 @Entity('user')
-export class UserEntity {
+export class UserEntity extends AuditEntity {
   @PrimaryGeneratedColumn()
   userId: number
 

@@ -7,9 +7,10 @@ import {
 } from 'typeorm'
 import { ProviderEntity } from './provider.entity'
 import { CategoryEntity } from './category.entity'
+import { AuditEntity } from './audit.entity'
 
 @Entity('service')
-export class ServiceEntity {
+export class ServiceEntity extends AuditEntity {
   @PrimaryGeneratedColumn()
   serviceId: number
 

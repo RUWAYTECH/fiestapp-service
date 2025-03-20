@@ -6,9 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { UserEntity } from './user.entity'
+import { AuditEntity } from './audit.entity'
 
 @Entity('provider')
-export class ProviderEntity {
+export class ProviderEntity extends AuditEntity {
   @PrimaryGeneratedColumn()
   providerId: number
 

@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { AuditEntity } from './audit.entity'
 
 @Entity('category')
-export class CategoryEntity {
+export class CategoryEntity extends AuditEntity {
   @PrimaryGeneratedColumn()
   categoryId: number
 

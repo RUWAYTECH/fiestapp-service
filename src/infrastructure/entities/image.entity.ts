@@ -8,9 +8,10 @@ import {
 import { CategoryEntity } from './category.entity'
 import { ServiceEntity } from './service.entity'
 import { ProviderEntity } from './provider.entity'
+import { AuditEntity } from './audit.entity'
 
 @Entity('image')
-export class ImageEntity {
+export class ImageEntity extends AuditEntity {
   @PrimaryGeneratedColumn()
   imageId: number
 
