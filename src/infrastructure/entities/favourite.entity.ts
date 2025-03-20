@@ -1,5 +1,5 @@
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { ServiceEntity } from './services.entity'
+import { ServiceEntity } from './service.entity'
 import { UserEntity } from './user.entity'
 
 @Entity('favourite')

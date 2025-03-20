@@ -5,7 +5,7 @@ import configuration from '../config/configuration'
 import { UserEntity } from './entities/user.entity'
 import { FavouriteEntity } from './entities/favourite.entity'
 import { ImageEntity } from './entities/image.entity'
-import { ServiceEntity } from './entities/services.entity'
+import { ServiceEntity } from './entities/service.entity'
 import { RequestEntity } from './entities/request.entity'
 import { ProviderEntity } from './entities/provider.entity'
 
@@ -24,11 +24,9 @@ const config = configuration()
           database: config.database.name,
           entities: [
             CategoryEntity,
-            ProductEntity,
             UserEntity,
             ProviderEntity,
             FavouriteEntity,
-            ProductEntity,
             ImageEntity,
             ServiceEntity,
             RequestEntity,

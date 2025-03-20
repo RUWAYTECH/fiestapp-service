@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm'
 import { CategoryEntity } from './category.entity'
-import { ServiceEntity } from './services.entity'
+import { ServiceEntity } from './service.entity'
 import { ProviderEntity } from './provider.entity'
 
 @Entity('image')

@@ -30,7 +30,6 @@ import configuration from './config/configuration'
       signOptions: { expiresIn: configuration().tokenExpiration },
     }),
     CategoriesModule,
-    ProductsModule,
     InfrastructureModule,
     AuthModule,
     UsersModule,
