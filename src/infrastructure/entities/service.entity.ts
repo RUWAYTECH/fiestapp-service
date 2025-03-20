@@ -34,5 +34,8 @@ export class ServiceEntity {
   priceMin: number
 
   @Column({ type: 'integer' })
-  qualification: number
+  score: number
+
+  @Column({ type: 'varchar', length: 100 })
+  tag: string
 }
