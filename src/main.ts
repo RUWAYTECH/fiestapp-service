@@ -29,5 +29,6 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document)
   app.enableCors()
   await app.listen(configApp.port)
+  console.log(`Application is running on: http://localhost:${configApp.port}`)
 }
 bootstrap()
