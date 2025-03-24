@@ -1,40 +1,29 @@
 import { Module } from '@nestjs/common'
+import { ConfigModule } from '@nestjs/config'
+import { JwtModule } from '@nestjs/jwt'
+import { ApiModule } from './api/api.module'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { InfrastructureModule } from './infrastructure/infrastructure.module'
-import { CategoriesModule } from './api/categories/categories.module'
-import { ProductsModule } from './api/products/products.module'
-import { AutomapperModule } from '@automapper/nestjs'
-import { classes } from '@automapper/classes'
-import { AuthModule } from './api/auth/auth.module'
-import { UsersModule } from './api/users/users.module'
-import { JwtModule } from '@nestjs/jwt'
-import { ConfigModule } from '@nestjs/config'
-import { jwtConstants } from './common/constants/jwtConstants'
+import { jwtConstants } from './common/constants/jwt-constants'
 import configuration from './config/configuration'
-
+import { InfraestructureModule } from './infraestructure/infraestructure.module'
 
 @Module({
-  imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: ['.env.development'],
-      load: [configuration],
-    }),
-    AutomapperModule.forRoot({
-      strategyInitializer: classes(),
-    }),
-    JwtModule.register({
-      global: true,
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: configuration().tokenExpiration },
-    }),
-    CategoriesModule,
-    InfrastructureModule,
-    AuthModule,
-    UsersModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: ['.env'],
+			load: [configuration],
+		}),
+		JwtModule.register({
+			global: true,
+			secret: jwtConstants.secret,
+			signOptions: { expiresIn: configuration().tokenExpiration },
+		}),
+		InfraestructureModule,
+		ApiModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}

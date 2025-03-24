@@ -5,18 +5,25 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
+    "target": "ES2023",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
+    "noFallthroughCasesInSwitch": false,
+		"paths": {
+			"@entities/*": ["src/infraestructure/entities/*"],
+			"@repositories/*": ["src/infraestructure/repositories/*"],
+			"@utils/*": ["src/common/utils/*"],
+			"@constants/*": ["src/common/constants/*"],
+			"@dto/*": ["src/common/dto/*"],
+			"@api/*": ["src/api/*"],
+		}
   }
 }

@@ -1,4 +1,9 @@
+import { ApiProperty } from '@nestjs/swagger'
+
 export class SingInRequestDto {
-  userName: string
-  password: string
+	@ApiProperty()
+	email: string
+
+	@ApiProperty()
+	password: string
 }
