@@ -16,9 +16,9 @@ import configuration from 'src/config/configuration'
 					password: config.database.password,
 					database: config.database.name,
 					entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-					ssl: {
+					/*ssl: {
 						rejectUnauthorized: false,
-					},
+					},*/
 					synchronize: true,
 					logging: true,
 					autoLoadEntities: true,
