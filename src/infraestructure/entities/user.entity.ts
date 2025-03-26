@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, ManyToOne } from 'typeorm'
 import { AuditEntity } from './audit.entity'
 import { ProviderEntity } from './provider.entity'
+import { FavoriteEntity } from './favorite.entity'
+import { RequestEntity } from './request.entity'
 
 @Entity('user')
 export class UserEntity extends AuditEntity {
@@ -27,4 +29,10 @@ export class UserEntity extends AuditEntity {
 
 	@OneToMany(() => ProviderEntity, (provider) => provider.user)
 	provider: ProviderEntity
+
+	@OneToMany(() => FavoriteEntity, (favorite) => favorite.users)
+	favorites: FavoriteEntity[]
+
+	@OneToMany(() => RequestEntity, (request) => request.users)
+	request: RequestEntity
 }

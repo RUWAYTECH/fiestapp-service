@@ -1,0 +1,22 @@
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, ManyToMany, OneToMany } from 'typeorm'
+import { AuditEntity } from './audit.entity'
+import { ServiceEntity } from './service.entity'
+import { UserEntity } from './user.entity'
+
+@Entity('request')
+export class RequestEntity extends AuditEntity {
+    @PrimaryGeneratedColumn()
+    requestId: number
+
+    @ManyToOne(() => ServiceEntity, (service) => service.request)
+    services: ServiceEntity[]
+
+    @ManyToOne(() => UserEntity, (user) => user.request)
+    users: UserEntity[]
+
+    @Column({ type: 'varchar', length: 150, unique: true })
+	message: string
+
+    @Column({ type: 'boolean', default: true })
+	status: boolean
+}
