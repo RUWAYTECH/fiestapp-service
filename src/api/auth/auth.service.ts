@@ -1,15 +1,21 @@
 import { UserEntity } from '@entities/user.entity'
-import { Injectable, Inject, UnauthorizedException } from '@nestjs/common'
+import {
+	BadRequestException,
+	Inject,
+	Injectable,
+	UnauthorizedException,
+} from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 import { injectionTokens } from '@repositories/injection-tokens'
 import { UserRepository } from '@repositories/user.repository'
 import { UtilMapper } from '@utils/util-mapper'
+import * as bcrypt from 'bcrypt'
 import { OAuth2Client } from 'google-auth-library'
+import configuration from 'src/config/configuration'
 import { BaseService } from '../base/base.service'
 import { CreateUserDto } from '../user/dto/create-user.dto'
 import { UserResponseDto } from '../user/dto/user-response.dto'
-import bcrypt from 'bcrypt'
-import configuration from 'src/config/configuration'
+import { AuthValidator } from './validators/auth-validator'
 
 @Injectable()
 export class AuthService extends BaseService {
@@ -18,8 +24,38 @@ export class AuthService extends BaseService {
 		private readonly utilMapper: UtilMapper,
 		@Inject(injectionTokens.userRepository)
 		private readonly userRepository: UserRepository,
+		private readonly validator: AuthValidator,
 	) {
 		super()
+	}
+
+	async signUp(data: CreateUserDto) {
+		const validResult = this.validator.validate(data)
+
+		if (Object.keys(validResult).length !== 0) {
+			return this.toResponse(null, validResult)
+		}
+
+		const user = await this.userRepository.findByEmail(data.email)
+
+		if (user) {
+			throw new BadRequestException('User already exists')
+		}
+
+		const entity = this.utilMapper.map(UserEntity, data)
+
+		console.log(bcrypt, data)
+		const hashedPassword = await bcrypt.hash(data.password, 10)
+		console.log(hashedPassword)
+
+		const result = await this.userRepository.create({
+			...entity,
+			password: hashedPassword,
+		})
+
+		const entityResponse = this.utilMapper.map(UserResponseDto, result)
+
+		return this.toResponse(entityResponse)
 	}
 
 	async signIn(email: string, password: string) {

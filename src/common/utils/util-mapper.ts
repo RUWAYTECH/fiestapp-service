@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common'
 import {
 	ClassConstructor,
 	ClassTransformOptions,
+	Expose,
 	plainToInstance,
 } from 'class-transformer'
 
@@ -12,7 +13,16 @@ export class UtilMapper {
 		plain: V,
 		options?: ClassTransformOptions,
 	): T {
-		return plainToInstance(cls, plain, options)
+		const instance = new cls()
+
+		Object.keys(instance as object).forEach((key) => {
+			Reflect.decorate([Expose()], cls.prototype, key)
+		})
+
+		return plainToInstance(cls, plain, {
+			excludeExtraneousValues: true,
+			...options,
+		})
 	}
 
 	mapArray<T, V>(
@@ -20,6 +30,15 @@ export class UtilMapper {
 		plain: V[],
 		options?: ClassTransformOptions,
 	): T[] {
-		return plainToInstance(cls, plain, options)
+		plain.forEach((item) => {
+			Object.keys(item as object).forEach((key) => {
+				Reflect.decorate([Expose()], cls.prototype, key)
+			})
+		})
+
+		return plainToInstance(cls, plain, {
+			excludeExtraneousValues: true,
+			...options,
+		})
 	}
 }
