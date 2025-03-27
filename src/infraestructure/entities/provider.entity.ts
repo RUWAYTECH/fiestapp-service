@@ -1,3 +1,4 @@
+// eslint-disable-next-line prettier/prettier
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany } from 'typeorm'
 import { AuditEntity } from './audit.entity'
 import { UserEntity } from './user.entity'
