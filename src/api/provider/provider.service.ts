@@ -37,4 +37,12 @@ export class ProviderService extends BaseService {
 
 		return this.toResponse(entityResponse)
 	}
+
+	async findAll(): Promise<ResponseDto<ProviderResponseDto[] | null>> {
+		const result = await this.providerRepository.findAll()
+
+		const entities = this.utilMapper.mapArray(ProviderResponseDto, result)
+
+		return this.toResponse(entities)
+	}
 }

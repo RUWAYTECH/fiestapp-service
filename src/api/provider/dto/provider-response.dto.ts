@@ -8,6 +8,18 @@ export class ProviderResponseDto {
 	@ApiProperty()
 	description: string
 
-	@ApiProperty()
-	user: UserResponseDto
+	@ApiProperty({ type: String })
+	nameEnterprise: string
+
+	@ApiProperty({ type: String })
+	foto: string
+
+	@ApiProperty({ type: Boolean })
+	status: boolean
+
+	@ApiProperty({ type: String })
+	address: string
+
+	@ApiProperty({ type: UserResponseDto })
+	user: UserResponseDto | null
 }

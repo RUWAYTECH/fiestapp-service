@@ -23,6 +23,10 @@ export class ProviderRepository {
 		return await this.dao.findOneBy({ providerId: providerId })
 	}
 
+	async findAll(): Promise<ProviderEntity[]> {
+		return await this.dao.find({ relations: ['user', 'images', 'services'] })
+	}
+
 	async remove(provider: ProviderEntity) {
 		await this.dao.delete(provider)
 	}

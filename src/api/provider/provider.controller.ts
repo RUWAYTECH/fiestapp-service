@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common'
+import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import { ProviderService } from './provider.service'
 import { ResponseDto } from '@dto/response.dto'
@@ -21,5 +21,16 @@ export class ProviderController {
 		@Body() data: CreateProviderDto,
 	): Promise<ResponseDto<ProviderResponseDto | null>> {
 		return this.providerService.create(data)
+	}
+
+	@Get()
+	@HttpCode(200)
+	@ApiOperation({ summary: 'Get all providers' })
+	@ApiResponse({
+		status: 200,
+		type: ResponseDto<ProviderResponseDto[]>,
+	})
+	async getProviders(): Promise<ResponseDto<ProviderResponseDto[] | null>> {
+		return this.providerService.findAll()
 	}
 }
