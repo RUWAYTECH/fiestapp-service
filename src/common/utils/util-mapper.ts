@@ -37,7 +37,7 @@ export class UtilMapper {
 		})
 
 		return plainToInstance(cls, plain, {
-			excludeExtraneousValues: true,
+			excludeExtraneousValues: false,
 			...options,
 		})
 	}

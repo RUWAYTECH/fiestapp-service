@@ -40,9 +40,8 @@ export class ProviderService extends BaseService {
 
 	async findAll(): Promise<ResponseDto<ProviderResponseDto[] | null>> {
 		const result = await this.providerRepository.findAll()
-
+		console.log('yoel', result)
 		const entities = this.utilMapper.mapArray(ProviderResponseDto, result)
-
 		return this.toResponse(entities)
 	}
 }
