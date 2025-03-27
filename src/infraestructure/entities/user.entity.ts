@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, ManyToOne } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm'
 import { AuditEntity } from './audit.entity'
 import { ProviderEntity } from './provider.entity'
 import { FavoriteEntity } from './favorite.entity'

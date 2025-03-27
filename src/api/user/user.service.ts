@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { BadRequestException, Inject, Injectable } from '@nestjs/common'
 import { UserResponseDto } from './dto/user-response.dto'
 import { ResponseDto } from '@dto/response.dto'
 import { BaseService } from '../base/base.service'
@@ -43,6 +43,12 @@ export class UserService extends BaseService {
 
 		if (Object.keys(validResult).length !== 0) {
 			return this.toResponse(null, validResult)
+		}
+
+		const user = await this.userRepository.findByEmail(data.email)
+
+		if (user) {
+			throw new BadRequestException('User already exists')
 		}
 
 		const entity = this.utilMapper.map(UserEntity, data)

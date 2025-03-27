@@ -6,9 +6,11 @@ import { SignInGoogleRequestDto } from './dto/sign-in-google-request.dto'
 import { ResponseDto } from '@dto/response.dto'
 import { AuthResponseDto } from './dto/auth-response.dto'
 import { SignUpRequestDto } from './dto/sign-up-request.dto'
+import { Public } from '@api/auth/decorators/public.decorator'
 
 @ApiTags('auth')
 @Controller('auth')
+@Public()
 export class AuthController {
 	constructor(private authService: AuthService) {}
 

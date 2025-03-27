@@ -1,6 +1,5 @@
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common'
+import { Body, Controller, HttpCode, Post } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { AuthGuard } from '../auth/auth.guard'
 import { ProviderService } from './provider.service'
 import { ResponseDto } from '@dto/response.dto'
 import { CreateProviderDto } from './dto/create-provider.dto'
@@ -8,7 +7,6 @@ import { ProviderResponseDto } from './dto/provider-response.dto'
 
 @Controller('providers')
 @ApiTags('providers')
-@UseGuards(AuthGuard)
 export class ProviderController {
 	constructor(private readonly providerService: ProviderService) {}
 

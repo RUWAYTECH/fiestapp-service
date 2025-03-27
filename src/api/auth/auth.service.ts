@@ -44,9 +44,7 @@ export class AuthService extends BaseService {
 
 		const entity = this.utilMapper.map(UserEntity, data)
 
-		console.log(bcrypt, data)
 		const hashedPassword = await bcrypt.hash(data.password, 10)
-		console.log(hashedPassword)
 
 		const result = await this.userRepository.create({
 			...entity,
