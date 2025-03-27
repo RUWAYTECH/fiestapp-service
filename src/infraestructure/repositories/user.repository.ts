@@ -23,6 +23,10 @@ export class UserRepository {
 		return await this.dao.findOneBy({ userId: userId })
 	}
 
+	async findAll(): Promise<UserEntity[]> {
+		return await this.dao.find()
+	}
+
 	findByEmail(email: string): Promise<UserEntity | null> {
 		return this.dao.findOneBy({ email })
 	}

@@ -59,4 +59,12 @@ export class UserService extends BaseService {
 
 		return this.toResponse(entityResponse)
 	}
+
+	async getUsers(): Promise<ResponseDto<UserResponseDto[] | null>> {
+		const result = await this.userRepository.findAll()
+
+		const entities = this.utilMapper.mapArray(UserResponseDto, result)
+
+		return this.toResponse(entities)
+	}
 }
