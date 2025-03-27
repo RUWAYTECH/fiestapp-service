@@ -18,7 +18,7 @@ export class CreateProviderDto {
 	address: string
 
 	@ApiProperty()
-	userId: number
+	user: number
 
 	@ApiProperty()
 	@IsOptional()
