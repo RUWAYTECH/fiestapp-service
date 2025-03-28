@@ -47,13 +47,14 @@ export class CategoryController {
 		return this.categoryService.findAll()
 	}
 
-	// @Get(':id')
-	// @HttpCode(200)
-	// // eslint-disable-next-line @typescript-eslint/require-await
-	// async findOne(@Param('id') id: string): Promise<CategoryEntity> {
-	// 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-	// 	return this.categoryService.findById(+id)
-	// }
+	@Get(':id')
+	@HttpCode(200)
+	@ApiOperation({ summary: 'delete by categoryId' })
+	async findOne(
+		@Param('id') id: string,
+	): Promise<ResponseDto<CategoryResponseDto | null>> {
+		return this.categoryService.findById(+id)
+	}
 
 	@ApiOperation({ summary: 'Update category' })
 	@Patch(':id')
@@ -66,6 +67,7 @@ export class CategoryController {
 
 	@Delete(':id')
 	@HttpCode(200)
+	@ApiOperation({ summary: 'delete by categoryId' })
 	remove(@Param('id') id: number) {
 		return this.categoryService.remove(+id)
 	}

@@ -57,14 +57,12 @@ export class RequestService extends BaseService {
 		await this.requestRepository.remove(request)
 	}
 
-	async findById(requestId: number): Promise<RequestEntity> {
+	async findById(
+		requestId: number,
+	): Promise<ResponseDto<RequestResponseDto | null>> {
 		const request = await this.requestRepository.findById(requestId)
-
-		if (!request) {
-			throw new NotFoundException(`request with ID ${requestId} not found`)
-		}
-
-		return request
+		const response = this.utilMapper.map(RequestResponseDto, request)
+		return this.toResponse(response)
 	}
 
 	async update(

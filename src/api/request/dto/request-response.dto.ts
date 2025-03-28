@@ -1,40 +1,26 @@
+import { ServiceResponseDto } from '@api/service/dto/service-response.dto'
+import { UserResponseDto } from '@api/user/dto/user-response.dto'
 import { ApiProperty } from '@nestjs/swagger'
 import { Expose } from 'class-transformer'
 
 export class RequestResponseDto {
 	@ApiProperty()
 	@Expose()
-	serviceId: number
+	requestId: number
 
 	@ApiProperty()
 	@Expose()
-	name: string
+	message: string
 
 	@ApiProperty()
 	@Expose()
-	description: string
+	status: boolean
 
-	@ApiProperty()
+	@ApiProperty({ type: UserResponseDto })
 	@Expose()
-	priceMax: number
+	user: UserResponseDto | null
 
-	@ApiProperty()
+	@ApiProperty({ type: ServiceResponseDto })
 	@Expose()
-	priceMin: number
-
-	@ApiProperty()
-	@Expose()
-	score: number
-
-	@ApiProperty()
-	@Expose()
-	image: string[]
-
-	@ApiProperty()
-	@Expose()
-	favorites: number[]
-
-	@ApiProperty()
-	@Expose()
-	request: number[]
+	service: ServiceResponseDto | null
 }

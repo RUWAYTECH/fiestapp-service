@@ -1,38 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsOptional } from 'class-validator'
 
 export class CreateRequestDto {
 	@ApiProperty()
-	providerId: string
+	service: number
 
 	@ApiProperty()
-	categoryId: string
+	message: string
 
 	@ApiProperty()
-	name: string
+	status: boolean
 
 	@ApiProperty()
-	description: string
-
-	@ApiProperty()
-	priceMax: number
-
-	@ApiProperty()
-	priceMin: number
-
-	@ApiProperty()
-	@IsOptional()
-	score: number
-
-	@ApiProperty()
-	@IsOptional()
-	image: string[]
-
-	@ApiProperty()
-	@IsOptional()
-	favorites: number[]
-
-	@ApiProperty()
-	@IsOptional()
-	request: number[]
+	user: number
 }

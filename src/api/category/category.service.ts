@@ -54,17 +54,13 @@ export class CategoryService extends BaseService {
 		await this.categoryRepository.remove(category)
 	}
 
-	// async findById(
-	// 	categoryId: number,
-	// ): Promise<ResponseDto<CategoryResponseDto | null>> {
-	// 	const category = await this.categoryRepository.findById(categoryId)
-
-	// 	if (!category) {
-	// 		throw new NotFoundException(`Category with ID ${categoryId} not found`)
-	// 	}
-
-	// 	return this.toResponse(category)
-	// }
+	async findById(
+		categoryId: number,
+	): Promise<ResponseDto<CategoryResponseDto | null>> {
+		const category = await this.categoryRepository.findById(categoryId)
+		const response = this.utilMapper.map(CategoryResponseDto, category)
+		return this.toResponse(response)
+	}
 
 	async update(
 		id: number,

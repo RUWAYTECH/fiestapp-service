@@ -9,10 +9,10 @@ export class RequestEntity extends AuditEntity {
 	requestId: number
 
 	@ManyToOne(() => ServiceEntity, (service) => service.request)
-	services: ServiceEntity[]
+	service: ServiceEntity
 
 	@ManyToOne(() => UserEntity, (user) => user.request)
-	users: UserEntity[]
+	user: UserEntity
 
 	@Column({ type: 'varchar', length: 150, unique: true })
 	message: string

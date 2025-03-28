@@ -16,7 +16,6 @@ import { RequestResponseDto } from './dto/request-response.dto'
 import { AuthGuard } from '../auth/auth.guard'
 import { RequestService } from './request.service'
 import { UpdateRequestDto } from './dto/update-request.dto'
-import { RequestEntity } from '@entities/request.entity'
 
 @ApiTags('request')
 @Controller('request')
@@ -50,7 +49,10 @@ export class RequestController {
 
 	@Get(':id')
 	@HttpCode(200)
-	async findOne(@Param('id') id: string): Promise<RequestEntity> {
+	@ApiOperation({ summary: 'get by requestId' })
+	async findOne(
+		@Param('id') id: string,
+	): Promise<ResponseDto<RequestResponseDto | null>> {
 		return this.requestService.findById(+id)
 	}
 
@@ -61,6 +63,7 @@ export class RequestController {
 	}
 
 	@Delete(':id')
+	@ApiOperation({ summary: 'delete by requestId' })
 	@HttpCode(200)
 	remove(@Param('id') id: number) {
 		return this.requestService.remove(+id)

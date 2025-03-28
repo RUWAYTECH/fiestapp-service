@@ -44,6 +44,6 @@ export class ServiceEntity extends AuditEntity {
 	@OneToMany(() => FavoriteEntity, (favorite) => favorite.services)
 	favorites: FavoriteEntity[]
 
-	@OneToMany(() => RequestEntity, (request) => request.services)
+	@OneToMany(() => RequestEntity, (request) => request.service)
 	request: RequestEntity
 }

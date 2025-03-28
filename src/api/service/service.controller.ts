@@ -16,7 +16,6 @@ import { ServiceResponseDto } from './dto/service-response.dto'
 import { AuthGuard } from '../auth/auth.guard'
 import { ServiceService } from './service.service'
 import { UpdateServiceDto } from './dto/update-service.dto'
-import { ServiceEntity } from '@entities/service.entity'
 
 @ApiTags('services')
 @Controller('services')
@@ -50,7 +49,10 @@ export class ServiceController {
 
 	@Get(':id')
 	@HttpCode(200)
-	async findOne(@Param('id') id: string): Promise<ServiceEntity> {
+	@ApiOperation({ summary: 'get by serviceId' })
+	async findOne(
+		@Param('id') id: string,
+	): Promise<ResponseDto<ServiceResponseDto | null>> {
 		return this.serviceService.findById(+id)
 	}
 
@@ -62,6 +64,7 @@ export class ServiceController {
 
 	@Delete(':id')
 	@HttpCode(200)
+	@ApiOperation({ summary: 'delete by serviceId' })
 	remove(@Param('id') id: number) {
 		return this.serviceService.remove(+id)
 	}

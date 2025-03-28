@@ -49,21 +49,16 @@ export class ServiceService extends BaseService {
 
 	async remove(id: number): Promise<void> {
 		const service = await this.serviceRepository.findById(id)
-
-		if (!service) {
-			throw new NotFoundException('Service not found')
-		}
+		if (!service) throw new NotFoundException('Service not found')
 		await this.serviceRepository.remove(service)
 	}
 
-	async findById(serviceId: number): Promise<ServiceEntity> {
+	async findById(
+		serviceId: number,
+	): Promise<ResponseDto<ServiceResponseDto | null>> {
 		const service = await this.serviceRepository.findById(serviceId)
-
-		if (!service) {
-			throw new NotFoundException(`Service with ID ${serviceId} not found`)
-		}
-
-		return service
+		const response = this.utilMapper.map(ServiceResponseDto, service)
+		return this.toResponse(response)
 	}
 
 	async update(

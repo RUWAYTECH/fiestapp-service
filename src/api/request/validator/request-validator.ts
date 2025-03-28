@@ -6,7 +6,6 @@ import { Injectable } from '@nestjs/common'
 export class RequestValidator extends Validator<CreateRequestDto> {
 	constructor() {
 		super()
-		this.ruleFor('name').notEmpty().maxLength(100)
-		this.ruleFor('description').notEmpty().maxLength(100)
+		this.ruleFor('message').notEmpty().maxLength(100)
 	}
 }
