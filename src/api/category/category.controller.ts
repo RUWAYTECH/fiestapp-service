@@ -10,19 +10,18 @@ import {
 	UseGuards,
 } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
-import { CategoriesService } from './categories.service'
+import { CategoryService } from './category.service'
 import { CreateCategoryDto } from './dto/create-category.dto'
 import { UpdateCategoryDto } from './dto/update-category.dto'
 import { ResponseDto } from 'src/common/dto/response.dto'
 import { CategoryResponseDto } from './dto/category-response.dto'
 import { AuthGuard } from '../auth/auth.guard'
-import { CategoryEntity } from '@entities/category.entity'
 
-@ApiTags('categories')
-@Controller('categories')
+@ApiTags('category')
+@Controller('category')
 @UseGuards(AuthGuard)
-export class CategoriesController {
-	constructor(private readonly categoriesService: CategoriesService) {}
+export class CategoryController {
+	constructor(private readonly categoryService: CategoryService) {}
 
 	@Post()
 	@HttpCode(200)
@@ -34,38 +33,40 @@ export class CategoriesController {
 	async create(
 		@Body() data: CreateCategoryDto,
 	): Promise<ResponseDto<CategoryResponseDto | null>> {
-		return this.categoriesService.create(data)
+		return this.categoryService.create(data)
 	}
 
 	@Get()
 	@HttpCode(200)
-	@ApiOperation({ summary: 'Get all categories' })
+	@ApiOperation({ summary: 'Get all category' })
 	@ApiResponse({
 		status: 200,
 		type: ResponseDto<CategoryResponseDto[]>,
 	})
 	async getProviders(): Promise<ResponseDto<CategoryResponseDto[] | null>> {
-		return this.categoriesService.findAll()
+		return this.categoryService.findAll()
 	}
 
-	@Get(':id')
-	@HttpCode(200)
-	async findOne(@Param('id') id: string): Promise<CategoryEntity> {
-		return this.categoriesService.findById(+id)
-	}
+	// @Get(':id')
+	// @HttpCode(200)
+	// // eslint-disable-next-line @typescript-eslint/require-await
+	// async findOne(@Param('id') id: string): Promise<CategoryEntity> {
+	// 	// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+	// 	return this.categoryService.findById(+id)
+	// }
 
 	@ApiOperation({ summary: 'Update category' })
 	@Patch(':id')
 	update(
 		@Param('id') id: string,
-		@Body() updateServicesDto: UpdateCategoryDto,
+		@Body() updateCategoryDto: UpdateCategoryDto,
 	) {
-		return this.categoriesService.update(+id, updateServicesDto)
+		return this.categoryService.update(+id, updateCategoryDto)
 	}
 
 	@Delete(':id')
 	@HttpCode(200)
 	remove(@Param('id') id: number) {
-		return this.categoriesService.remove(+id)
+		return this.categoryService.remove(+id)
 	}
 }

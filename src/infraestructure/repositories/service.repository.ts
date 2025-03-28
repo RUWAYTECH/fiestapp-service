@@ -4,7 +4,7 @@ import { DeleteResult, Repository } from 'typeorm'
 import { ServiceEntity } from '../entities/service.entity'
 
 @Injectable()
-export class ServicesRepository {
+export class ServiceRepository {
 	constructor(
 		@InjectRepository(ServiceEntity)
 		private readonly dao: Repository<ServiceEntity>,
