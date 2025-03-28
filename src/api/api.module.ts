@@ -5,6 +5,8 @@ import { ProviderModule } from './provider/provider.module'
 import { ServiceModule } from './service/service.module'
 import { CategoryModule } from './category/category.module'
 import { RequestModule } from './request/request.module'
+import { FavoriteModule } from './favorite/favorite.module'
+import { ImageModule } from './image/image.module'
 
 @Module({
 	imports: [
@@ -14,8 +16,8 @@ import { RequestModule } from './request/request.module'
 		ServiceModule,
 		CategoryModule,
 		RequestModule,
-		ServicesModule,
-		CategoriesModule,
+		ServiceModule,
+		CategoryModule,
 		FavoriteModule,
 		ImageModule,
 	],

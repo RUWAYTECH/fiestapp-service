@@ -1,6 +1,6 @@
-import { CategoryResponseDto } from "@api/categories/dto/category-response.dto"
+import { CategoryResponseDto } from "@api/category/dto/category-response.dto"
 import { ProviderResponseDto } from "@api/provider/dto/provider-response.dto"
-import { ServicesResponseDto } from "@api/services/dto/services-response.dto"
+import { ServiceResponseDto } from "@api/service/dto/service-response.dto"
 import { ApiProperty } from "@nestjs/swagger"
 import { Expose } from "class-transformer"
 
@@ -17,9 +17,9 @@ export class ImageResponseDto {
     @Expose()
     name: string
 
-    @ApiProperty({ type: ServicesResponseDto })
+    @ApiProperty({ type: ServiceResponseDto })
     @Expose()
-    service: ServicesResponseDto
+    service: ServiceResponseDto
 
     @ApiProperty({ type: ProviderResponseDto })
     @Expose()

@@ -1,6 +1,6 @@
-import { CategoryResponseDto } from '@api/categories/dto/category-response.dto'
+import { CategoryResponseDto } from '@api/category/dto/category-response.dto'
 import { UserResponseDto } from '@api/user/dto/user-response.dto'
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
+import { ApiProperty } from '@nestjs/swagger'
 import { Expose } from 'class-transformer'
 
 export class FavoriteResponseDto {
@@ -10,7 +10,7 @@ export class FavoriteResponseDto {
 
     @ApiProperty({ type: CategoryResponseDto })
     @Expose()
-    category: CategoryResponseDto 
+    category: CategoryResponseDto
 
     @ApiProperty({ type: UserResponseDto })
     @Expose()
