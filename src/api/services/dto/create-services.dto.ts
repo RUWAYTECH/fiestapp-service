@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
+import { IsOptional } from 'class-validator'
 
 export class CreateServicesDto {
 	@ApiProperty()
@@ -20,8 +21,18 @@ export class CreateServicesDto {
 	priceMin: number
 
 	@ApiProperty()
+	@IsOptional()
 	score: number
 
 	@ApiProperty()
-	tag: number
+	@IsOptional()
+	image: string[]
+
+	@ApiProperty()
+	@IsOptional()
+	favorites: number[]
+
+	@ApiProperty()
+	@IsOptional()
+	request: number[]
 }

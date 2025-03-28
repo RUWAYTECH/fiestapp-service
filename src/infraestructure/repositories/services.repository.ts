@@ -10,8 +10,8 @@ export class ServicesRepository {
 		private readonly dao: Repository<ServiceEntity>,
 	) {}
 
-	async create(entity: ServiceEntity): Promise<ServiceEntity> {
-		return await this.dao.save(entity)
+	async create(service: Partial<ServiceEntity>): Promise<ServiceEntity> {
+		return await this.dao.save(service)
 	}
 
 	async update(id: number, entity: ServiceEntity): Promise<number> {
@@ -24,7 +24,10 @@ export class ServicesRepository {
 	}
 
 	async findById(serviceId: number): Promise<ServiceEntity | null> {
-		return await this.dao.findOne({ where: { serviceId }, relations: ['user', 'category', 'provider'] })
+		return await this.dao.findOne({
+			where: { serviceId },
+			relations: ['user', 'category', 'provider', 'favorites', 'request'],
+		})
 	}
 
 	async findBySpecification(entity: ServiceEntity): Promise<ServiceEntity[]> {

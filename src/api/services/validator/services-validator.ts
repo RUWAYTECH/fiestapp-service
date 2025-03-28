@@ -8,9 +8,5 @@ export class ServicesValidator extends Validator<CreateServicesDto> {
 		super()
 		this.ruleFor('name').notEmpty().maxLength(100)
 		this.ruleFor('description').notEmpty().maxLength(100)
-		// this.ruleFor('priceMin').notEmpty().maxLength(100)
-		// this.ruleFor('priceMax').notEmpty().maxLength(100)
-		// this.ruleFor('score').notEmpty().maxLength(100)
-		// this.ruleFor('tag').notEmpty().maxLength(100)
 	}
 }
