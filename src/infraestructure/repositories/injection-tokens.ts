@@ -3,4 +3,6 @@ export const injectionTokens = {
 	providerRepository: 'PROVIDER_REPOSITORY',
 	categoryRepository: 'CATEGORY_REPOSITORY',
 	servicesRepository: 'SERVICES_REPOSITORY',
+	favoriteRepository: 'FAVORITE_REPOSITORY',
+	imageRepository: 'IMAGE_REPOSITORY',
 }
