@@ -11,7 +11,7 @@ import { CategoryRepository } from '@repositories/category.repository'
 import { CategoryEntity } from '@entities/category.entity'
 
 @Injectable()
-export class CategoriesService extends BaseService {
+export class CategoryService extends BaseService {
 	constructor(
 		private readonly validator: CategoryValidator,
 		private readonly utilMapper: UtilMapper,
@@ -40,55 +40,49 @@ export class CategoriesService extends BaseService {
 	}
 
 	async findAll(): Promise<ResponseDto<CategoryResponseDto[] | null>> {
-		const categories = await this.categoryRepository.findAll()
-		const entites = this.utilMapper.mapArray(CategoryResponseDto, categories)
-		
+		const category = await this.categoryRepository.findAll()
+		const entites = this.utilMapper.mapArray(CategoryResponseDto, category)
 		return this.toResponse(entites)
 	}
 
 	async remove(id: number): Promise<void> {
-		const service = await this.categoryRepository.findById(id)
+		const category = await this.categoryRepository.findById(id)
 
-		if (!service) {
-			throw new NotFoundException('Service not found')
+		if (!category) {
+			throw new NotFoundException('Category not found')
 		}
-
-		// Ahora pasa el objeto service (ServiceEntity) a la función remove
-		await this.categoryRepository.remove(service)
+		await this.categoryRepository.remove(category)
 	}
 
-	async findById(serviceId: number): Promise<CategoryEntity> {
-		const service = await this.categoryRepository.findById(serviceId)
+	// async findById(
+	// 	categoryId: number,
+	// ): Promise<ResponseDto<CategoryResponseDto | null>> {
+	// 	const category = await this.categoryRepository.findById(categoryId)
 
-		if (!service) {
-			throw new NotFoundException(`Service with ID ${serviceId} not found`)
-		}
+	// 	if (!category) {
+	// 		throw new NotFoundException(`Category with ID ${categoryId} not found`)
+	// 	}
 
-		return service
-	}
+	// 	return this.toResponse(category)
+	// }
 
 	async update(
 		id: number,
 		updateCategoryDto: UpdateCategoryDto,
 	): Promise<number> {
-		// Primero, busca la entidad actual
-		const service = await this.categoryRepository.findById(id)
+		const category = await this.categoryRepository.findById(id)
 
-		if (!service) {
-			throw new NotFoundException(`Service with ID ${id} not found`)
+		if (!category) {
+			throw new NotFoundException(`Category with ID ${id} not found`)
 		}
 
-		// Mapear el DTO a la entidad
-		Object.assign(service, updateCategoryDto)
+		Object.assign(category, updateCategoryDto)
+		const result = await this.categoryRepository.update(id, category)
 
-		// Llamamos al repositorio para actualizar la entidad
-		const result = await this.categoryRepository.update(id, service)
-
-		// Aquí `result` ya es un número de filas afectadas, no un objeto con `.affected`
 		if (result === 0) {
-			throw new Error('Failed to update service')
+			throw new Error('Failed to update category')
 		}
 
-		return result // Devuelve directamente el número de filas afectadas
+		return result
 	}
 }

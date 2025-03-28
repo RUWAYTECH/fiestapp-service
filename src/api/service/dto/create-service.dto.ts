@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 import { IsOptional } from 'class-validator'
 
-export class CreateServicesDto {
+export class CreateServiceDto {
 	@ApiProperty()
 	providerId: string
 

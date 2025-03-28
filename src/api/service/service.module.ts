@@ -1,30 +1,28 @@
 import { UtilMapper } from '../../common/utils/util-mapper'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { ServicesController } from './services.controller'
-import { ServicesValidator } from './validator/services-validator'
-import { ServicesService } from './services.service'
-//import { ServicesProfile } from './mapper/ServicesProfile'
+import { ServiceController } from './service.controller'
+import { ServiceValidator } from './validator/service-validator'
+import { ServiceService } from './service.service'
 import { ProviderEntity } from '@entities/provider.entity'
 import { CategoryEntity } from '@entities/category.entity'
-import { ServicesRepository } from '@repositories/services.repository'
+import { ServiceRepository } from '@repositories/service.repository'
 import { ServiceEntity } from '@entities/service.entity'
 import { injectionTokens } from '@repositories/injection-tokens'
 
 @Module({
 	imports: [TypeOrmModule.forFeature([ServiceEntity])],
-	controllers: [ServicesController],
+	controllers: [ServiceController],
 	providers: [
-		ServicesValidator,
-		//ServicesProfile,
+		ServiceValidator,
 		UtilMapper,
-		ServicesService,
+		ServiceService,
 		ProviderEntity,
 		CategoryEntity,
 		{
-			provide: injectionTokens.servicesRepository,
-			useClass: ServicesRepository,
+			provide: injectionTokens.serviceRepository,
+			useClass: ServiceRepository,
 		},
 	],
 })
-export class ServicesModule {}
+export class ServiceModule {}
