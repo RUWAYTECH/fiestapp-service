@@ -32,6 +32,6 @@ export class CategoryRepository {
 	}
 
 	async findAll(): Promise<CategoryEntity[]> {
-		return await this.dao.find()
+		return await this.dao.find({ relations: ['images', 'services'] })
 	}
 }

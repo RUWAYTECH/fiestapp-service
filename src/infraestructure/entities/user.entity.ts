@@ -28,11 +28,11 @@ export class UserEntity extends AuditEntity {
 	phone?: string
 
 	@OneToMany(() => ProviderEntity, (provider) => provider.user)
-	provider: ProviderEntity
+	providers: ProviderEntity[]
 
-	@OneToMany(() => FavoriteEntity, (favorite) => favorite.users)
+	@OneToMany(() => FavoriteEntity, (favorite) => favorite.user)
 	favorites: FavoriteEntity[]
 
 	@OneToMany(() => RequestEntity, (request) => request.user)
-	request: RequestEntity
+	requests: RequestEntity[]
 }

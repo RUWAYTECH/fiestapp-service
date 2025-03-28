@@ -18,5 +18,5 @@ export class CategoryEntity extends AuditEntity {
 	images: ImageEntity[]
 
 	@OneToMany(() => ServiceEntity, (service) => service.category)
-	services: ServiceEntity[]
+	service: ServiceEntity[]
 }

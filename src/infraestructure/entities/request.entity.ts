@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm'
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	ManyToOne,
+	Column,
+	JoinColumn,
+} from 'typeorm'
 import { AuditEntity } from './audit.entity'
 import { ServiceEntity } from './service.entity'
 import { UserEntity } from './user.entity'
@@ -8,10 +14,12 @@ export class RequestEntity extends AuditEntity {
 	@PrimaryGeneratedColumn()
 	requestId: number
 
-	@ManyToOne(() => ServiceEntity, (service) => service.request)
+	@ManyToOne(() => ServiceEntity, (service) => service.requests)
+	@JoinColumn({ name: 'serviceId' })
 	service: ServiceEntity
 
-	@ManyToOne(() => UserEntity, (user) => user.request)
+	@ManyToOne(() => UserEntity, (user) => user.requests)
+	@JoinColumn({ name: 'userId' })
 	user: UserEntity
 
 	@Column({ type: 'varchar', length: 150, unique: true })

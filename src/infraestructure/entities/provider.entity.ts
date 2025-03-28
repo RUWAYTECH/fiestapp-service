@@ -1,5 +1,5 @@
 // eslint-disable-next-line prettier/prettier
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany } from 'typeorm'
+import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, OneToMany, JoinColumn } from 'typeorm'
 import { AuditEntity } from './audit.entity'
 import { UserEntity } from './user.entity'
 import { ImageEntity } from './image.entity'
@@ -25,7 +25,8 @@ export class ProviderEntity extends AuditEntity {
 	@Column({ type: 'varchar', length: 100 })
 	address: string
 
-	@ManyToOne(() => UserEntity, (user) => user.provider)
+	@ManyToOne(() => UserEntity, (user) => user.providers)
+	@JoinColumn({ name: 'userId' })
 	user: UserEntity
 
 	@OneToMany(() => ImageEntity, (image) => image.provider)

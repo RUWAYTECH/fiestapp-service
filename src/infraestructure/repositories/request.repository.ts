@@ -35,6 +35,29 @@ export class RequestRepository {
 	}
 
 	async findAll(): Promise<RequestEntity[]> {
-		return await this.dao.find()
+		return await this.dao.find({
+			relations: ['user', 'service'],
+		})
 	}
+	//para mostrar lo que queremos
+	// async findAll(): Promise<RequestEntity[]> {
+	// 	return await this.dao.find({
+	// 		relations: ['user', 'service'],
+	// 		select: {
+	// 			requestId: true,
+	// 			message: true,
+	// 			status: true,
+	// 			user: {
+	// 				userId: true,
+	// 				name: true,
+	// 				email: true,
+	// 			},
+	// 			service: {
+	// 				serviceId: true,
+	// 				name: true,
+	// 				priceMax: true,
+	// 			},
+	// 		},
+	// 	})
+	// }
 }

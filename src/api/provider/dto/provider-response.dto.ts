@@ -5,7 +5,7 @@ import { UserResponseDto } from 'src/api/user/dto/user-response.dto'
 export class ProviderResponseDto {
 	@ApiProperty()
 	@Expose()
-	id: string
+	providerId: string
 
 	@ApiProperty()
 	@Expose()

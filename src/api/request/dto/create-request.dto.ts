@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 export class CreateRequestDto {
 	@ApiProperty()
-	service: number
+	serviceId: number
 
 	@ApiProperty()
 	message: string
@@ -11,5 +11,5 @@ export class CreateRequestDto {
 	status: boolean
 
 	@ApiProperty()
-	user: number
+	userId: number
 }

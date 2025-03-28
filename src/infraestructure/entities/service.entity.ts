@@ -4,6 +4,7 @@ import {
 	Column,
 	OneToMany,
 	ManyToOne,
+	JoinColumn,
 } from 'typeorm'
 import { AuditEntity } from './audit.entity'
 import { ImageEntity } from './image.entity'
@@ -35,15 +36,17 @@ export class ServiceEntity extends AuditEntity {
 	@OneToMany(() => ImageEntity, (image) => image.service)
 	images: ImageEntity[]
 
-	@ManyToOne(() => CategoryEntity, (category) => category.services)
+	@ManyToOne(() => CategoryEntity, (category) => category.service)
+	@JoinColumn({ name: 'categoryId' })
 	category: CategoryEntity
 
 	@ManyToOne(() => ProviderEntity, (provider) => provider.services)
+	@JoinColumn({ name: 'providerId' })
 	provider: ProviderEntity
 
-	@OneToMany(() => FavoriteEntity, (favorite) => favorite.services)
+	@OneToMany(() => FavoriteEntity, (favorite) => favorite.service)
 	favorites: FavoriteEntity[]
 
 	@OneToMany(() => RequestEntity, (request) => request.service)
-	request: RequestEntity
+	requests: RequestEntity[]
 }
