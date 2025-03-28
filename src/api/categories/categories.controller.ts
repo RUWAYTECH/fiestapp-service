@@ -40,7 +40,7 @@ export class CategoriesController {
 
 	@Get()
 	@HttpCode(200)
-	async findAll(): Promise<CategoryResponseDto[]> {
+	async findAll(): Promise<ResponseDto<CategoryResponseDto[] | null>> {
 		return this.categoriesService.findAll()
 	}
 

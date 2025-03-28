@@ -40,7 +40,7 @@ export class ServicesController {
 
 	@Get()
 	@HttpCode(200)
-	async findAll(): Promise<ServicesResponseDto[]> {
+	async findAll(): Promise<ResponseDto<ServicesResponseDto[] | null>> {
 		return this.servicesService.findAll()
 	}
 

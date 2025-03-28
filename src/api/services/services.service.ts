@@ -60,11 +60,12 @@ export class ServicesService extends BaseService {
 		return new ResponseDto(entityResponse ?? ({} as ServicesResponseDto))
 	}
 
-	async findAll(): Promise<ServicesResponseDto[]> {
+	async findAll(): Promise<ResponseDto<ServicesResponseDto[] | null>> {
 		const services = await this.servicesRepository.findAll()
-		return services.map((service) =>
-			this.utilMapper.map(ServicesResponseDto, service),
-		)
+
+		const entites = this.utilMapper.mapArray(ServicesResponseDto, services)
+
+		return this.toResponse(entites)
 	}
 
 	async remove(id: number): Promise<void> {

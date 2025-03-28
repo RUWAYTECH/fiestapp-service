@@ -2,9 +2,6 @@ import { ApiProperty } from '@nestjs/swagger'
 
 export class CreateServicesDto {
 	@ApiProperty()
-	serviceId: string
-
-	@ApiProperty()
 	providerId: string
 
 	@ApiProperty()

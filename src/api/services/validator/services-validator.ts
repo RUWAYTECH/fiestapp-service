@@ -6,7 +6,6 @@ import { Injectable } from '@nestjs/common'
 export class ServicesValidator extends Validator<CreateServicesDto> {
 	constructor() {
 		super()
-		this.ruleFor('serviceId').notEmpty().notNull()
 		this.ruleFor('name').notEmpty().maxLength(100)
 		this.ruleFor('description').notEmpty().maxLength(100)
 		// this.ruleFor('priceMin').notEmpty().maxLength(100)

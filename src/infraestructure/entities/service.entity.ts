@@ -29,7 +29,7 @@ export class ServiceEntity extends AuditEntity {
 	@Column({ type: 'numeric', precision: 10, scale: 2 })
 	priceMin: number
 
-	@Column({ type: 'numeric', precision: 1, scale: 2 })
+	@Column({ type: 'numeric', precision: 2, scale: 1 })
 	score: number
 
 	@OneToMany(() => ImageEntity, (image) => image.service)
