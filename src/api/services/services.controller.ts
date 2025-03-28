@@ -29,18 +29,22 @@ export class ServicesController {
 	@ApiOperation({ summary: 'Create service' })
 	@ApiResponse({
 		status: 200,
-		description: 'Forbidden.',
 		type: ResponseDto<ServicesResponseDto>,
 	})
 	async create(
-		@Body() createServicesDto: CreateServicesDto,
-	): Promise<ResponseDto<ServicesResponseDto>> {
-		return this.servicesService.create(createServicesDto)
+		@Body() data: CreateServicesDto,
+	): Promise<ResponseDto<ServicesResponseDto | null>> {
+		return this.servicesService.create(data)
 	}
 
 	@Get()
 	@HttpCode(200)
-	async findAll(): Promise<ServicesResponseDto[]> {
+	@ApiOperation({ summary: 'Get all services' })
+	@ApiResponse({
+		status: 200,
+		type: ResponseDto<ServicesResponseDto[]>,
+	})
+	async getServices(): Promise<ResponseDto<ServicesResponseDto[] | null>> {
 		return this.servicesService.findAll()
 	}
 

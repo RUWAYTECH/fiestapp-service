@@ -1,9 +1,36 @@
+import { ApiProperty } from '@nestjs/swagger'
+import { Expose } from 'class-transformer'
+
 export class ServicesResponseDto {
-	serviceId: string
+	@ApiProperty()
+	@Expose()
 	name: string
+
+	@ApiProperty()
+	@Expose()
 	description: string
-	priceMax: string
-	priceMin: string
-	score: string
-	tag: string
+
+	@ApiProperty()
+	@Expose()
+	priceMax: number
+
+	@ApiProperty()
+	@Expose()
+	priceMin: number
+
+	@ApiProperty()
+	@Expose()
+	score: number
+
+	@ApiProperty()
+	@Expose()
+	image: string[]
+
+	@ApiProperty()
+	@Expose()
+	favorites: number[]
+
+	@ApiProperty()
+	@Expose()
+	request: number[]
 }

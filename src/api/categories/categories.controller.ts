@@ -29,18 +29,22 @@ export class CategoriesController {
 	@ApiOperation({ summary: 'Create category' })
 	@ApiResponse({
 		status: 200,
-		description: 'Forbidden.',
 		type: ResponseDto<CategoryResponseDto>,
 	})
 	async create(
-		@Body() createCategoryDto: CreateCategoryDto,
-	): Promise<ResponseDto<CategoryResponseDto>> {
-		return this.categoriesService.create(createCategoryDto)
+		@Body() data: CreateCategoryDto,
+	): Promise<ResponseDto<CategoryResponseDto | null>> {
+		return this.categoriesService.create(data)
 	}
 
 	@Get()
 	@HttpCode(200)
-	async findAll(): Promise<CategoryResponseDto[]> {
+	@ApiOperation({ summary: 'Get all categories' })
+	@ApiResponse({
+		status: 200,
+		type: ResponseDto<CategoryResponseDto[]>,
+	})
+	async getProviders(): Promise<ResponseDto<CategoryResponseDto[] | null>> {
 		return this.categoriesService.findAll()
 	}
 

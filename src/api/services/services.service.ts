@@ -8,7 +8,6 @@ import { ServicesResponseDto } from './dto/services-response.dto'
 import { injectionTokens } from '@repositories/injection-tokens'
 import { ServicesRepository } from '@repositories/services.repository'
 import { ServiceEntity } from '@entities/service.entity'
-import { severityStatusEnum } from '@constants/severity-status.enum'
 import { UpdateServicesDto } from './dto/update-services.dto'
 
 @Injectable()
@@ -23,48 +22,28 @@ export class ServicesService extends BaseService {
 	}
 
 	async create(
-		createServicesDto: CreateServicesDto,
-	): Promise<ResponseDto<ServicesResponseDto>> {
-		const validResult = this.validator.validate(createServicesDto)
+		data: CreateServicesDto,
+	): Promise<ResponseDto<ServicesResponseDto | null>> {
+		const validResult = this.validator.validate(data)
 
 		if (Object.keys(validResult).length !== 0) {
-			return new ResponseDto(
-				{} as ServicesResponseDto,
-				'Error de validación',
-				severityStatusEnum.Error,
-				validResult,
-			)
+			return this.toResponse(null, validResult)
 		}
 
-		const entity = this.utilMapper.map<ServiceEntity, CreateServicesDto>(
-			ServiceEntity,
-			createServicesDto,
-		)
+		const entity = this.utilMapper.map(ServiceEntity, data)
 
 		const result = await this.servicesRepository.create(entity)
 
-		if (!result) {
-			return new ResponseDto(
-				{} as ServicesResponseDto,
-				'Error al crear el servicio',
-				severityStatusEnum.Error,
-			)
-		}
+		const entityResponse = this.utilMapper.map(ServicesResponseDto, result)
 
-		// Ajuste en el orden de los parámetros: primero el tipo destino, luego el objeto a mapear
-		const entityResponse = this.utilMapper.map<
-			ServicesResponseDto,
-			ServiceEntity
-		>(ServicesResponseDto, result)
-
-		return new ResponseDto(entityResponse ?? ({} as ServicesResponseDto))
+		return this.toResponse(entityResponse)
 	}
 
-	async findAll(): Promise<ServicesResponseDto[]> {
-		const services = await this.servicesRepository.findAll()
-		return services.map((service) =>
-			this.utilMapper.map(ServicesResponseDto, service),
-		)
+	async findAll(): Promise<ResponseDto<ServicesResponseDto[] | null>> {
+		const result = await this.servicesRepository.findAll()
+
+		const entities = this.utilMapper.mapArray(ServicesResponseDto, result)
+		return this.toResponse(entities)
 	}
 
 	async remove(id: number): Promise<void> {

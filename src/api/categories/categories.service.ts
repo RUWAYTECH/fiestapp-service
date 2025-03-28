@@ -8,7 +8,6 @@ import { CategoryValidator } from './validator/category-validator'
 import { BaseService } from '../base/base.service'
 import { injectionTokens } from '@repositories/injection-tokens'
 import { CategoryRepository } from '@repositories/category.repository'
-import { severityStatusEnum } from '@constants/severity-status.enum'
 import { CategoryEntity } from '@entities/category.entity'
 
 @Injectable()
@@ -23,48 +22,28 @@ export class CategoriesService extends BaseService {
 	}
 
 	async create(
-		createCategoryDto: CreateCategoryDto,
-	): Promise<ResponseDto<CategoryResponseDto>> {
-		const validResult = this.validator.validate(createCategoryDto)
+		data: CreateCategoryDto,
+	): Promise<ResponseDto<CategoryResponseDto | null>> {
+		const validResult = this.validator.validate(data)
 
 		if (Object.keys(validResult).length !== 0) {
-			return new ResponseDto(
-				{} as CategoryResponseDto,
-				'Error de validación',
-				severityStatusEnum.Error,
-				validResult,
-			)
+			return this.toResponse(null, validResult)
 		}
 
-		const entity = this.utilMapper.map<CategoryEntity, CreateCategoryDto>(
-			CategoryEntity,
-			createCategoryDto,
-		)
+		const entity = this.utilMapper.map(CategoryEntity, data)
 
 		const result = await this.categoryRepository.create(entity)
 
-		if (!result) {
-			return new ResponseDto(
-				{} as CategoryResponseDto,
-				'Error al crear el servicio',
-				severityStatusEnum.Error,
-			)
-		}
+		const entityResponse = this.utilMapper.map(CategoryResponseDto, result)
 
-		// Ajuste en el orden de los parámetros: primero el tipo destino, luego el objeto a mapear
-		const entityResponse = this.utilMapper.map<
-			CategoryResponseDto,
-			CategoryEntity
-		>(CategoryResponseDto, result)
-
-		return new ResponseDto(entityResponse ?? ({} as CategoryResponseDto))
+		return this.toResponse(entityResponse)
 	}
 
-	async findAll(): Promise<CategoryResponseDto[]> {
-		const services = await this.categoryRepository.findAll()
-		return services.map((service) =>
-			this.utilMapper.map(CategoryResponseDto, service),
-		)
+	async findAll(): Promise<ResponseDto<CategoryResponseDto[] | null>> {
+		const result = await this.categoryRepository.findAll()
+
+		const entities = this.utilMapper.mapArray(CategoryResponseDto, result)
+		return this.toResponse(entities)
 	}
 
 	async remove(id: number): Promise<void> {
