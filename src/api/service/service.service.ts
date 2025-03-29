@@ -81,4 +81,26 @@ export class ServiceService extends BaseService {
 
 		return result
 	}
+
+	async findByCategoryId(
+		categoryId: number,
+	): Promise<ResponseDto<ServiceResponseDto[] | null>> {
+		console.log('llamada1', categoryId) // Verificar que categoryId se pasa correctamente
+		// Llamada al repositorio para obtener los servicios
+		const services = await this.serviceRepository.findByCategoryId(categoryId)
+		console.log('Servicios encontrados:', services) // Verificar si se obtienen los servicios correctamente
+
+		// Si no hay servicios, lanzar una excepción NotFound
+		if (!services || services.length === 0) {
+			throw new NotFoundException(
+				`No services found for category ID ${categoryId}`,
+			)
+		}
+
+		// Mapear los servicios obtenidos a la respuesta DTO
+		const response = this.utilMapper.mapArray(ServiceResponseDto, services)
+
+		// Devolver la respuesta formateada
+		return this.toResponse(response)
+	}
 }

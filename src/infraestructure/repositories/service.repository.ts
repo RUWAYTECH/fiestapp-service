@@ -39,4 +39,12 @@ export class ServiceRepository {
 			relations: ['category', 'provider', 'favorites', 'requests', 'images'],
 		})
 	}
+
+	async findByCategoryId(categoryId: number): Promise<ServiceEntity[]> {
+		console.log('Buscando servicios con categoryId:', categoryId)
+		return await this.dao.find({
+			where: { category: { categoryId } }, // Filtra por categoryId
+			relations: ['category', 'provider', 'favorites', 'requests', 'images'], // Carga las relaciones necesarias
+		})
+	}
 }

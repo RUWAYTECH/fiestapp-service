@@ -68,4 +68,13 @@ export class ServiceController {
 	remove(@Param('id') id: number) {
 		return this.serviceService.remove(+id)
 	}
+
+	@Get('category/:categoryId')
+	@HttpCode(200)
+	@ApiOperation({ summary: 'Get all services by categoryId' })
+	async findByCategoryId(
+		@Param('categoryId') categoryId: string,
+	): Promise<ResponseDto<ServiceResponseDto[] | null>> {
+		return this.serviceService.findByCategoryId(parseInt(categoryId, 10))
+	}
 }
