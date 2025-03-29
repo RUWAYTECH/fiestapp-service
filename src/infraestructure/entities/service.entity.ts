@@ -24,6 +24,9 @@ export class ServiceEntity extends AuditEntity {
 	@Column({ type: 'varchar', length: 100 })
 	description: string
 
+	@Column({ type: 'varchar', length: 100 })
+	address: string
+
 	@Column({ type: 'numeric', precision: 10, scale: 2 })
 	priceMax: number
 

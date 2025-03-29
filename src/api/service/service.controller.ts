@@ -47,13 +47,13 @@ export class ServiceController {
 		return this.serviceService.findAll()
 	}
 
-	@Get(':id')
+	@Get(':serviceId')
 	@HttpCode(200)
 	@ApiOperation({ summary: 'get by serviceId' })
 	async findOne(
-		@Param('id') id: string,
+		@Param('serviceId') serviceId: string,
 	): Promise<ResponseDto<ServiceResponseDto | null>> {
-		return this.serviceService.findById(+id)
+		return this.serviceService.findById(+serviceId)
 	}
 
 	@ApiOperation({ summary: 'Update service' })
@@ -62,7 +62,7 @@ export class ServiceController {
 		return this.serviceService.update(+id, updateServicesDto)
 	}
 
-	@Delete(':id')
+	@Delete(':serviceId')
 	@HttpCode(200)
 	@ApiOperation({ summary: 'delete by serviceId' })
 	remove(@Param('id') id: number) {

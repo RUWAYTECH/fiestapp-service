@@ -15,6 +15,10 @@ export class CreateServiceDto {
 	description: string
 
 	@ApiProperty()
+	@IsOptional()
+	address: string
+
+	@ApiProperty()
 	priceMax: number
 
 	@ApiProperty()

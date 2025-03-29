@@ -1,5 +1,7 @@
+import { CategoryResponseDto } from '@api/category/dto/category-response.dto'
+import { ProviderResponseDto } from '@api/provider/dto/provider-response.dto'
 import { ApiProperty } from '@nestjs/swagger'
-import { Expose } from 'class-transformer'
+import { Expose, Type } from 'class-transformer'
 
 export class ServiceResponseDto {
 	@ApiProperty()
@@ -16,6 +18,10 @@ export class ServiceResponseDto {
 
 	@ApiProperty()
 	@Expose()
+	address: string
+
+	@ApiProperty()
+	@Expose()
 	priceMax: number
 
 	@ApiProperty()
@@ -28,7 +34,7 @@ export class ServiceResponseDto {
 
 	@ApiProperty()
 	@Expose()
-	image: string[]
+	images: string[]
 
 	@ApiProperty()
 	@Expose()
@@ -36,5 +42,16 @@ export class ServiceResponseDto {
 
 	@ApiProperty()
 	@Expose()
-	request: number[]
+	requests: number[]
+
+	@ApiProperty({ type: () => ProviderResponseDto })
+	@Expose()
+	@Type(() => ProviderResponseDto)
+	provider: ProviderResponseDto
+
+	// 🔥 Cambia category a un objeto en lugar de un array de strings
+	@ApiProperty({ type: () => CategoryResponseDto })
+	@Expose()
+	@Type(() => CategoryResponseDto)
+	category: CategoryResponseDto
 }

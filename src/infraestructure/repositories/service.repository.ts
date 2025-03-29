@@ -26,14 +26,7 @@ export class ServiceRepository {
 	async findById(serviceId: number): Promise<ServiceEntity | null> {
 		return await this.dao.findOne({
 			where: { serviceId },
-			relations: [
-				'user',
-				'category',
-				'provider',
-				'favorite',
-				'request',
-				'image',
-			],
+			relations: ['category', 'provider', 'favorites', 'requests', 'images'],
 		})
 	}
 
