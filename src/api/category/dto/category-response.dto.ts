@@ -10,11 +10,11 @@ export class CategoryResponseDto {
 
 	@ApiProperty({ type: ServiceResponseDto })
 	@Expose()
-	services: ServiceResponseDto | null
+	service: ServiceResponseDto | null
 
 	@ApiProperty({ type: ImageResponseDto })
 	@Expose()
-	images: ImageResponseDto | null
+	image: ImageResponseDto | null
 
 	@ApiProperty()
 	@Expose()

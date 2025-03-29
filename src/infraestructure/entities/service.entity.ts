@@ -36,7 +36,7 @@ export class ServiceEntity extends AuditEntity {
 	@OneToMany(() => ImageEntity, (image) => image.service)
 	images: ImageEntity[]
 
-	@ManyToOne(() => CategoryEntity, (category) => category.service)
+	@ManyToOne(() => CategoryEntity, (category) => category.services)
 	@JoinColumn({ name: 'categoryId' })
 	category: CategoryEntity
 

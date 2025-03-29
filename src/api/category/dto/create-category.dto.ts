@@ -5,11 +5,14 @@ export class CreateCategoryDto {
 	// serviceId: string
 
 	@ApiProperty()
-	imageId: string
+	imageId: number
 
 	@ApiProperty()
 	name: string
 
 	@ApiProperty()
 	description: string
+
+	@ApiProperty()
+	serviceId: number
 }

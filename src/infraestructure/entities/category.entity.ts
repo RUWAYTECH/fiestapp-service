@@ -14,9 +14,9 @@ export class CategoryEntity extends AuditEntity {
 	@Column({ type: 'varchar', length: 100 })
 	description: string
 
-	@OneToMany(() => ImageEntity, (image) => image.provider)
+	@OneToMany(() => ImageEntity, (image) => image.category)
 	images: ImageEntity[]
 
 	@OneToMany(() => ServiceEntity, (service) => service.category)
-	service: ServiceEntity[]
+	services: ServiceEntity[]
 }
