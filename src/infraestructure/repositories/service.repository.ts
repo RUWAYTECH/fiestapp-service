@@ -36,7 +36,7 @@ export class ServiceRepository {
 
 	async findAll(): Promise<ServiceEntity[]> {
 		return await this.dao.find({
-			relations: ['category', 'provider', 'favorites', 'requests', 'images'],
+			relations: ['category', 'provider', 'favorites', 'images'],
 		})
 	}
 

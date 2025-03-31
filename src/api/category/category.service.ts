@@ -9,6 +9,8 @@ import { BaseService } from '../base/base.service'
 import { injectionTokens } from '@repositories/injection-tokens'
 import { CategoryRepository } from '@repositories/category.repository'
 import { CategoryEntity } from '@entities/category.entity'
+import { ImageResponseDto } from '@api/image/dto/image-response.dto'
+import { ImageService } from '@api/image/image.service'
 
 @Injectable()
 export class CategoryService extends BaseService {
@@ -40,9 +42,9 @@ export class CategoryService extends BaseService {
 	}
 
 	async findAll(): Promise<ResponseDto<CategoryResponseDto[] | null>> {
-		const category = await this.categoryRepository.findAll()
-		const entites = this.utilMapper.mapArray(CategoryResponseDto, category)
-		return this.toResponse(entites)
+		const categories = await this.categoryRepository.findAll()
+		const entities = this.utilMapper.mapArray(CategoryResponseDto, categories)
+		return this.toResponse(entities)
 	}
 
 	async remove(id: number): Promise<void> {

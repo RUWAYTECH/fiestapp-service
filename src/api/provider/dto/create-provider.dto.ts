@@ -19,8 +19,4 @@ export class CreateProviderDto {
 
 	@ApiProperty()
 	userId: number
-
-	@ApiProperty()
-	@IsOptional()
-	imageId: string[]
 }

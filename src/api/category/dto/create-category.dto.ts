@@ -6,7 +6,4 @@ export class CreateCategoryDto {
 
 	@ApiProperty()
 	description: string
-
-	@ApiProperty()
-	serviceId: number
 }

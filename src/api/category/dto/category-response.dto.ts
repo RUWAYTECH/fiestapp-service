@@ -14,7 +14,7 @@ export class CategoryResponseDto {
 
 	@ApiProperty({ type: ImageResponseDto })
 	@Expose()
-	image: ImageResponseDto | null
+	image: ImageResponseDto[] | null
 
 	@ApiProperty()
 	@Expose()

@@ -16,6 +16,7 @@ import { UpdateCategoryDto } from './dto/update-category.dto'
 import { ResponseDto } from 'src/common/dto/response.dto'
 import { CategoryResponseDto } from './dto/category-response.dto'
 import { AuthGuard } from '../auth/auth.guard'
+import { Public } from '@api/auth/decorators/public.decorator'
 
 @ApiTags('categories')
 @Controller('categories')
@@ -39,6 +40,7 @@ export class CategoryController {
 	@Get()
 	@HttpCode(200)
 	@ApiOperation({ summary: 'Get all category' })
+	@Public()
 	@ApiResponse({
 		status: 200,
 		type: ResponseDto<CategoryResponseDto[]>,
@@ -50,6 +52,7 @@ export class CategoryController {
 	@Get(':id')
 	@HttpCode(200)
 	@ApiOperation({ summary: 'delete by categoryId' })
+	@Public()
 	async findOne(
 		@Param('id') id: string,
 	): Promise<ResponseDto<CategoryResponseDto | null>> {

@@ -6,7 +6,7 @@ import { Injectable } from "@nestjs/common"
 export class ImageValidator extends Validator<CreateImageDto> {
 	constructor() {
 		super()
-		this.ruleFor('url').notEmpty().maxLength(100)
+		this.ruleFor('url').notEmpty().maxLength(250)
         this.ruleFor('name').notEmpty().maxLength(100)
 	}
 }

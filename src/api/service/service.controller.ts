@@ -16,6 +16,7 @@ import { ServiceResponseDto } from './dto/service-response.dto'
 import { AuthGuard } from '../auth/auth.guard'
 import { ServiceService } from './service.service'
 import { UpdateServiceDto } from './dto/update-service.dto'
+import { Public } from '@api/auth/decorators/public.decorator'
 
 @ApiTags('services')
 @Controller('services')
@@ -39,6 +40,7 @@ export class ServiceController {
 	@Get()
 	@HttpCode(200)
 	@ApiOperation({ summary: 'Get all services' })
+	@Public()
 	@ApiResponse({
 		status: 200,
 		type: ResponseDto<ServiceResponseDto[]>,

@@ -87,4 +87,10 @@ export class ImageService extends BaseService {
 
 		return result
 	}
+
+	async findAllWithCategory(): Promise<ResponseDto<ImageResponseDto[] | null>> {
+		const images = await this.imageRepository.findAllWithCategory()
+		const entites = this.utilMapper.mapArray(ImageResponseDto, images)
+		return this.toResponse(entites)
+	}
 }
