@@ -1,14 +1,14 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common"
-import { ImageValidator } from "./validator/image-validator"
-import { UtilMapper } from "@utils/util-mapper"
-import { injectionTokens } from "@repositories/injection-tokens"
-import { ImageRepository } from "@repositories/image.repository"
-import { CreateImageDto } from "./dto/create-image.dto"
-import { ResponseDto } from "@dto/response.dto"
-import { ImageResponseDto } from "./dto/image-response.dto"
-import { ImageEntity } from "@entities/image.entity"
-import { UpdateImageDto } from "./dto/update-image.dto"
-import { BaseService } from "@api/base/base.service"
+import { Inject, Injectable, NotFoundException } from '@nestjs/common'
+import { ImageValidator } from './validator/image-validator'
+import { UtilMapper } from '@utils/util-mapper'
+import { injectionTokens } from '@repositories/injection-tokens'
+import { ImageRepository } from '@repositories/image.repository'
+import { CreateImageDto } from './dto/create-image.dto'
+import { ResponseDto } from '@dto/response.dto'
+import { ImageResponseDto } from './dto/image-response.dto'
+import { ImageEntity } from '@entities/image.entity'
+import { UpdateImageDto } from './dto/update-image.dto'
+import { BaseService } from '@api/base/base.service'
 
 @Injectable()
 export class ImageService extends BaseService {
@@ -42,7 +42,7 @@ export class ImageService extends BaseService {
 	async findAll(): Promise<ResponseDto<ImageResponseDto[] | null>> {
 		const images = await this.imageRepository.findAll()
 		const entites = this.utilMapper.mapArray(ImageResponseDto, images)
-		
+
 		return this.toResponse(entites)
 	}
 
@@ -56,7 +56,9 @@ export class ImageService extends BaseService {
 		await this.imageRepository.remove(image)
 	}
 
-	async findById(imageId: number): Promise<ResponseDto<ImageResponseDto | null>> {
+	async findById(
+		imageId: number,
+	): Promise<ResponseDto<ImageResponseDto | null>> {
 		const image = await this.imageRepository.findById(imageId)
 
 		if (!image) {
@@ -67,10 +69,7 @@ export class ImageService extends BaseService {
 		return this.toResponse(response)
 	}
 
-	async update(
-		id: number,
-		updateImageDto: UpdateImageDto,
-	): Promise<number> {
+	async update(id: number, updateImageDto: UpdateImageDto): Promise<number> {
 		const image = await this.imageRepository.findById(id)
 
 		if (!image) {
@@ -86,11 +85,5 @@ export class ImageService extends BaseService {
 		}
 
 		return result
-	}
-
-	async findAllWithCategory(): Promise<ResponseDto<ImageResponseDto[] | null>> {
-		const images = await this.imageRepository.findAllWithCategory()
-		const entites = this.utilMapper.mapArray(ImageResponseDto, images)
-		return this.toResponse(entites)
 	}
 }
