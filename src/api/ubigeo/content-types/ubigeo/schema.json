@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ubigeos",
+  "info": {
+    "singularName": "ubigeo",
+    "pluralName": "ubigeos",
+    "displayName": "ubigeo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "code": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "district": {
+      "type": "string",
+      "required": true
+    },
+    "province": {
+      "type": "string",
+      "required": true
+    },
+    "department": {
+      "type": "string"
+    }
+  }
+}

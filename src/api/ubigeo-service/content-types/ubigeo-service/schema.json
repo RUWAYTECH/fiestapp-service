@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ubigeo_services",
+  "info": {
+    "singularName": "ubigeo-service",
+    "pluralName": "ubigeo-services",
+    "displayName": "UbigeoService"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "service": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::service.service"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "ubigeo": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::ubigeo.ubigeo"
+    }
+  }
+}

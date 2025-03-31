@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "request_services",
+  "info": {
+    "singularName": "request-service",
+    "pluralName": "request-services",
+    "displayName": "RequestService",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "message": {
+      "type": "string",
+      "required": true,
+      "maxLength": 1000
+    },
+    "totalPrice": {
+      "type": "decimal"
+    },
+    "registerDate": {
+      "type": "datetime"
+    },
+    "entityStatus": {
+      "type": "enumeration",
+      "enum": [
+        "Solicitado",
+        "En proceso",
+        "Atendido"
+      ]
+    },
+    "provider": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::provider.provider"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "admin::user"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "request_service_details",
+  "info": {
+    "singularName": "request-service-detail",
+    "pluralName": "request-service-details",
+    "displayName": "RequestServiceDetail"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "quantity": {
+      "type": "integer"
+    },
+    "service": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::service.service"
+    },
+    "requestService": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::request-service.request-service"
+    },
+    "priceFinal": {
+      "type": "decimal"
+    },
+    "comment": {
+      "type": "string",
+      "maxLength": 500
+    }
+  }
+}
