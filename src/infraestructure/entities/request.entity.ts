@@ -15,9 +15,11 @@ export class RequestEntity extends AuditEntity {
 	requestId: number
 
 	@ManyToOne(() => ServiceEntity, (service) => service.request)
+	@JoinColumn({ name: 'serviceId' })
 	service: ServiceEntity
 
 	@ManyToOne(() => UserEntity, (user) => user.request)
+	@JoinColumn({ name: 'userId' })
 	user: UserEntity
 
 	@Column({ type: 'varchar', length: 150, unique: true })
