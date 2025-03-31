@@ -3,10 +3,10 @@ import { IsOptional } from 'class-validator'
 
 export class CreateServiceDto {
 	@ApiProperty()
-	providerId: string
+	providerId: number
 
 	@ApiProperty()
-	categoryId: string
+	categoryId: number
 
 	@ApiProperty()
 	name: string
@@ -27,16 +27,4 @@ export class CreateServiceDto {
 	@ApiProperty()
 	@IsOptional()
 	score: number
-
-	@ApiProperty()
-	@IsOptional()
-	image: string[]
-
-	@ApiProperty()
-	@IsOptional()
-	favorites: number[]
-
-	@ApiProperty()
-	@IsOptional()
-	request: number[]
 }

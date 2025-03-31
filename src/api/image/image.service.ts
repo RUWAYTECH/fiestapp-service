@@ -56,14 +56,15 @@ export class ImageService extends BaseService {
 		await this.imageRepository.remove(image)
 	}
 
-	async findById(imageId: number): Promise<ImageEntity> {
+	async findById(imageId: number): Promise<ResponseDto<ImageResponseDto | null>> {
 		const image = await this.imageRepository.findById(imageId)
 
 		if (!image) {
 			throw new NotFoundException(`Image with ID ${imageId} not found`)
 		}
+		const response = this.utilMapper.map(ImageResponseDto, image)
 
-		return image
+		return this.toResponse(response)
 	}
 
 	async update(

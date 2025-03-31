@@ -34,5 +34,5 @@ export class UserEntity extends AuditEntity {
 	favorites: FavoriteEntity[]
 
 	@OneToMany(() => RequestEntity, (request) => request.user)
-	requests: RequestEntity[]
+	request: RequestEntity
 }

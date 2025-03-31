@@ -38,7 +38,7 @@ export class ImageController {
 
 	@Get(':id')
 	@HttpCode(200)
-	async findOne(@Param('id') id: string): Promise<ImageEntity> {
+	async findOne(@Param('id') id: string): Promise<ResponseDto<ImageResponseDto | null>> {
 
 		return this.imageService.findById(+id)
 	}

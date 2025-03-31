@@ -14,12 +14,10 @@ export class RequestEntity extends AuditEntity {
 	@PrimaryGeneratedColumn()
 	requestId: number
 
-	@ManyToOne(() => ServiceEntity, (service) => service.requests)
-	@JoinColumn({ name: 'serviceId' })
+	@ManyToOne(() => ServiceEntity, (service) => service.request)
 	service: ServiceEntity
 
-	@ManyToOne(() => UserEntity, (user) => user.requests)
-	@JoinColumn({ name: 'userId' })
+	@ManyToOne(() => UserEntity, (user) => user.request)
 	user: UserEntity
 
 	@Column({ type: 'varchar', length: 150, unique: true })

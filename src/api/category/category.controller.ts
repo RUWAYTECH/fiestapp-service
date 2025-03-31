@@ -17,8 +17,8 @@ import { ResponseDto } from 'src/common/dto/response.dto'
 import { CategoryResponseDto } from './dto/category-response.dto'
 import { AuthGuard } from '../auth/auth.guard'
 
-@ApiTags('category')
-@Controller('category')
+@ApiTags('categories')
+@Controller('categories')
 @UseGuards(AuthGuard)
 export class CategoryController {
 	constructor(private readonly categoryService: CategoryService) {}
