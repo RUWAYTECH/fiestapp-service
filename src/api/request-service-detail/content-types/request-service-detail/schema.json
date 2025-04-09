@@ -7,7 +7,7 @@
     "displayName": "RequestServiceDetail"
   },
   "options": {
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "attributes": {
     "quantity": {
