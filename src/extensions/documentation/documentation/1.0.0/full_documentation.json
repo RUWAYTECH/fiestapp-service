@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-04-09T20:56:09.795Z"
+    "x-generation-date": "2025-04-07T20:53:05.606Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -6652,6 +6652,12 @@
                       "documentId": {
                         "type": "string"
                       },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
                       "username": {
                         "type": "string"
                       },
@@ -6659,356 +6665,70 @@
                         "type": "string",
                         "format": "email"
                       },
-                      "provider": {
-                        "type": "string"
-                      },
                       "resetPasswordToken": {
                         "type": "string"
                       },
-                      "confirmationToken": {
+                      "registrationToken": {
                         "type": "string"
                       },
-                      "confirmed": {
+                      "isActive": {
                         "type": "boolean"
                       },
-                      "blocked": {
-                        "type": "boolean"
-                      },
-                      "role": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "documentId": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "description": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "type": "string"
-                          },
-                          "permissions": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                },
-                                "action": {
-                                  "type": "string"
-                                },
-                                "role": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
+                      "roles": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "documentId": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "users": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
                                   }
-                                },
-                                "createdAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "updatedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "publishedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "createdBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    },
-                                    "firstname": {
-                                      "type": "string"
-                                    },
-                                    "lastname": {
-                                      "type": "string"
-                                    },
-                                    "username": {
-                                      "type": "string"
-                                    },
-                                    "email": {
-                                      "type": "string",
-                                      "format": "email"
-                                    },
-                                    "resetPasswordToken": {
-                                      "type": "string"
-                                    },
-                                    "registrationToken": {
-                                      "type": "string"
-                                    },
-                                    "isActive": {
-                                      "type": "boolean"
-                                    },
-                                    "roles": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          },
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "code": {
-                                            "type": "string"
-                                          },
-                                          "description": {
-                                            "type": "string"
-                                          },
-                                          "users": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "permissions": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                },
-                                                "action": {
-                                                  "type": "string"
-                                                },
-                                                "actionParameters": {},
-                                                "subject": {
-                                                  "type": "string"
-                                                },
-                                                "properties": {},
-                                                "conditions": {},
-                                                "role": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "createdAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "updatedAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "publishedAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "createdBy": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "updatedBy": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "locale": {
-                                                  "type": "string"
-                                                },
-                                                "localizations": {
-                                                  "type": "array",
-                                                  "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "number"
-                                                      },
-                                                      "documentId": {
-                                                        "type": "string"
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "createdAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "updatedAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "publishedAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "createdBy": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "documentId": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "updatedBy": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "documentId": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "locale": {
-                                            "type": "string"
-                                          },
-                                          "localizations": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "blocked": {
-                                      "type": "boolean"
-                                    },
-                                    "preferedLanguage": {
-                                      "type": "string"
-                                    },
-                                    "createdAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "updatedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "publishedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "createdBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "updatedBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "locale": {
-                                      "type": "string"
-                                    },
-                                    "localizations": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "updatedBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "locale": {
-                                  "type": "string"
-                                },
-                                "localizations": {
-                                  "type": "array",
-                                  "items": {
+                                }
+                              }
+                            },
+                            "permissions": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  },
+                                  "action": {
+                                    "type": "string"
+                                  },
+                                  "actionParameters": {},
+                                  "subject": {
+                                    "type": "string"
+                                  },
+                                  "properties": {},
+                                  "conditions": {},
+                                  "role": {
                                     "type": "object",
                                     "properties": {
                                       "id": {
@@ -7018,14 +6738,74 @@
                                         "type": "string"
                                       }
                                     }
+                                  },
+                                  "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "updatedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "publishedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "createdBy": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "documentId": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "updatedBy": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "documentId": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "locale": {
+                                    "type": "string"
+                                  },
+                                  "localizations": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "documentId": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
                                   }
                                 }
                               }
-                            }
-                          },
-                          "users": {
-                            "type": "array",
-                            "items": {
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "publishedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "createdBy": {
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -7035,48 +6815,8 @@
                                   "type": "string"
                                 }
                               }
-                            }
-                          },
-                          "createdAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "updatedAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "publishedAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "createdBy": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "documentId": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "updatedBy": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "documentId": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "locale": {
-                            "type": "string"
-                          },
-                          "localizations": {
-                            "type": "array",
-                            "items": {
+                            },
+                            "updatedBy": {
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -7084,11 +6824,34 @@
                                 },
                                 "documentId": {
                                   "type": "string"
+                                }
+                              }
+                            },
+                            "locale": {
+                              "type": "string"
+                            },
+                            "localizations": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             }
                           }
                         }
+                      },
+                      "blocked": {
+                        "type": "boolean"
+                      },
+                      "preferedLanguage": {
+                        "type": "string"
                       },
                       "createdAt": {
                         "type": "string",
@@ -8062,6 +7825,12 @@
               "documentId": {
                 "type": "string"
               },
+              "firstname": {
+                "type": "string"
+              },
+              "lastname": {
+                "type": "string"
+              },
               "username": {
                 "type": "string"
               },
@@ -8069,356 +7838,70 @@
                 "type": "string",
                 "format": "email"
               },
-              "provider": {
-                "type": "string"
-              },
               "resetPasswordToken": {
                 "type": "string"
               },
-              "confirmationToken": {
+              "registrationToken": {
                 "type": "string"
               },
-              "confirmed": {
+              "isActive": {
                 "type": "boolean"
               },
-              "blocked": {
-                "type": "boolean"
-              },
-              "role": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "documentId": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "permissions": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "number"
-                        },
-                        "documentId": {
-                          "type": "string"
-                        },
-                        "action": {
-                          "type": "string"
-                        },
-                        "role": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "number"
-                            },
-                            "documentId": {
-                              "type": "string"
-                            }
+              "roles": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "documentId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "users": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
                           }
-                        },
-                        "createdAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "updatedAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "publishedAt": {
-                          "type": "string",
-                          "format": "date-time"
-                        },
-                        "createdBy": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "number"
-                            },
-                            "documentId": {
-                              "type": "string"
-                            },
-                            "firstname": {
-                              "type": "string"
-                            },
-                            "lastname": {
-                              "type": "string"
-                            },
-                            "username": {
-                              "type": "string"
-                            },
-                            "email": {
-                              "type": "string",
-                              "format": "email"
-                            },
-                            "resetPasswordToken": {
-                              "type": "string"
-                            },
-                            "registrationToken": {
-                              "type": "string"
-                            },
-                            "isActive": {
-                              "type": "boolean"
-                            },
-                            "roles": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "number"
-                                  },
-                                  "documentId": {
-                                    "type": "string"
-                                  },
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "code": {
-                                    "type": "string"
-                                  },
-                                  "description": {
-                                    "type": "string"
-                                  },
-                                  "users": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "permissions": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        },
-                                        "action": {
-                                          "type": "string"
-                                        },
-                                        "actionParameters": {},
-                                        "subject": {
-                                          "type": "string"
-                                        },
-                                        "properties": {},
-                                        "conditions": {},
-                                        "role": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        },
-                                        "createdAt": {
-                                          "type": "string",
-                                          "format": "date-time"
-                                        },
-                                        "updatedAt": {
-                                          "type": "string",
-                                          "format": "date-time"
-                                        },
-                                        "publishedAt": {
-                                          "type": "string",
-                                          "format": "date-time"
-                                        },
-                                        "createdBy": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        },
-                                        "updatedBy": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        },
-                                        "locale": {
-                                          "type": "string"
-                                        },
-                                        "localizations": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "documentId": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  },
-                                  "createdAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "updatedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "publishedAt": {
-                                    "type": "string",
-                                    "format": "date-time"
-                                  },
-                                  "createdBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "number"
-                                      },
-                                      "documentId": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  },
-                                  "updatedBy": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "number"
-                                      },
-                                      "documentId": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  },
-                                  "locale": {
-                                    "type": "string"
-                                  },
-                                  "localizations": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "blocked": {
-                              "type": "boolean"
-                            },
-                            "preferedLanguage": {
-                              "type": "string"
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "publishedAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "createdBy": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "updatedBy": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "locale": {
-                              "type": "string"
-                            },
-                            "localizations": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "number"
-                                  },
-                                  "documentId": {
-                                    "type": "string"
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        },
-                        "updatedBy": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "number"
-                            },
-                            "documentId": {
-                              "type": "string"
-                            }
-                          }
-                        },
-                        "locale": {
-                          "type": "string"
-                        },
-                        "localizations": {
-                          "type": "array",
-                          "items": {
+                        }
+                      }
+                    },
+                    "permissions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
+                          },
+                          "action": {
+                            "type": "string"
+                          },
+                          "actionParameters": {},
+                          "subject": {
+                            "type": "string"
+                          },
+                          "properties": {},
+                          "conditions": {},
+                          "role": {
                             "type": "object",
                             "properties": {
                               "id": {
@@ -8428,14 +7911,74 @@
                                 "type": "string"
                               }
                             }
+                          },
+                          "createdAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updatedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "publishedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "createdBy": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "updatedBy": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "locale": {
+                            "type": "string"
+                          },
+                          "localizations": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "number"
+                                },
+                                "documentId": {
+                                  "type": "string"
+                                }
+                              }
+                            }
                           }
                         }
                       }
-                    }
-                  },
-                  "users": {
-                    "type": "array",
-                    "items": {
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "publishedAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "createdBy": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -8445,48 +7988,8 @@
                           "type": "string"
                         }
                       }
-                    }
-                  },
-                  "createdAt": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "updatedAt": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "publishedAt": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "createdBy": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "documentId": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "updatedBy": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "documentId": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "locale": {
-                    "type": "string"
-                  },
-                  "localizations": {
-                    "type": "array",
-                    "items": {
+                    },
+                    "updatedBy": {
                       "type": "object",
                       "properties": {
                         "id": {
@@ -8494,11 +7997,34 @@
                         },
                         "documentId": {
                           "type": "string"
+                        }
+                      }
+                    },
+                    "locale": {
+                      "type": "string"
+                    },
+                    "localizations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "number"
+                          },
+                          "documentId": {
+                            "type": "string"
+                          }
                         }
                       }
                     }
                   }
                 }
+              },
+              "blocked": {
+                "type": "boolean"
+              },
+              "preferedLanguage": {
+                "type": "string"
               },
               "createdAt": {
                 "type": "string",
@@ -8869,6 +8395,12 @@
                   "documentId": {
                     "type": "string"
                   },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
                   "username": {
                     "type": "string"
                   },
@@ -8876,356 +8408,70 @@
                     "type": "string",
                     "format": "email"
                   },
-                  "provider": {
-                    "type": "string"
-                  },
                   "resetPasswordToken": {
                     "type": "string"
                   },
-                  "confirmationToken": {
+                  "registrationToken": {
                     "type": "string"
                   },
-                  "confirmed": {
+                  "isActive": {
                     "type": "boolean"
                   },
-                  "blocked": {
-                    "type": "boolean"
-                  },
-                  "role": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "documentId": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string"
-                      },
-                      "permissions": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "number"
-                            },
-                            "documentId": {
-                              "type": "string"
-                            },
-                            "action": {
-                              "type": "string"
-                            },
-                            "role": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                }
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
                               }
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "publishedAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "createdBy": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                },
-                                "firstname": {
-                                  "type": "string"
-                                },
-                                "lastname": {
-                                  "type": "string"
-                                },
-                                "username": {
-                                  "type": "string"
-                                },
-                                "email": {
-                                  "type": "string",
-                                  "format": "email"
-                                },
-                                "resetPasswordToken": {
-                                  "type": "string"
-                                },
-                                "registrationToken": {
-                                  "type": "string"
-                                },
-                                "isActive": {
-                                  "type": "boolean"
-                                },
-                                "roles": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "number"
-                                      },
-                                      "documentId": {
-                                        "type": "string"
-                                      },
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "code": {
-                                        "type": "string"
-                                      },
-                                      "description": {
-                                        "type": "string"
-                                      },
-                                      "users": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "permissions": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            },
-                                            "action": {
-                                              "type": "string"
-                                            },
-                                            "actionParameters": {},
-                                            "subject": {
-                                              "type": "string"
-                                            },
-                                            "properties": {},
-                                            "conditions": {},
-                                            "role": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            },
-                                            "createdAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "updatedAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "publishedAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "createdBy": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            },
-                                            "updatedBy": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            },
-                                            "locale": {
-                                              "type": "string"
-                                            },
-                                            "localizations": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "id": {
-                                                    "type": "number"
-                                                  },
-                                                  "documentId": {
-                                                    "type": "string"
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "createdAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "updatedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "publishedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "createdBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      },
-                                      "updatedBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      },
-                                      "locale": {
-                                        "type": "string"
-                                      },
-                                      "localizations": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "blocked": {
-                                  "type": "boolean"
-                                },
-                                "preferedLanguage": {
-                                  "type": "string"
-                                },
-                                "createdAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "updatedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "publishedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "createdBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "updatedBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "locale": {
-                                  "type": "string"
-                                },
-                                "localizations": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "number"
-                                      },
-                                      "documentId": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "updatedBy": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "locale": {
-                              "type": "string"
-                            },
-                            "localizations": {
-                              "type": "array",
-                              "items": {
+                            }
+                          }
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              },
+                              "action": {
+                                "type": "string"
+                              },
+                              "actionParameters": {},
+                              "subject": {
+                                "type": "string"
+                              },
+                              "properties": {},
+                              "conditions": {},
+                              "role": {
                                 "type": "object",
                                 "properties": {
                                   "id": {
@@ -9235,14 +8481,74 @@
                                     "type": "string"
                                   }
                                 }
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updatedAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "publishedAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "createdBy": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "updatedBy": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "locale": {
+                                "type": "string"
+                              },
+                              "localizations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "documentId": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
                               }
                             }
                           }
-                        }
-                      },
-                      "users": {
-                        "type": "array",
-                        "items": {
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "publishedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "createdBy": {
                           "type": "object",
                           "properties": {
                             "id": {
@@ -9252,48 +8558,8 @@
                               "type": "string"
                             }
                           }
-                        }
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "updatedAt": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "publishedAt": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "createdBy": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "documentId": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "updatedBy": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "documentId": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "locale": {
-                        "type": "string"
-                      },
-                      "localizations": {
-                        "type": "array",
-                        "items": {
+                        },
+                        "updatedBy": {
                           "type": "object",
                           "properties": {
                             "id": {
@@ -9301,11 +8567,34 @@
                             },
                             "documentId": {
                               "type": "string"
+                            }
+                          }
+                        },
+                        "locale": {
+                          "type": "string"
+                        },
+                        "localizations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              }
                             }
                           }
                         }
                       }
                     }
+                  },
+                  "blocked": {
+                    "type": "boolean"
+                  },
+                  "preferedLanguage": {
+                    "type": "string"
                   },
                   "createdAt": {
                     "type": "string",
@@ -9749,6 +9038,12 @@
                       "documentId": {
                         "type": "string"
                       },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
                       "username": {
                         "type": "string"
                       },
@@ -9756,356 +9051,70 @@
                         "type": "string",
                         "format": "email"
                       },
-                      "provider": {
-                        "type": "string"
-                      },
                       "resetPasswordToken": {
                         "type": "string"
                       },
-                      "confirmationToken": {
+                      "registrationToken": {
                         "type": "string"
                       },
-                      "confirmed": {
+                      "isActive": {
                         "type": "boolean"
                       },
-                      "blocked": {
-                        "type": "boolean"
-                      },
-                      "role": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "documentId": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "description": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "type": "string"
-                          },
-                          "permissions": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                },
-                                "action": {
-                                  "type": "string"
-                                },
-                                "role": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
+                      "roles": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "documentId": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "users": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
                                   }
-                                },
-                                "createdAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "updatedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "publishedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "createdBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    },
-                                    "firstname": {
-                                      "type": "string"
-                                    },
-                                    "lastname": {
-                                      "type": "string"
-                                    },
-                                    "username": {
-                                      "type": "string"
-                                    },
-                                    "email": {
-                                      "type": "string",
-                                      "format": "email"
-                                    },
-                                    "resetPasswordToken": {
-                                      "type": "string"
-                                    },
-                                    "registrationToken": {
-                                      "type": "string"
-                                    },
-                                    "isActive": {
-                                      "type": "boolean"
-                                    },
-                                    "roles": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          },
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "code": {
-                                            "type": "string"
-                                          },
-                                          "description": {
-                                            "type": "string"
-                                          },
-                                          "users": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "permissions": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                },
-                                                "action": {
-                                                  "type": "string"
-                                                },
-                                                "actionParameters": {},
-                                                "subject": {
-                                                  "type": "string"
-                                                },
-                                                "properties": {},
-                                                "conditions": {},
-                                                "role": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "createdAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "updatedAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "publishedAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "createdBy": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "updatedBy": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "locale": {
-                                                  "type": "string"
-                                                },
-                                                "localizations": {
-                                                  "type": "array",
-                                                  "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "number"
-                                                      },
-                                                      "documentId": {
-                                                        "type": "string"
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "createdAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "updatedAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "publishedAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "createdBy": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "documentId": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "updatedBy": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "documentId": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "locale": {
-                                            "type": "string"
-                                          },
-                                          "localizations": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "blocked": {
-                                      "type": "boolean"
-                                    },
-                                    "preferedLanguage": {
-                                      "type": "string"
-                                    },
-                                    "createdAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "updatedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "publishedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "createdBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "updatedBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "locale": {
-                                      "type": "string"
-                                    },
-                                    "localizations": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "updatedBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "locale": {
-                                  "type": "string"
-                                },
-                                "localizations": {
-                                  "type": "array",
-                                  "items": {
+                                }
+                              }
+                            },
+                            "permissions": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  },
+                                  "action": {
+                                    "type": "string"
+                                  },
+                                  "actionParameters": {},
+                                  "subject": {
+                                    "type": "string"
+                                  },
+                                  "properties": {},
+                                  "conditions": {},
+                                  "role": {
                                     "type": "object",
                                     "properties": {
                                       "id": {
@@ -10115,14 +9124,74 @@
                                         "type": "string"
                                       }
                                     }
+                                  },
+                                  "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "updatedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "publishedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "createdBy": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "documentId": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "updatedBy": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "documentId": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "locale": {
+                                    "type": "string"
+                                  },
+                                  "localizations": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "documentId": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
                                   }
                                 }
                               }
-                            }
-                          },
-                          "users": {
-                            "type": "array",
-                            "items": {
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "publishedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "createdBy": {
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -10132,48 +9201,8 @@
                                   "type": "string"
                                 }
                               }
-                            }
-                          },
-                          "createdAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "updatedAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "publishedAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "createdBy": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "documentId": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "updatedBy": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "documentId": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "locale": {
-                            "type": "string"
-                          },
-                          "localizations": {
-                            "type": "array",
-                            "items": {
+                            },
+                            "updatedBy": {
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -10181,11 +9210,34 @@
                                 },
                                 "documentId": {
                                   "type": "string"
+                                }
+                              }
+                            },
+                            "locale": {
+                              "type": "string"
+                            },
+                            "localizations": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             }
                           }
                         }
+                      },
+                      "blocked": {
+                        "type": "boolean"
+                      },
+                      "preferedLanguage": {
+                        "type": "string"
                       },
                       "createdAt": {
                         "type": "string",
@@ -11338,6 +10390,12 @@
                   "documentId": {
                     "type": "string"
                   },
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
                   "username": {
                     "type": "string"
                   },
@@ -11345,356 +10403,70 @@
                     "type": "string",
                     "format": "email"
                   },
-                  "provider": {
-                    "type": "string"
-                  },
                   "resetPasswordToken": {
                     "type": "string"
                   },
-                  "confirmationToken": {
+                  "registrationToken": {
                     "type": "string"
                   },
-                  "confirmed": {
+                  "isActive": {
                     "type": "boolean"
                   },
-                  "blocked": {
-                    "type": "boolean"
-                  },
-                  "role": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      },
-                      "documentId": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "type": {
-                        "type": "string"
-                      },
-                      "permissions": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "number"
-                            },
-                            "documentId": {
-                              "type": "string"
-                            },
-                            "action": {
-                              "type": "string"
-                            },
-                            "role": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                }
+                  "roles": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "documentId": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "code": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "users": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
                               }
-                            },
-                            "createdAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "updatedAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "publishedAt": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "createdBy": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                },
-                                "firstname": {
-                                  "type": "string"
-                                },
-                                "lastname": {
-                                  "type": "string"
-                                },
-                                "username": {
-                                  "type": "string"
-                                },
-                                "email": {
-                                  "type": "string",
-                                  "format": "email"
-                                },
-                                "resetPasswordToken": {
-                                  "type": "string"
-                                },
-                                "registrationToken": {
-                                  "type": "string"
-                                },
-                                "isActive": {
-                                  "type": "boolean"
-                                },
-                                "roles": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "number"
-                                      },
-                                      "documentId": {
-                                        "type": "string"
-                                      },
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "code": {
-                                        "type": "string"
-                                      },
-                                      "description": {
-                                        "type": "string"
-                                      },
-                                      "users": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "permissions": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            },
-                                            "action": {
-                                              "type": "string"
-                                            },
-                                            "actionParameters": {},
-                                            "subject": {
-                                              "type": "string"
-                                            },
-                                            "properties": {},
-                                            "conditions": {},
-                                            "role": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            },
-                                            "createdAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "updatedAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "publishedAt": {
-                                              "type": "string",
-                                              "format": "date-time"
-                                            },
-                                            "createdBy": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            },
-                                            "updatedBy": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            },
-                                            "locale": {
-                                              "type": "string"
-                                            },
-                                            "localizations": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "id": {
-                                                    "type": "number"
-                                                  },
-                                                  "documentId": {
-                                                    "type": "string"
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      },
-                                      "createdAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "updatedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "publishedAt": {
-                                        "type": "string",
-                                        "format": "date-time"
-                                      },
-                                      "createdBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      },
-                                      "updatedBy": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      },
-                                      "locale": {
-                                        "type": "string"
-                                      },
-                                      "localizations": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "number"
-                                            },
-                                            "documentId": {
-                                              "type": "string"
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "blocked": {
-                                  "type": "boolean"
-                                },
-                                "preferedLanguage": {
-                                  "type": "string"
-                                },
-                                "createdAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "updatedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "publishedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "createdBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "updatedBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "locale": {
-                                  "type": "string"
-                                },
-                                "localizations": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "number"
-                                      },
-                                      "documentId": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "updatedBy": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                }
-                              }
-                            },
-                            "locale": {
-                              "type": "string"
-                            },
-                            "localizations": {
-                              "type": "array",
-                              "items": {
+                            }
+                          }
+                        },
+                        "permissions": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              },
+                              "action": {
+                                "type": "string"
+                              },
+                              "actionParameters": {},
+                              "subject": {
+                                "type": "string"
+                              },
+                              "properties": {},
+                              "conditions": {},
+                              "role": {
                                 "type": "object",
                                 "properties": {
                                   "id": {
@@ -11704,14 +10476,74 @@
                                     "type": "string"
                                   }
                                 }
+                              },
+                              "createdAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "updatedAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "publishedAt": {
+                                "type": "string",
+                                "format": "date-time"
+                              },
+                              "createdBy": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "updatedBy": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "locale": {
+                                "type": "string"
+                              },
+                              "localizations": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "number"
+                                    },
+                                    "documentId": {
+                                      "type": "string"
+                                    }
+                                  }
+                                }
                               }
                             }
                           }
-                        }
-                      },
-                      "users": {
-                        "type": "array",
-                        "items": {
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "publishedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "createdBy": {
                           "type": "object",
                           "properties": {
                             "id": {
@@ -11721,48 +10553,8 @@
                               "type": "string"
                             }
                           }
-                        }
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "updatedAt": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "publishedAt": {
-                        "type": "string",
-                        "format": "date-time"
-                      },
-                      "createdBy": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "documentId": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "updatedBy": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "documentId": {
-                            "type": "string"
-                          }
-                        }
-                      },
-                      "locale": {
-                        "type": "string"
-                      },
-                      "localizations": {
-                        "type": "array",
-                        "items": {
+                        },
+                        "updatedBy": {
                           "type": "object",
                           "properties": {
                             "id": {
@@ -11770,11 +10562,34 @@
                             },
                             "documentId": {
                               "type": "string"
+                            }
+                          }
+                        },
+                        "locale": {
+                          "type": "string"
+                        },
+                        "localizations": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "number"
+                              },
+                              "documentId": {
+                                "type": "string"
+                              }
                             }
                           }
                         }
                       }
                     }
+                  },
+                  "blocked": {
+                    "type": "boolean"
+                  },
+                  "preferedLanguage": {
+                    "type": "string"
                   },
                   "createdAt": {
                     "type": "string",
@@ -13368,6 +12183,12 @@
                       "documentId": {
                         "type": "string"
                       },
+                      "firstname": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
                       "username": {
                         "type": "string"
                       },
@@ -13375,356 +12196,70 @@
                         "type": "string",
                         "format": "email"
                       },
-                      "provider": {
-                        "type": "string"
-                      },
                       "resetPasswordToken": {
                         "type": "string"
                       },
-                      "confirmationToken": {
+                      "registrationToken": {
                         "type": "string"
                       },
-                      "confirmed": {
+                      "isActive": {
                         "type": "boolean"
                       },
-                      "blocked": {
-                        "type": "boolean"
-                      },
-                      "role": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "number"
-                          },
-                          "documentId": {
-                            "type": "string"
-                          },
-                          "name": {
-                            "type": "string"
-                          },
-                          "description": {
-                            "type": "string"
-                          },
-                          "type": {
-                            "type": "string"
-                          },
-                          "permissions": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "number"
-                                },
-                                "documentId": {
-                                  "type": "string"
-                                },
-                                "action": {
-                                  "type": "string"
-                                },
-                                "role": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
+                      "roles": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "number"
+                            },
+                            "documentId": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "code": {
+                              "type": "string"
+                            },
+                            "description": {
+                              "type": "string"
+                            },
+                            "users": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
                                   }
-                                },
-                                "createdAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "updatedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "publishedAt": {
-                                  "type": "string",
-                                  "format": "date-time"
-                                },
-                                "createdBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    },
-                                    "firstname": {
-                                      "type": "string"
-                                    },
-                                    "lastname": {
-                                      "type": "string"
-                                    },
-                                    "username": {
-                                      "type": "string"
-                                    },
-                                    "email": {
-                                      "type": "string",
-                                      "format": "email"
-                                    },
-                                    "resetPasswordToken": {
-                                      "type": "string"
-                                    },
-                                    "registrationToken": {
-                                      "type": "string"
-                                    },
-                                    "isActive": {
-                                      "type": "boolean"
-                                    },
-                                    "roles": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          },
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "code": {
-                                            "type": "string"
-                                          },
-                                          "description": {
-                                            "type": "string"
-                                          },
-                                          "users": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "permissions": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                },
-                                                "action": {
-                                                  "type": "string"
-                                                },
-                                                "actionParameters": {},
-                                                "subject": {
-                                                  "type": "string"
-                                                },
-                                                "properties": {},
-                                                "conditions": {},
-                                                "role": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "createdAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "updatedAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "publishedAt": {
-                                                  "type": "string",
-                                                  "format": "date-time"
-                                                },
-                                                "createdBy": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "updatedBy": {
-                                                  "type": "object",
-                                                  "properties": {
-                                                    "id": {
-                                                      "type": "number"
-                                                    },
-                                                    "documentId": {
-                                                      "type": "string"
-                                                    }
-                                                  }
-                                                },
-                                                "locale": {
-                                                  "type": "string"
-                                                },
-                                                "localizations": {
-                                                  "type": "array",
-                                                  "items": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                      "id": {
-                                                        "type": "number"
-                                                      },
-                                                      "documentId": {
-                                                        "type": "string"
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          },
-                                          "createdAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "updatedAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "publishedAt": {
-                                            "type": "string",
-                                            "format": "date-time"
-                                          },
-                                          "createdBy": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "documentId": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "updatedBy": {
-                                            "type": "object",
-                                            "properties": {
-                                              "id": {
-                                                "type": "number"
-                                              },
-                                              "documentId": {
-                                                "type": "string"
-                                              }
-                                            }
-                                          },
-                                          "locale": {
-                                            "type": "string"
-                                          },
-                                          "localizations": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "id": {
-                                                  "type": "number"
-                                                },
-                                                "documentId": {
-                                                  "type": "string"
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    },
-                                    "blocked": {
-                                      "type": "boolean"
-                                    },
-                                    "preferedLanguage": {
-                                      "type": "string"
-                                    },
-                                    "createdAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "updatedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "publishedAt": {
-                                      "type": "string",
-                                      "format": "date-time"
-                                    },
-                                    "createdBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "updatedBy": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "number"
-                                        },
-                                        "documentId": {
-                                          "type": "string"
-                                        }
-                                      }
-                                    },
-                                    "locale": {
-                                      "type": "string"
-                                    },
-                                    "localizations": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "id": {
-                                            "type": "number"
-                                          },
-                                          "documentId": {
-                                            "type": "string"
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                },
-                                "updatedBy": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "documentId": {
-                                      "type": "string"
-                                    }
-                                  }
-                                },
-                                "locale": {
-                                  "type": "string"
-                                },
-                                "localizations": {
-                                  "type": "array",
-                                  "items": {
+                                }
+                              }
+                            },
+                            "permissions": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  },
+                                  "action": {
+                                    "type": "string"
+                                  },
+                                  "actionParameters": {},
+                                  "subject": {
+                                    "type": "string"
+                                  },
+                                  "properties": {},
+                                  "conditions": {},
+                                  "role": {
                                     "type": "object",
                                     "properties": {
                                       "id": {
@@ -13734,14 +12269,74 @@
                                         "type": "string"
                                       }
                                     }
+                                  },
+                                  "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "updatedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "publishedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                  },
+                                  "createdBy": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "documentId": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "updatedBy": {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "type": "number"
+                                      },
+                                      "documentId": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "locale": {
+                                    "type": "string"
+                                  },
+                                  "localizations": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "number"
+                                        },
+                                        "documentId": {
+                                          "type": "string"
+                                        }
+                                      }
+                                    }
                                   }
                                 }
                               }
-                            }
-                          },
-                          "users": {
-                            "type": "array",
-                            "items": {
+                            },
+                            "createdAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "updatedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "publishedAt": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "createdBy": {
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -13751,48 +12346,8 @@
                                   "type": "string"
                                 }
                               }
-                            }
-                          },
-                          "createdAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "updatedAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "publishedAt": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "createdBy": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "documentId": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "updatedBy": {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "number"
-                              },
-                              "documentId": {
-                                "type": "string"
-                              }
-                            }
-                          },
-                          "locale": {
-                            "type": "string"
-                          },
-                          "localizations": {
-                            "type": "array",
-                            "items": {
+                            },
+                            "updatedBy": {
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -13800,11 +12355,34 @@
                                 },
                                 "documentId": {
                                   "type": "string"
+                                }
+                              }
+                            },
+                            "locale": {
+                              "type": "string"
+                            },
+                            "localizations": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "number"
+                                  },
+                                  "documentId": {
+                                    "type": "string"
+                                  }
                                 }
                               }
                             }
                           }
                         }
+                      },
+                      "blocked": {
+                        "type": "boolean"
+                      },
+                      "preferedLanguage": {
+                        "type": "string"
                       },
                       "createdAt": {
                         "type": "string",
