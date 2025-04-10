@@ -536,6 +536,7 @@ export interface ApiRequestServiceRequestService
     draftAndPublish: false;
   };
   attributes: {
+    approximateBudget: Schema.Attribute.Decimal;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -553,6 +554,7 @@ export interface ApiRequestServiceRequestService
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 1000;
       }>;
+    numberInvite: Schema.Attribute.Integer;
     provider: Schema.Attribute.Relation<'oneToOne', 'api::provider.provider'>;
     publishedAt: Schema.Attribute.DateTime;
     registerDate: Schema.Attribute.DateTime;

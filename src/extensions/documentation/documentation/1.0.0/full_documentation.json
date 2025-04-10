@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-04-09T20:58:23.932Z"
+    "x-generation-date": "2025-04-10T15:11:50.095Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -8748,6 +8748,13 @@
                 ],
                 "example": "string or id"
               },
+              "numberInvite": {
+                "type": "integer"
+              },
+              "approximateBudget": {
+                "type": "number",
+                "format": "float"
+              },
               "locale": {
                 "type": "string"
               },
@@ -9424,6 +9431,13 @@
               }
             }
           },
+          "numberInvite": {
+            "type": "integer"
+          },
+          "approximateBudget": {
+            "type": "number",
+            "format": "float"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -9512,6 +9526,13 @@
                       "type": "string"
                     }
                   }
+                },
+                "numberInvite": {
+                  "type": "integer"
+                },
+                "approximateBudget": {
+                  "type": "number",
+                  "format": "float"
                 },
                 "createdAt": {
                   "type": "string",
@@ -10944,6 +10965,13 @@
                     "type": "string"
                   }
                 }
+              },
+              "numberInvite": {
+                "type": "integer"
+              },
+              "approximateBudget": {
+                "type": "number",
+                "format": "float"
               },
               "createdAt": {
                 "type": "string",
