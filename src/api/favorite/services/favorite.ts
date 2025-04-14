@@ -5,13 +5,22 @@
 import { factories } from '@strapi/strapi';
 
 export default factories.createCoreService('api::favorite.favorite', ({ strapi }) => ({
-    async findFavorites() {
+    async findFavorites(params) {
         try {
+            const { page, limit } = params;
             const ctx = strapi.requestContext.get();
             const authenticatedUser = ctx?.state?.user?.id;
 
+            const pageNumber = parseInt(page);
+            const pageSize = parseInt(limit);
+
             if (!authenticatedUser) {
                 throw new Error('User not authenticated');
+            }
+
+            const pageLimit = {
+                start: (pageNumber - 1) * pageSize,
+                limit,
             }
             
             const favorites = await strapi.entityService.findMany('api::favorite.favorite', {
@@ -19,12 +28,26 @@ export default factories.createCoreService('api::favorite.favorite', ({ strapi }
                     userId: authenticatedUser,
                 },
                 populate: ['service'],
+                ...pageLimit,
+            });
+
+            const count = await strapi.db.query('api::favorite.favorite').count({
+                where: {
+                    userId: authenticatedUser,
+                }
             });
             
             if (!favorites || favorites.length === 0) {
                 return {
                     data: [],
                     message: 'Listado con exito',
+                    meta: {
+                        pagination: {
+                            page,
+                            pageSize: limit,
+                            total: 0,
+                        },
+                    },
                 };
             }
             
@@ -36,6 +59,13 @@ export default factories.createCoreService('api::favorite.favorite', ({ strapi }
                 return {
                     data: [],
                     message: 'Listado con exito',
+                    meta: {
+                        pagination: {
+                            page,
+                            pageSize: limit,
+                            total: 0,
+                        },
+                    },
                 };
             }
             
@@ -51,6 +81,13 @@ export default factories.createCoreService('api::favorite.favorite', ({ strapi }
             return {
                 data: services || [],
                 message: 'Listado con exito',
+                meta: {
+                    pagination: {
+                        page: parseInt(page),
+                        pageSize: parseInt(limit),
+                        total: count,
+                    },
+                },
             };
         } catch (error) {
             throw error;
