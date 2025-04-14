@@ -9,5 +9,9 @@ export default factories.createCoreController('api::request-service.request-serv
         const { data } = ctx.request.body;
         const result = await strapi.service('api::request-service.request-service').customCreate({ data });
         ctx.send(result);
+    },
+    async getRequestServices(ctx) {
+        const result = await strapi.service('api::request-service.request-service').getRequestServices(ctx.request.body);
+        ctx.send(result);
     }
 }));
