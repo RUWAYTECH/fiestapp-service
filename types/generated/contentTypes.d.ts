@@ -378,7 +378,7 @@ export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
     singularName: 'category';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     categoryImage: Schema.Attribute.Media<'images', true>;
@@ -416,7 +416,7 @@ export interface ApiFavoriteFavorite extends Struct.CollectionTypeSchema {
     singularName: 'favorite';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
@@ -446,7 +446,7 @@ export interface ApiProviderProvider extends Struct.CollectionTypeSchema {
     singularName: 'provider';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     address: Schema.Attribute.String &
@@ -577,7 +577,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     singularName: 'service';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     category: Schema.Attribute.Relation<'oneToOne', 'api::category.category'>;

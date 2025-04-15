@@ -107,7 +107,7 @@ export default factories.createCoreService('api::request-service.request-service
                         $in: requestServiceIds,
                     },
                 },
-                populate: ['requestService'] as any,
+                populate: ['requestService', 'service'] as any,
             } as any);
 
             return {
