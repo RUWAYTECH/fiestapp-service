@@ -1,4 +1,5 @@
 import { factories } from '@strapi/strapi';
+const emailUtils = require('../../../utils/email');
 
 export default factories.createCoreService('api::request-service.request-service', ({ strapi }) => ({
     async customCreate(params) {
@@ -8,6 +9,7 @@ export default factories.createCoreService('api::request-service.request-service
 
             const ctx = strapi.requestContext.get();
             const authenticatedUser = ctx?.state?.user?.id;
+            const authenticatedUserData = ctx?.state?.user;
             const createdService = await super.create({
                 data: {
                     ...data,
@@ -35,12 +37,23 @@ export default factories.createCoreService('api::request-service.request-service
 
             createdService.requestServiceDetail = createdDetails;
 
-            return createdService;
+            // await emailUtils.sendServiceRequestConfirmation(authenticatedUserData, createdService);
+            // const providerId = data.provider;
+            // const providerData = await strapi.entityService.findOne(
+            //     'api::provider.provider',
+            //     providerId,
+            //     {
+            //       populate: ['user'],
+            //     }
+            //   ) as any;
+            // await emailUtils.sendAdminNotification(providerData.user, createdService);
 
+            return createdService;
         } catch (error) {
             throw error;
         }
     },
+
     async getRequestServices(params) {
         try {
             const { page, limit } = params;
@@ -138,5 +151,58 @@ export default factories.createCoreService('api::request-service.request-service
         } catch (error) {
             throw error;
         }
+    },
+
+    async customUpdate(id, params) {
+        try {
+            const { data } = params;
+            const { requestServiceDetail } = data;
+            let finalPrice = 0;
+            const result = [];
+            if (requestServiceDetail && requestServiceDetail.length > 0) {
+                const details = Array.isArray(requestServiceDetail) ? requestServiceDetail : [requestServiceDetail];
+                let savedDetail;
+                for (const detail of details) {
+                    if (detail && typeof detail === 'object' && detail.priceFinal) {
+                        finalPrice += parseFloat(detail.priceFinal) * parseFloat(detail.quantity);
+                    }
+                    if (detail && typeof detail === 'object' && detail.id) {
+                        savedDetail = await strapi.entityService.update('api::request-service-detail.request-service-detail', detail.id, {
+                            data: {
+                                ...detail,
+                                requestService: id,
+                                service: detail.service,
+                            }
+                        });
+                    } else {
+                        savedDetail = await strapi.entityService.create('api::request-service-detail.request-service-detail', {
+                            data: {
+                                ...detail,
+                                requestService: id,
+                                service: detail.service,
+                            }
+                        });
+                    }
+                    result.push(savedDetail);
+                }
+            }
+            const updatedService = await strapi.entityService.update('api::request-service.request-service', id, {
+                data: {
+                    ...data,
+                    provider: data.provider,
+                    totalPriceFinal: finalPrice,
+                }
+            });
+            return {
+                data: {
+                    ...updatedService,
+                    requestServiceDetail: result,
+                },
+            }
+        } catch (error) {
+            throw error;
+        }
     }
+
 }));
+

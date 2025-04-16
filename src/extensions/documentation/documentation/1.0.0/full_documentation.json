@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-04-15T14:25:58.448Z"
+    "x-generation-date": "2025-04-16T16:05:48.295Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -7143,6 +7143,18 @@
                       }
                     }
                   },
+                  "socialNetwork": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "integer"
+                  },
+                  "businessAddress": {
+                    "type": "string"
+                  },
                   "createdAt": {
                     "type": "string",
                     "format": "date-time"
@@ -7969,6 +7981,18 @@
                 ],
                 "example": "string or id"
               },
+              "socialNetwork": {
+                "type": "string"
+              },
+              "website": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "integer"
+              },
+              "businessAddress": {
+                "type": "string"
+              },
               "locale": {
                 "type": "string"
               },
@@ -8553,6 +8577,18 @@
               }
             }
           },
+          "socialNetwork": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "integer"
+          },
+          "businessAddress": {
+            "type": "string"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -8627,6 +8663,18 @@
                       "type": "string"
                     }
                   }
+                },
+                "socialNetwork": {
+                  "type": "string"
+                },
+                "website": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "integer"
+                },
+                "businessAddress": {
+                  "type": "string"
                 },
                 "createdAt": {
                   "type": "string",
@@ -8723,7 +8771,8 @@
                 "enum": [
                   "Solicitado",
                   "En proceso",
-                  "Atendido"
+                  "Atendido",
+                  "Cancelado"
                 ]
               },
               "provider": {
@@ -8752,6 +8801,10 @@
                 "type": "integer"
               },
               "approximateBudget": {
+                "type": "number",
+                "format": "float"
+              },
+              "totalPriceFinal": {
                 "type": "number",
                 "format": "float"
               },
@@ -8839,7 +8892,8 @@
             "enum": [
               "Solicitado",
               "En proceso",
-              "Atendido"
+              "Atendido",
+              "Cancelado"
             ]
           },
           "provider": {
@@ -9367,6 +9421,18 @@
                   }
                 }
               },
+              "socialNetwork": {
+                "type": "string"
+              },
+              "website": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "integer"
+              },
+              "businessAddress": {
+                "type": "string"
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -9438,6 +9504,10 @@
             "type": "number",
             "format": "float"
           },
+          "totalPriceFinal": {
+            "type": "number",
+            "format": "float"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -9502,7 +9572,8 @@
                   "enum": [
                     "Solicitado",
                     "En proceso",
-                    "Atendido"
+                    "Atendido",
+                    "Cancelado"
                   ]
                 },
                 "provider": {
@@ -9531,6 +9602,10 @@
                   "type": "integer"
                 },
                 "approximateBudget": {
+                  "type": "number",
+                  "format": "float"
+                },
+                "totalPriceFinal": {
                   "type": "number",
                   "format": "float"
                 },
@@ -10261,6 +10336,18 @@
                       }
                     }
                   },
+                  "socialNetwork": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "integer"
+                  },
+                  "businessAddress": {
+                    "type": "string"
+                  },
                   "createdAt": {
                     "type": "string",
                     "format": "date-time"
@@ -10941,7 +11028,8 @@
                 "enum": [
                   "Solicitado",
                   "En proceso",
-                  "Atendido"
+                  "Atendido",
+                  "Cancelado"
                 ]
               },
               "provider": {
@@ -10970,6 +11058,10 @@
                 "type": "integer"
               },
               "approximateBudget": {
+                "type": "number",
+                "format": "float"
+              },
+              "totalPriceFinal": {
                 "type": "number",
                 "format": "float"
               },
@@ -11856,6 +11948,18 @@
                     }
                   }
                 }
+              },
+              "socialNetwork": {
+                "type": "string"
+              },
+              "website": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "integer"
+              },
+              "businessAddress": {
+                "type": "string"
               },
               "createdAt": {
                 "type": "string",
@@ -13886,6 +13990,18 @@
                         }
                       }
                     }
+                  },
+                  "socialNetwork": {
+                    "type": "string"
+                  },
+                  "website": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "integer"
+                  },
+                  "businessAddress": {
+                    "type": "string"
                   },
                   "createdAt": {
                     "type": "string",

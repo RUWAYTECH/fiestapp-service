@@ -17,6 +17,15 @@ export default {
         policies: [],
         middlewares: [],
       },
+    },
+    {
+      method: 'PUT',
+      path: '/request-services/custom-update/:id',
+      handler: 'request-service.customUpdate',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
     }
   ]
 }

@@ -453,6 +453,7 @@ export interface ApiProviderProvider extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 500;
       }>;
+    businessAddress: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -473,7 +474,9 @@ export interface ApiProviderProvider extends Struct.CollectionTypeSchema {
       Schema.Attribute.SetMinMaxLength<{
         maxLength: 150;
       }>;
+    phone: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
+    socialNetwork: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -481,6 +484,7 @@ export interface ApiProviderProvider extends Struct.CollectionTypeSchema {
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+    website: Schema.Attribute.String;
   };
 }
 
@@ -541,7 +545,7 @@ export interface ApiRequestServiceRequestService
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     entityStatus: Schema.Attribute.Enumeration<
-      ['Solicitado', 'En proceso', 'Atendido']
+      ['Solicitado', 'En proceso', 'Atendido', 'Cancelado']
     >;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -559,6 +563,7 @@ export interface ApiRequestServiceRequestService
     publishedAt: Schema.Attribute.DateTime;
     registerDate: Schema.Attribute.DateTime;
     totalPrice: Schema.Attribute.Decimal;
+    totalPriceFinal: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
