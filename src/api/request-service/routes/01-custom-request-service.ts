@@ -26,6 +26,15 @@ export default {
         policies: [],
         middlewares: [],
       },
+    },
+    {
+      method: 'GET',
+      path: '/request-services/get-request-service-by-provider',
+      handler: 'request-service.getRequestServiceByProvider',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
     }
   ]
 }

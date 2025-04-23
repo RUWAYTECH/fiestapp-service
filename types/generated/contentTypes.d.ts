@@ -462,6 +462,8 @@ export interface ApiProviderProvider extends Struct.CollectionTypeSchema {
         maxLength: 240;
       }>;
     email: Schema.Attribute.Email;
+    facebookUrl: Schema.Attribute.String;
+    instagramUrl: Schema.Attribute.String;
     isActive: Schema.Attribute.Boolean;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -476,7 +478,6 @@ export interface ApiProviderProvider extends Struct.CollectionTypeSchema {
       }>;
     phone: Schema.Attribute.Integer;
     publishedAt: Schema.Attribute.DateTime;
-    socialNetwork: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -577,6 +578,7 @@ export interface ApiRequestServiceRequestService
 export interface ApiServiceService extends Struct.CollectionTypeSchema {
   collectionName: 'services';
   info: {
+    description: '';
     displayName: 'Service';
     pluralName: 'services';
     singularName: 'service';
@@ -611,6 +613,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     provider: Schema.Attribute.Relation<'oneToOne', 'api::provider.provider'>;
     publishedAt: Schema.Attribute.DateTime;
     score: Schema.Attribute.Integer;
+    state: Schema.Attribute.Boolean;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

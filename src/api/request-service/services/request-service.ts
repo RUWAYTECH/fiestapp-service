@@ -202,7 +202,87 @@ export default factories.createCoreService('api::request-service.request-service
         } catch (error) {
             throw error;
         }
-    }
+    },
 
+    async getRequestServiceByProvider(params) {
+        try {
+            const { page, limit } = params;
+
+            const pageNumber = parseInt(page);
+            const pageSize = parseInt(limit);
+
+            const pageLimit = {
+                start: (pageNumber - 1) * pageSize,
+                limit,
+            }
+            const ctx = strapi.requestContext.get();
+            const authenticatedUser = ctx?.state?.user?.id;
+            const requestServiceDetail = await strapi.entityService.findMany('api::request-service-detail.request-service-detail', {
+                filters: {
+                    service: {
+                        provider: {
+                            user: {
+                                id: authenticatedUser,
+                            },
+                        },
+                    },
+                },
+                populate: {
+                    service: {
+                        populate: ['provider', 'provider.user'],
+                    },
+                    requestService: true,
+                },
+            });
+
+            const requestServiceIds = requestServiceDetail.map((detail: any) => detail.requestService.id);
+
+            const requestServices = await strapi.entityService.findMany('api::request-service.request-service', {
+                filters: {
+                    id: {
+                        $in: requestServiceIds,
+                    },
+                },
+                ...pageLimit,
+            });
+
+            const count = await strapi.db.query('api::request-service.request-service').count({
+                where: {
+                    id: {
+                        $in: requestServiceIds,
+                    },
+                }
+            });
+
+            return {
+                data: requestServices.map((service: any) => {
+                    const serviceDetails = requestServiceDetail
+                        .filter((detail: any) =>
+                            detail.requestService && detail.requestService.id === service.id
+                        )
+                        .map((detail: any) => {
+                            const { requestService, ...detailWithoutRequestService } = detail;
+                            return detailWithoutRequestService;
+                        });
+
+                    return {
+                        ...service,
+                        requestServiceDetails: serviceDetails,
+                    };
+                }),
+                message: 'Listado con exito',
+                meta: {
+                    pagination: {
+                        page: parseInt(page),
+                        pageSize: parseInt(limit),
+                        total: count,
+                    },
+                },
+            };
+
+        } catch (error) {
+            throw error;
+        }
+    }
 }));
 

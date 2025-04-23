@@ -35,7 +35,7 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "socialNetwork": {
+    "facebookUrl": {
       "type": "string"
     },
     "website": {
@@ -45,6 +45,9 @@
       "type": "integer"
     },
     "businessAddress": {
+      "type": "string"
+    },
+    "instagramUrl": {
       "type": "string"
     }
   }

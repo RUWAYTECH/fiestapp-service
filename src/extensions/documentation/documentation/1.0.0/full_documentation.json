@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2025-04-16T16:05:48.295Z"
+    "x-generation-date": "2025-04-23T14:08:02.485Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -7143,7 +7143,7 @@
                       }
                     }
                   },
-                  "socialNetwork": {
+                  "facebookUrl": {
                     "type": "string"
                   },
                   "website": {
@@ -7153,6 +7153,9 @@
                     "type": "integer"
                   },
                   "businessAddress": {
+                    "type": "string"
+                  },
+                  "instagramUrl": {
                     "type": "string"
                   },
                   "createdAt": {
@@ -7757,6 +7760,9 @@
                   }
                 }
               },
+              "state": {
+                "type": "boolean"
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -7981,7 +7987,7 @@
                 ],
                 "example": "string or id"
               },
-              "socialNetwork": {
+              "facebookUrl": {
                 "type": "string"
               },
               "website": {
@@ -7991,6 +7997,9 @@
                 "type": "integer"
               },
               "businessAddress": {
+                "type": "string"
+              },
+              "instagramUrl": {
                 "type": "string"
               },
               "locale": {
@@ -8577,7 +8586,7 @@
               }
             }
           },
-          "socialNetwork": {
+          "facebookUrl": {
             "type": "string"
           },
           "website": {
@@ -8587,6 +8596,9 @@
             "type": "integer"
           },
           "businessAddress": {
+            "type": "string"
+          },
+          "instagramUrl": {
             "type": "string"
           },
           "createdAt": {
@@ -8664,7 +8676,7 @@
                     }
                   }
                 },
-                "socialNetwork": {
+                "facebookUrl": {
                   "type": "string"
                 },
                 "website": {
@@ -8674,6 +8686,9 @@
                   "type": "integer"
                 },
                 "businessAddress": {
+                  "type": "string"
+                },
+                "instagramUrl": {
                   "type": "string"
                 },
                 "createdAt": {
@@ -9421,7 +9436,7 @@
                   }
                 }
               },
-              "socialNetwork": {
+              "facebookUrl": {
                 "type": "string"
               },
               "website": {
@@ -9431,6 +9446,9 @@
                 "type": "integer"
               },
               "businessAddress": {
+                "type": "string"
+              },
+              "instagramUrl": {
                 "type": "string"
               },
               "createdAt": {
@@ -10336,7 +10354,7 @@
                       }
                     }
                   },
-                  "socialNetwork": {
+                  "facebookUrl": {
                     "type": "string"
                   },
                   "website": {
@@ -10346,6 +10364,9 @@
                     "type": "integer"
                   },
                   "businessAddress": {
+                    "type": "string"
+                  },
+                  "instagramUrl": {
                     "type": "string"
                   },
                   "createdAt": {
@@ -10950,6 +10971,9 @@
                   }
                 }
               },
+              "state": {
+                "type": "boolean"
+              },
               "createdAt": {
                 "type": "string",
                 "format": "date-time"
@@ -11337,6 +11361,9 @@
                   }
                 ],
                 "example": "string or id"
+              },
+              "state": {
+                "type": "boolean"
               },
               "locale": {
                 "type": "string"
@@ -11949,7 +11976,7 @@
                   }
                 }
               },
-              "socialNetwork": {
+              "facebookUrl": {
                 "type": "string"
               },
               "website": {
@@ -11959,6 +11986,9 @@
                 "type": "integer"
               },
               "businessAddress": {
+                "type": "string"
+              },
+              "instagramUrl": {
                 "type": "string"
               },
               "createdAt": {
@@ -12563,6 +12593,9 @@
               }
             }
           },
+          "state": {
+            "type": "boolean"
+          },
           "createdAt": {
             "type": "string",
             "format": "date-time"
@@ -12781,6 +12814,9 @@
                       "type": "string"
                     }
                   }
+                },
+                "state": {
+                  "type": "boolean"
                 },
                 "createdAt": {
                   "type": "string",
@@ -13991,7 +14027,7 @@
                       }
                     }
                   },
-                  "socialNetwork": {
+                  "facebookUrl": {
                     "type": "string"
                   },
                   "website": {
@@ -14001,6 +14037,9 @@
                     "type": "integer"
                   },
                   "businessAddress": {
+                    "type": "string"
+                  },
+                  "instagramUrl": {
                     "type": "string"
                   },
                   "createdAt": {
@@ -14604,6 +14643,9 @@
                     }
                   }
                 }
+              },
+              "state": {
+                "type": "boolean"
               },
               "createdAt": {
                 "type": "string",
