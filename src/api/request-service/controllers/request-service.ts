@@ -61,10 +61,12 @@ export default factories.createCoreController('api::request-service.request-serv
           pageSize = parseInt(pagination.pageSize, 10) || 10;
         }
       }
-
+      const filters = ctx.query.filters || {};
+      
       const result = await strapi.service('api::request-service.request-service').getRequestServiceByProvider({
         page,
-        limit: pageSize
+        limit: pageSize,
+        filters,
       });
 
       return ctx.send(result);

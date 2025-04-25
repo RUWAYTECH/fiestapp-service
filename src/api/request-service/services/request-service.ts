@@ -206,7 +206,7 @@ export default factories.createCoreService('api::request-service.request-service
 
     async getRequestServiceByProvider(params) {
         try {
-            const { page, limit } = params;
+            const { page, limit, filters: extraFilters = {} } = params;
 
             const pageNumber = parseInt(page);
             const pageSize = parseInt(limit);
@@ -229,21 +229,24 @@ export default factories.createCoreService('api::request-service.request-service
                 },
                 populate: {
                     service: {
-                        populate: ['provider', 'provider.user'],
+                        populate: ['provider', 'provider.user', 'fileImage'],
                     },
                     requestService: true,
                 },
             });
 
             const requestServiceIds = requestServiceDetail.map((detail: any) => detail.requestService.id);
+            const filters = {
+                id: {
+                    $in: requestServiceIds,
+                },
+                ...extraFilters,
+            };
 
             const requestServices = await strapi.entityService.findMany('api::request-service.request-service', {
-                filters: {
-                    id: {
-                        $in: requestServiceIds,
-                    },
-                },
+                filters,
                 ...pageLimit,
+                populate: ['user'],
             });
 
             const count = await strapi.db.query('api::request-service.request-service').count({

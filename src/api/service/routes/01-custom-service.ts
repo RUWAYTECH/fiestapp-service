@@ -17,6 +17,33 @@ export default {
         policies: [],
         middlewares: [],
       },
+    },
+    {
+      method: 'GET',
+      path: '/services/service-by-id/:id',
+      handler: 'service.serviceById',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
+    {
+      method: 'PUT',
+      path: '/services/custom-update/:id',
+      handler: 'service.customUpdate',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
+    {
+      method: 'GET',
+      path: '/services/get-services-by-filters',
+      handler: 'service.getServicesByFilters',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
     }
   ]
 }
