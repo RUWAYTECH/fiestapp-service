@@ -563,6 +563,10 @@ export interface ApiRequestServiceRequestService
     provider: Schema.Attribute.Relation<'oneToOne', 'api::provider.provider'>;
     publishedAt: Schema.Attribute.DateTime;
     registerDate: Schema.Attribute.DateTime;
+    service_payments: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-payment.service-payment'
+    >;
     totalPrice: Schema.Attribute.Decimal;
     totalPriceFinal: Schema.Attribute.Decimal;
     updatedAt: Schema.Attribute.DateTime;
@@ -572,6 +576,45 @@ export interface ApiRequestServiceRequestService
       'oneToOne',
       'plugin::users-permissions.user'
     >;
+  };
+}
+
+export interface ApiServicePaymentServicePayment
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'service_payments';
+  info: {
+    displayName: 'servicePayment';
+    pluralName: 'service-payments';
+    singularName: 'service-payment';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    amount: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service-payment.service-payment'
+    > &
+      Schema.Attribute.Private;
+    paymentDate: Schema.Attribute.DateTime;
+    paymentImage: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios',
+      true
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    request_service: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::request-service.request-service'
+    >;
+    transferNumber: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
   };
 }
 
@@ -660,7 +703,7 @@ export interface ApiUbigeoUbigeo extends Struct.CollectionTypeSchema {
     singularName: 'ubigeo';
   };
   options: {
-    draftAndPublish: true;
+    draftAndPublish: false;
   };
   attributes: {
     code: Schema.Attribute.String &
@@ -1199,6 +1242,7 @@ declare module '@strapi/strapi' {
       'api::provider.provider': ApiProviderProvider;
       'api::request-service-detail.request-service-detail': ApiRequestServiceDetailRequestServiceDetail;
       'api::request-service.request-service': ApiRequestServiceRequestService;
+      'api::service-payment.service-payment': ApiServicePaymentServicePayment;
       'api::service.service': ApiServiceService;
       'api::ubigeo-service.ubigeo-service': ApiUbigeoServiceUbigeoService;
       'api::ubigeo.ubigeo': ApiUbigeoUbigeo;

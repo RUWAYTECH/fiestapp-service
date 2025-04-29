@@ -49,6 +49,12 @@
     },
     "totalPriceFinal": {
       "type": "decimal"
+    },
+    "service_payments": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service-payment.service-payment",
+      "mappedBy": "request_service"
     }
   }
 }

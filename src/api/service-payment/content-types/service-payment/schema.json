@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "service_payments",
+  "info": {
+    "singularName": "service-payment",
+    "pluralName": "service-payments",
+    "displayName": "servicePayment"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "amount": {
+      "type": "decimal"
+    },
+    "paymentDate": {
+      "type": "datetime"
+    },
+    "request_service": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::request-service.request-service",
+      "inversedBy": "service_payments"
+    },
+    "transferNumber": {
+      "type": "integer"
+    },
+    "paymentImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    }
+  }
+}
