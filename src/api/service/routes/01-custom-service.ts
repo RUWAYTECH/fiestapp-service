@@ -44,6 +44,24 @@ export default {
         policies: [],
         middlewares: [],
       },
+    },
+    {
+      method: 'PATCH',
+      path: '/services/change-state/:id',
+      handler: 'service.changeState',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
+    {
+      method: 'DELETE',
+      path: '/services/custom-delete/:id',
+      handler: 'service.customDelete',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
     }
   ]
 }

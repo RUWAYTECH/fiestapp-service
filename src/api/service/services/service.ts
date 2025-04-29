@@ -89,6 +89,23 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
             const { data } = params;
             const { ubigeos } = data;
 
+            if (ubigeos && ubigeos.length > 0) {
+                const existingUbigeos = await strapi.entityService.findMany('api::ubigeo.ubigeo', {
+                    filters: {
+                        id: {
+                            $in: ubigeos
+                        }
+                    }
+                });
+
+                if (existingUbigeos.length !== ubigeos.length) {
+                    const existingUbigeoIds = existingUbigeos.map(ubigeo => ubigeo.id);
+                    const nonExistingUbigeoIds = ubigeos.filter(id => !existingUbigeoIds.includes(id));
+
+                    throw new Error(`Los siguientes ubigeos no existen: ${nonExistingUbigeoIds.join(', ')}`);
+                }
+            }
+
             const ctx = strapi.requestContext.get();
             const authenticatedUser = ctx?.state?.user?.id;
             const existingProvider = await strapi.entityService.findMany('api::provider.provider', {
@@ -97,8 +114,14 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                         id: authenticatedUser,
                     },
                 },
-            })
+            });
+
+            if (!existingProvider || existingProvider.length === 0) {
+                throw new Error('No se encontró un proveedor asociado al usuario autenticado');
+            }
+
             data.provider = existingProvider[0].id;
+
             const serviceCreate = await super.create({
                 data: {
                     ...data,
@@ -123,7 +146,12 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                 ubigeoServices: createUbigeoServices,
             };
         } catch (error) {
-            throw error;
+            if (error.message.includes('ubigeos no existen')) {
+                throw error;
+            } else {
+                console.error('Error al crear el servicio:', error);
+                throw new Error('Ocurrió un error al crear el servicio. Verifica los datos proporcionados.');
+            }
         }
     },
 
@@ -142,7 +170,7 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                     },
                     id,
                 },
-                populate: ['provider', 'provider.user', 'fileImage'],
+                populate: ['provider', 'provider.user', 'fileImage', 'category'],
             });
 
             const ubigeoServices = await strapi.entityService.findMany('api::ubigeo-service.ubigeo-service', {
@@ -211,8 +239,7 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
     },
     async getServicesByFilters(params) {
         try {
-            const { page, limit, filters = {} } = params;
-            console.log(filters);
+            const { page, limit, filters = {}, sort } = params;
             const pageNumber = parseInt(page);
             const pageSize = parseInt(limit);
 
@@ -221,42 +248,92 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                 limit: pageSize,
             };
 
-            const hasUbigeoServiceFilter =
-                filters?.ubigeoService?.ubigeo?.id?.$eq !== undefined;
+            const hasUbigeoFilter =
+                filters?.ubigeoService?.ubigeo?.id?.$eq !== undefined ||
+                filters?.ubigeoService?.ubigeo?.id?.$in !== undefined;
 
-            if (hasUbigeoServiceFilter) {
+            if (hasUbigeoFilter) {
                 const { ubigeo } = filters.ubigeoService;
-                const ubigeoId = ubigeo.id.$eq;
+                let ubigeoIds = [];
 
-                const ubigeoService = await strapi.entityService.findMany(
+                if (ubigeo.id.$eq !== undefined) {
+                    ubigeoIds = [parseInt(ubigeo.id.$eq)];
+                } else if (ubigeo.id.$in !== undefined) {
+                    const inValue = ubigeo.id.$in;
+
+                    if (typeof inValue === 'string') {
+                        ubigeoIds = inValue.includes(',')
+                            ? inValue.split(',').map(id => parseInt(id.trim()))
+                            : [parseInt(inValue)];
+                    } else if (Array.isArray(inValue)) {
+                        ubigeoIds = inValue.map(id => parseInt(id));
+                    } else {
+                        ubigeoIds = [parseInt(inValue)];
+                    }
+                }
+
+                const ubigeoServices = await strapi.entityService.findMany(
                     'api::ubigeo-service.ubigeo-service',
                     {
                         filters: {
                             ubigeo: {
-                                id: ubigeoId,
+                                id: {
+                                    $in: ubigeoIds
+                                }
                             },
                         },
                         populate: ['service'],
                     }
                 ) as any;
-                let filtersService = {};
-                if (ubigeoService.length > 0) {
-                    const serviceIds = ubigeoService.map(
-                        (item) => item?.service?.id
-                    ).filter(Boolean);
-                    filtersService = {
-                        id: {
-                            $in: serviceIds,
+
+                if (ubigeoServices.length === 0) {
+                    return {
+                        data: [],
+                        message: 'No se encontraron servicios para los ubigeos especificados',
+                        meta: {
+                            pagination: {
+                                page: pageNumber,
+                                pageSize,
+                                total: 0,
+                            },
                         },
                     };
                 }
 
+                const serviceIds = [...new Set(
+                    ubigeoServices
+                        .map(item => item?.service?.id)
+                        .filter(Boolean)
+                )];
+
+                if (serviceIds.length === 0) {
+                    return {
+                        data: [],
+                        message: 'No se encontraron servicios para los ubigeos especificados',
+                        meta: {
+                            pagination: {
+                                page: pageNumber,
+                                pageSize,
+                                total: 0,
+                            },
+                        },
+                    };
+                }
+
+                const { ubigeoService: _, ...otherFilters } = filters;
+
+                const combinedFilters = {
+                    ...(serviceIds.length > 0 ? { id: { $in: serviceIds } } : {}),
+                    ...otherFilters
+                };
+
                 const getServices = await strapi.entityService.findMany(
                     'api::service.service',
                     {
-                        filters: filtersService,
+                        filters: combinedFilters,
                         populate: ['provider', 'provider.user', 'fileImage'],
                         ...pageLimit,
+                        sort,
                     }
                 );
 
@@ -270,7 +347,7 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                         pagination: {
                             page: pageNumber,
                             pageSize,
-                            total: 0,
+                            total: getServices.length,
                         },
                     },
                 };
@@ -282,6 +359,7 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                     filters,
                     populate: ['provider', 'provider.user', 'fileImage'],
                     ...pageLimit,
+                    sort,
                 }
             );
 
@@ -295,12 +373,81 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                     pagination: {
                         page: pageNumber,
                         pageSize,
-                        total: 0,
+                        total: getServices.length,
                     },
                 },
             };
         } catch (error) {
             throw error;
         }
-    }
+    },
+    async changeState(params) {
+        try {
+            const { id, status } = params;
+            const ctx = strapi.requestContext.get();
+            const authenticatedUser = ctx?.state?.user?.id;
+
+            const service = await strapi.entityService.findOne('api::service.service', id, {
+                filters: {
+                    provider: {
+                        user: {
+                            id: authenticatedUser,
+                        },
+                    },
+                    id,
+                },
+                populate: ['provider', 'provider.user'],
+            });
+
+            if (!service) {
+                throw new Error('Service not found');
+            }
+
+            await strapi.entityService.update('api::service.service', id, {
+                data: {
+                    state: status,
+                },
+                populate: ['provider', 'provider.user'],
+            });
+
+            return {
+                data: service,
+                message: 'Service status changed successfully',
+            };
+        } catch (error) {
+            throw error;
+        }
+    },
+    async customDelete(req, res) {
+        try {
+            const { id } = req.params;
+            const ctx = strapi.requestContext.get();
+            const authenticatedUser = ctx?.state?.user?.id;
+
+            const service = await strapi.entityService.findOne('api::service.service', id, {
+                filters: {
+                    provider: {
+                        user: {
+                            id: authenticatedUser,
+                        },
+                    },
+                    id,
+                },
+                populate: ['provider', 'provider.user'],
+            });
+
+            if (!service) {
+                throw new Error('Service not found');
+            }
+
+            await strapi.entityService.delete('api::service.service', id);
+
+            return {
+                data: service,
+                message: 'Service deleted successfully',
+            };
+        } catch (error) {
+            throw error;
+        }
+    },
 }));

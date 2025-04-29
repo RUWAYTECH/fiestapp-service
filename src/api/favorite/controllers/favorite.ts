@@ -31,5 +31,16 @@ export default factories.createCoreController('api::favorite.favorite', ({ strap
         } catch (error) {
             return ctx.badRequest(error.message);
         }
+    },
+    async customDelete(ctx) {
+        try {
+            const { id } = ctx.params;
+            
+            const result = await strapi.service('api::favorite.favorite').customDelete(id);
+            
+            return ctx.send(result);
+        } catch (error) {
+            return ctx.badRequest(error.message);
+        }
     }
 }));

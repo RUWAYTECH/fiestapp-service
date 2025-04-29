@@ -93,4 +93,31 @@ export default factories.createCoreService('api::favorite.favorite', ({ strapi }
             throw error;
         }
     },
+
+    async customDelete(id) {
+        try {
+            const ctx = strapi.requestContext.get();
+            const authenticatedUser = ctx?.state?.user?.id;
+
+            const favorite = await strapi.entityService.findOne('api::favorite.favorite', id, {
+                filters: {
+                    userId: authenticatedUser,
+                },
+                populate: ['service'],
+            });
+
+            if (!favorite) {
+                throw new Error('Favorite not found');
+            }
+
+            await strapi.entityService.delete('api::favorite.favorite', id);
+
+            return {
+                data: favorite,
+                message: 'Favorite deleted successfully',
+            };
+        } catch (error) {
+            throw error;
+        }
+    },
 }));

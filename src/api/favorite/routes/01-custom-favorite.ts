@@ -8,6 +8,15 @@ export default {
           policies: [],
           middlewares: [],
         },
+      },
+      {
+        method: 'DELETE',
+        path: '/favorites/delete-favorite/:id',
+        handler: 'favorite.customDelete',
+        config: {
+          policies: [],
+          middlewares: [],
+        },
       }
     ]
   }
