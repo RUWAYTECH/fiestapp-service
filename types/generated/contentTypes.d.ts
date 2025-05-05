@@ -656,7 +656,7 @@ export interface ApiServiceService extends Struct.CollectionTypeSchema {
     provider: Schema.Attribute.Relation<'oneToOne', 'api::provider.provider'>;
     publishedAt: Schema.Attribute.DateTime;
     score: Schema.Attribute.Integer;
-    state: Schema.Attribute.Boolean;
+    state: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

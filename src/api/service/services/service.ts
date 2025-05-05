@@ -383,7 +383,7 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
     },
     async changeState(params) {
         try {
-            const { id, status } = params;
+            const { id } = params;
             const ctx = strapi.requestContext.get();
             const authenticatedUser = ctx?.state?.user?.id;
 
@@ -398,6 +398,8 @@ export default factories.createCoreService('api::service.service', ({ strapi }) 
                 },
                 populate: ['provider', 'provider.user'],
             });
+
+            const status = !service.state;
 
             if (!service) {
                 throw new Error('Service not found');

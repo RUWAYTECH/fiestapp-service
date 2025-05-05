@@ -99,10 +99,8 @@ export default factories.createCoreController('api::service.service', ({ strapi 
   async changeState(ctx) {
     try {
       const { id } = ctx.params;
-      const { status } = ctx.request.body;
       const result = await strapi.service('api::service.service').changeState({
         id,
-        status,
       });
       return ctx.send(result);
     } catch (error) {

@@ -49,7 +49,8 @@
       "target": "api::category.category"
     },
     "state": {
-      "type": "boolean"
+      "type": "boolean",
+      "default": true
     }
   }
 }
