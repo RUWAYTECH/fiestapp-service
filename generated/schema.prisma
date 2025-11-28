@@ -1,0 +1,216 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum AuthProvider {
+  LOCAL
+  GOOGLE
+  FACEBOOK
+}
+
+enum ImageEntityType {
+  SERVICE
+  PROVIDER
+}
+
+enum RequestStatus {
+  REQUESTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id           String       @id @default(cuid()) @db.VarChar(36)
+  name         String       @db.VarChar(255)
+  email        String       @unique @db.VarChar(255)
+  phone        String       @db.VarChar(20)
+  picture      String       @db.VarChar(255)
+  password     String       @db.VarChar(255)
+  role         Role
+  authProvider AuthProvider
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  provider Provider?
+
+  favorites Favorite[]
+
+  requests Request[]
+}
+
+model Provider {
+  id          String   @id @db.VarChar(36)
+  name        String   @db.VarChar(255)
+  description String   @db.Text
+  picture     String   @db.VarChar(255)
+  address     String   @db.VarChar(300)
+  email       String   @db.VarChar(255)
+  website     String   @db.VarChar(255)
+  phone       String   @db.VarChar(20)
+  facebook    String   @db.VarChar(255)
+  instagram   String   @db.VarChar(255)
+  status      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [id], references: [id])
+
+  services Service[]
+
+  requests Request[]
+}
+
+model Category {
+  id          String   @id @default(cuid()) @db.VarChar(36)
+  name        String   @db.VarChar(255)
+  description String   @db.Text
+  image       String   @db.VarChar(255)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  services Service[]
+}
+
+model Service {
+  id          String   @id @default(cuid()) @db.VarChar(36)
+  name        String   @db.VarChar(255)
+  description String   @db.Text
+  priceMin    Float
+  priceMax    Float
+  score       Float
+  duration    Int?
+  status      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  providerId String   @db.VarChar(36)
+  provider   Provider @relation(fields: [providerId], references: [id])
+
+  categoryId String   @db.VarChar(36)
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  favorites Favorite[]
+
+  ubigeoServices UbigeoService[]
+
+  images ServiceImage[]
+}
+
+model ServiceImage {
+  id        String   @id @default(cuid()) @db.VarChar(36)
+  publicId  String   @db.VarChar(255)
+  url       String   @db.VarChar(255)
+  name      String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  serviceId String  @db.VarChar(36)
+  service   Service @relation(fields: [serviceId], references: [id])
+}
+
+model Favorite {
+  id        String   @id @default(cuid()) @db.VarChar(36)
+  createdAt DateTime @default(now())
+
+  userId String @db.VarChar(36)
+  user   User   @relation(fields: [userId], references: [id])
+
+  serviceId String  @db.VarChar(36)
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  @@unique([userId, serviceId])
+}
+
+// Request and related models
+
+model Request {
+  id           String        @id @default(uuid()) @db.VarChar(36)
+  guestQty     Int // Number of guests
+  budgetAmount Float // Budget amount (client's budget)
+  finalPrice   Float // Final agreed price
+  eventDate    DateTime // Date of the requested service/event
+  status       RequestStatus
+  comment      String        @db.Text
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  userId String @db.VarChar(36)
+  user   User   @relation(fields: [userId], references: [id])
+
+  providerId String   @db.VarChar(36)
+  provider   Provider @relation(fields: [providerId], references: [id])
+
+  items RequestItem[]
+
+  payment RequestPayment?
+}
+
+model RequestItem {
+  id       String @id @default(uuid()) @db.VarChar(36)
+  quantity Int
+  price    Float
+  total    Float
+  comment  String @db.Text
+
+  serviceId String @db.VarChar(36)
+  service   Json   @db.Json
+
+  requestId String  @db.VarChar(36)
+  request   Request @relation(fields: [requestId], references: [id])
+}
+
+model RequestPayment {
+  id             String    @id @db.VarChar(36)
+  amount         Float
+  method         String    @db.VarChar(50)
+  image          String    @db.VarChar(255)
+  transferNumber String    @db.VarChar(100)
+  paidAt         DateTime?
+
+  request Request @relation(fields: [id], references: [id])
+}
+
+// ubigeo
+model Ubigeo {
+  id         String   @id @default(cuid()) @db.VarChar(36)
+  code       String   @unique @db.VarChar(6)
+  district   String   @db.VarChar(200)
+  province   String   @db.VarChar(200)
+  department String   @db.VarChar(200)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  ubigeoServices UbigeoService[]
+}
+
+model UbigeoService {
+  id        String @id @default(cuid()) @db.VarChar(36)
+  latitude  Float?
+  longitude Float?
+
+  serviceId String  @db.VarChar(36)
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  ubigeoId String @db.VarChar(36)
+  ubigeo   Ubigeo @relation(fields: [ubigeoId], references: [id])
+
+  @@unique([ubigeoId, serviceId])
+}
