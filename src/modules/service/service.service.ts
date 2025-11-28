@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { ServiceRepository } from './service.repository';
 import { CloudinaryService } from '@external/cloudinary.service';
 import { ServiceGetAllReqDto } from './dto/requests/service-get-all-req.dto';
@@ -77,7 +77,13 @@ export class ServiceService {
 	}
 
 	async userCreate(data: ServiceUserCreateReqDto, userId: string) {
-		// TODO: Verify provider existence
+		const existingService = await this.prismaService.provider.findUnique({
+			where: { id: userId }
+		});
+
+		if (!existingService) {
+			throw new ForbiddenException(ResponseBuilder.error(null, ['No tienes permisos para crear un servicio']));
+		}
 
 		await this.prismaService.service.create({
 			data: {
