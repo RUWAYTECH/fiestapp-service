@@ -20,7 +20,7 @@ export class RequestResDto extends RequestCommonDto {
 	status: RequestStatus;
 
 	@ApiProperty()
-	priceFinal: number | null;
+	finalPrice: number | null;
 
 	@ApiProperty({ type: Date })
 	createdAt: Date;

@@ -21,7 +21,9 @@ export class RequestRepository {
 		cursor?: Prisma.RequestWhereUniqueInput;
 		where?: Prisma.RequestWhereInput;
 		orderBy?: Prisma.RequestOrderByWithRelationInput;
-	}): Promise<[Prisma.RequestGetPayload<{ include: { provider: true; user: true; payment: true } }>[], number]> {
+	}): Promise<
+		[Prisma.RequestGetPayload<{ include: { provider: true; user: true; payment: true; items: true } }>[], number]
+	> {
 		const { skip, take, cursor, where, orderBy } = params || {};
 		const [data, count] = await this.prismaService.$transaction([
 			this.prismaService.request.findMany({
@@ -29,7 +31,7 @@ export class RequestRepository {
 				take,
 				cursor,
 				where,
-				include: { provider: true, user: true, payment: true },
+				include: { provider: true, user: true, payment: true, items: true },
 				orderBy
 			}),
 			this.prismaService.request.count({ where })

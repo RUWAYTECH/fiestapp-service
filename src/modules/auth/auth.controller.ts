@@ -5,6 +5,10 @@ import { AuthService } from './auth.service';
 import { CredentialSignInReqDto, ProviderSignInReqDto, UserSignInResDto } from './dto/user-signin.dto';
 import { CredentialSignUpReqDto } from './dto/user-signup.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { ChangePasswordDto } from './dto/change-password.dto';
+import { AuthUser } from '@common/decorators/auth.decorator';
+import { Roles } from '@common/decorators/role.decorator';
+import { UserRoleEnum } from '@common/constants/user-role';
 
 @Controller('auth')
 @ApiTags('Authentication')
@@ -30,5 +34,12 @@ export class AuthController {
 	@ResponseDoc(UserSignInResDto)
 	signInWithSocial(@Body() data: ProviderSignInReqDto) {
 		return this.authService.socialSignIn(data.token, data.provider);
+	}
+
+	@Post('change-password')
+	@ResponseDoc(null)
+	@Roles(UserRoleEnum.USER)
+	changePassword(@Body() data: ChangePasswordDto, @AuthUser('sub') userId: string) {
+		return this.authService.changePassword(data, userId);
 	}
 }

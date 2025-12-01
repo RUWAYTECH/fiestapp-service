@@ -1,6 +1,6 @@
 import { AuthProviderEnum } from '@common/constants/auth-provider';
 import { UserResDto } from '@modules/user/dto/responses/user-res.dto';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CredentialSignInReqDto {
 	@ApiProperty()
@@ -8,9 +8,6 @@ export class CredentialSignInReqDto {
 
 	@ApiProperty()
 	password: string;
-
-	@ApiPropertyOptional()
-	scope?: 'PROVIDER' | 'USER';
 }
 
 export class UserSignInResDto {

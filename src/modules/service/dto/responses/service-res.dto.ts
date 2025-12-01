@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ServiceCommonDto } from '../service-common.dto';
 import { ProviderUserResDto } from '@modules/provider/dto/responses/provider-res.dto';
+import { UbigeoResDto } from '@modules/ubigeo/dto/ubigeo-res.dto';
 
 export class ServiceResDto extends ServiceCommonDto {
 	@ApiProperty()
@@ -11,6 +12,11 @@ export class ServiceResDto extends ServiceCommonDto {
 
 	@ApiProperty({ type: [String] })
 	images: string[];
+}
+
+export class ServiceWithUbigeoResDto extends ServiceResDto {
+	@ApiProperty({ type: [UbigeoResDto] })
+	ubigeos: UbigeoResDto[];
 }
 
 export class ServiceListResDto extends ServiceResDto {}

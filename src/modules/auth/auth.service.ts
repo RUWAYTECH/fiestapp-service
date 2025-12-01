@@ -1,6 +1,6 @@
 import { ResponseBuilder } from '@common/utils/response-builder';
 import { UserRepository } from '@modules/user/user.repository';
-import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { CredentialSignInReqDto, UserSignInResDto } from './dto/user-signin.dto';
 import { ResponseDto } from '@common/dtos/response.dto';
@@ -11,6 +11,7 @@ import { config } from '@conf/index';
 import { OAuth2Client } from 'google-auth-library';
 import { UserRoleEnum } from '@common/constants/user-role';
 import { CredentialSignUpReqDto } from './dto/user-signup.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -25,7 +26,7 @@ export class AuthService {
 		const isPasswordValid = user === null ? false : await bcrypt.compare(data.password, user.password);
 
 		if (!user || !isPasswordValid) {
-			throw new UnauthorizedException(ResponseBuilder.error<null>(null, ['Invalid email or password']));
+			throw new UnauthorizedException(ResponseBuilder.error(null, ['Invalid email or password']));
 		}
 
 		//TODO: Add scope handling logic
@@ -41,7 +42,7 @@ export class AuthService {
 		let user = await this.userRepository.findByEmail(data.email);
 
 		if (user) {
-			throw new BadRequestException(ResponseBuilder.error<null>(null, ['Email already in use']));
+			throw new BadRequestException(ResponseBuilder.error(null, ['Email already in use']));
 		}
 
 		const hashedPassword = await bcrypt.hash(data.password, 10);
@@ -71,6 +72,32 @@ export class AuthService {
 		}
 
 		throw new BadRequestException(ResponseBuilder.error(null, ['Unsupported social provider']));
+	}
+
+	async changePassword(data: ChangePasswordDto, userId: string): Promise<ResponseDto<null>> {
+		const user = await this.userRepository.findById(userId);
+
+		if (!user) {
+			throw new UnauthorizedException(ResponseBuilder.error(null, ['User not found']));
+		}
+
+		if (user.authProvider !== AuthProviderEnum.LOCAL) {
+			throw new ForbiddenException(
+				ResponseBuilder.error(null, ['Password change is only available for local accounts'])
+			);
+		}
+
+		const isCurrentPasswordValid = await bcrypt.compare(data.currentPassword, user.password);
+
+		if (!isCurrentPasswordValid) {
+			throw new BadRequestException(ResponseBuilder.error(null, ['Current password is incorrect']));
+		}
+
+		const newHashedPassword = await bcrypt.hash(data.newPassword, 10);
+
+		await this.userRepository.update(userId, { password: newHashedPassword });
+
+		return ResponseBuilder.build(null, ['Password changed successfully']);
 	}
 
 	private async googleSignIn(idToken: string) {

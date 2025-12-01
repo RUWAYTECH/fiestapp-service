@@ -1,18 +1,15 @@
-import { ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ServiceRepository } from './service.repository';
-import { CloudinaryService } from '@external/cloudinary.service';
 import { ServiceGetAllReqDto } from './dto/requests/service-get-all-req.dto';
 import { Mapper } from '@common/utils/mapper';
 import { ServiceListResDto, ServiceResDto } from './dto/responses/service-res.dto';
 import { ResponseBuilder } from '@common/utils/response-builder';
-import { ServiceUserCreateReqDto } from './dto/requests/service-req.dto';
 import { PrismaService } from '@db/prisma/prisma.service';
 
 @Injectable()
 export class ServiceService {
 	constructor(
 		private readonly serviceRepository: ServiceRepository,
-		private readonly cloudinaryService: CloudinaryService,
 		private readonly prismaService: PrismaService
 	) {}
 
@@ -30,7 +27,7 @@ export class ServiceService {
 			...filters,
 			where: {
 				name: query?.search ? { contains: query.search } : undefined,
-				status: query?.status != undefined ? Boolean(query.status) : undefined,
+				status: true,
 				categoryId: query?.categoryId
 					? { in: typeof query.categoryId === 'string' ? [query.categoryId] : query.categoryId }
 					: undefined,
@@ -64,7 +61,7 @@ export class ServiceService {
 	async findById(id: string) {
 		const item = await this.serviceRepository.findById(id);
 
-		if (!item) {
+		if (!item || !item.status) {
 			throw new NotFoundException(ResponseBuilder.error(null, ['Service not found']));
 		}
 
@@ -74,111 +71,6 @@ export class ServiceService {
 				images: item.images.map(image => image.url)
 			})
 		);
-	}
-
-	async userCreate(data: ServiceUserCreateReqDto, userId: string) {
-		const existingService = await this.prismaService.provider.findUnique({
-			where: { id: userId }
-		});
-
-		if (!existingService) {
-			throw new ForbiddenException(ResponseBuilder.error(null, ['No tienes permisos para crear un servicio']));
-		}
-
-		await this.prismaService.service.create({
-			data: {
-				name: data.name,
-				description: data.description,
-				priceMin: data.priceMin,
-				priceMax: data.priceMax,
-				category: { connect: { id: data.categoryId } },
-				provider: { connect: { id: userId } },
-				ubigeoServices: {
-					create: data.ubigeoIds.map(ubigeoId => ({ ubigeo: { connect: { id: ubigeoId } } }))
-				},
-				images: {
-					create: data.imageUrls.map(url => ({
-						publicId: this.cloudinaryService.extractPublicIdFromUrl(url)!,
-						url,
-						name: ''
-					}))
-				},
-				status: data.status,
-				score: 5
-			}
-		});
-
-		return ResponseBuilder.build(null, ['Service created successfully']);
-	}
-
-	async userUpdate(id: string, data: ServiceUserCreateReqDto, userId: string) {
-		const item = await this.serviceRepository.findById(id);
-
-		if (!item || item.providerId !== userId) {
-			throw new NotFoundException(ResponseBuilder.error(null, ['Service not found']));
-		}
-
-		await this.prismaService.$transaction(async prisma => {
-			await prisma.ubigeoService.deleteMany({
-				where: { serviceId: id }
-			});
-
-			await prisma.serviceImage.deleteMany({
-				where: { serviceId: id }
-			});
-
-			await prisma.service.update({
-				where: { id },
-				data: {
-					name: data.name,
-					description: data.description,
-					priceMin: data.priceMin,
-					priceMax: data.priceMax,
-					category: { connect: { id: data.categoryId } },
-					ubigeoServices: {
-						create: data.ubigeoIds.map(ubigeoId => ({ ubigeo: { connect: { id: ubigeoId } } }))
-					},
-					images: {
-						create: data.imageUrls.map(url => ({
-							publicId: this.cloudinaryService.extractPublicIdFromUrl(url)!,
-							url,
-							name: ''
-						}))
-					},
-					status: data.status
-				}
-			});
-		});
-
-		return ResponseBuilder.build(null, ['Service updated successfully']);
-	}
-
-	async userDelete(id: string, userId: string) {
-		const item = await this.serviceRepository.findById(id);
-
-		if (!item || item.providerId !== userId) {
-			throw new NotFoundException(ResponseBuilder.error(null, ['Service not found']));
-		}
-
-		await this.prismaService.$transaction(async prisma => {
-			await prisma.ubigeoService.deleteMany({
-				where: { serviceId: id }
-			});
-
-			const images = await prisma.serviceImage.findMany({
-				where: { serviceId: id }
-			});
-
-			this.cloudinaryService.deleteImages(images.map(image => image.publicId));
-
-			await prisma.serviceImage.deleteMany({
-				where: { serviceId: id }
-			});
-
-			await this.serviceRepository.delete(id);
-		});
-
-		return ResponseBuilder.build(null, ['Service deleted successfully']);
 	}
 
 	async toggleFavorite(id: string, userId: string) {

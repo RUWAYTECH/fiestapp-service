@@ -8,10 +8,12 @@ type ServiceResult = Service & { provider: Provider; images: ServiceImage[] };
 export class ServiceRepository {
 	constructor(private prisma: PrismaService) {}
 
-	async findById(id: string): Promise<ServiceResult | null> {
+	async findById(id: string): Promise<Prisma.ServiceGetPayload<{
+		include: { provider: true; images: true; ubigeoServices: { include: { ubigeo: true } } };
+	}> | null> {
 		return await this.prisma.service.findUnique({
 			where: { id },
-			include: { provider: true, images: true }
+			include: { provider: true, images: true, ubigeoServices: { include: { ubigeo: true } } }
 		});
 	}
 

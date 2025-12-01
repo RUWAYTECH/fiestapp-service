@@ -12,9 +12,10 @@ export class UserRepository {
 		});
 	}
 
-	async findById(id: string): Promise<User | null> {
+	async findById(id: string): Promise<Prisma.UserGetPayload<{ include: { provider: true } }> | null> {
 		return this.prisma.user.findUnique({
-			where: { id }
+			where: { id },
+			include: { provider: true }
 		});
 	}
 
@@ -58,5 +59,9 @@ export class UserRepository {
 		return this.prisma.user.delete({
 			where: { id }
 		});
+	}
+
+	async syncProvider(data: Prisma.ProviderUpsertArgs): Promise<any> {
+		return this.prisma.provider.upsert(data);
 	}
 }
