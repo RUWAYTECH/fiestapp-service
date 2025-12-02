@@ -14,6 +14,11 @@ export class ServiceResDto extends ServiceCommonDto {
 	images: string[];
 }
 
+export class ServiceWithAddressResDto extends ServiceResDto {
+	@ApiProperty()
+	address: string;
+}
+
 export class ServiceWithUbigeoResDto extends ServiceResDto {
 	@ApiProperty({ type: [UbigeoResDto] })
 	ubigeos: UbigeoResDto[];

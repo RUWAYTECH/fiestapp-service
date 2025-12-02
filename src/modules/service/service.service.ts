@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ServiceRepository } from './service.repository';
 import { ServiceGetAllReqDto } from './dto/requests/service-get-all-req.dto';
 import { Mapper } from '@common/utils/mapper';
-import { ServiceListResDto, ServiceResDto } from './dto/responses/service-res.dto';
+import { ServiceListResDto, ServiceWithAddressResDto } from './dto/responses/service-res.dto';
 import { ResponseBuilder } from '@common/utils/response-builder';
 import { PrismaService } from '@db/prisma/prisma.service';
 
@@ -66,9 +66,12 @@ export class ServiceService {
 		}
 
 		return ResponseBuilder.build(
-			Mapper.map(ServiceResDto, {
+			Mapper.map(ServiceWithAddressResDto, {
 				...item,
-				images: item.images.map(image => image.url)
+				images: item.images.map(image => image.url),
+				address: item.ubigeoServices
+					.map(us => `${us.ubigeo.district}, ${us.ubigeo.province}, ${us.ubigeo.department}`)
+					.join(' | ')
 			})
 		);
 	}

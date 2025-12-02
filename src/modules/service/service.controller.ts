@@ -3,7 +3,7 @@ import { ServiceService } from './service.service';
 import { ApiTags } from '@nestjs/swagger';
 import { Public } from '@common/decorators/public.decorator';
 import { PaginatedResponseDoc, ResponseDoc } from '@common/decorators/response-doc.decorator';
-import { ServiceListResDto, ServiceResDto } from './dto/responses/service-res.dto';
+import { ServiceListResDto, ServiceWithAddressResDto } from './dto/responses/service-res.dto';
 import { ServiceGetAllReqDto } from './dto/requests/service-get-all-req.dto';
 import { Roles } from '@common/decorators/role.decorator';
 import { UserRoleEnum } from '@common/constants/user-role';
@@ -30,7 +30,7 @@ export class ServiceController {
 
 	@Get(':id')
 	@Public()
-	@ResponseDoc(ServiceResDto)
+	@ResponseDoc(ServiceWithAddressResDto)
 	async findById(@Param('id') id: string) {
 		return this.serviceService.findById(id);
 	}
