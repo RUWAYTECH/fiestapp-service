@@ -29,7 +29,7 @@ export class ProviderServiceService {
 		const [data, count] = await this.serviceRepository.findAll({
 			...filters,
 			where: {
-				name: query?.search ? { contains: query.search } : undefined,
+				name: query?.search ? { contains: query.search, mode: 'insensitive' } : undefined,
 				status: query?.status != undefined ? Boolean(query.status) : undefined,
 				categoryId: query?.categoryId
 					? { in: typeof query.categoryId === 'string' ? [query.categoryId] : query.categoryId }

@@ -28,7 +28,7 @@ export class RequestProviderService {
 		const [data, count] = await this.requestRepository.findAll({
 			...filters,
 			where: {
-				...(query?.status ? { status: query.status } : {}),
+				...(query?.status ? { status: query.status, mode: 'insensitive' } : {}),
 				providerId: userId
 			},
 			orderBy: { createdAt: 'desc' }

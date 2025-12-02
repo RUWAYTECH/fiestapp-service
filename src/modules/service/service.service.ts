@@ -36,7 +36,7 @@ export class ServiceService {
 		const [data, count] = await this.serviceRepository.findAll({
 			...filters,
 			where: {
-				name: query?.search ? { contains: query.search } : undefined,
+				name: query?.search ? { contains: query.search, mode: 'insensitive' } : undefined,
 				status: true,
 				categoryId: query?.categoryId
 					? { in: typeof query.categoryId === 'string' ? [query.categoryId] : query.categoryId }

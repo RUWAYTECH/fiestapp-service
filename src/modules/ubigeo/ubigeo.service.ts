@@ -24,9 +24,9 @@ export class UbigeoService {
 			where: query?.search
 				? {
 						OR: [
-							{ department: { contains: query.search } },
-							{ province: { contains: query.search } },
-							{ district: { contains: query.search } }
+							{ department: { contains: query.search, mode: 'insensitive' } },
+							{ province: { contains: query.search, mode: 'insensitive' } },
+							{ district: { contains: query.search, mode: 'insensitive' } }
 						]
 					}
 				: undefined,

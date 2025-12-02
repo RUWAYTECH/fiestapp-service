@@ -26,7 +26,7 @@ export class CategoryService {
 
 		const [data, count] = await this.categoryRepository.findAll({
 			...filters,
-			where: query?.search ? { name: { contains: query.search } } : undefined,
+			where: query?.search ? { name: { contains: query.search, mode: 'insensitive' } } : undefined,
 			orderBy: { createdAt: 'desc' }
 		});
 
