@@ -10,7 +10,7 @@ export class UbigeoSeeder {
 			department: item.department,
 			province: item.province,
 			district: item.district,
-			code: item.ubigeo
+			code: item.ubigeo.toString().padStart(6, '0')
 		}));
 
 		return this.prismaService.ubigeo.createMany({ data });
