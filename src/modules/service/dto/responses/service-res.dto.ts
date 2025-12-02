@@ -8,6 +8,9 @@ export class ServiceResDto extends ServiceCommonDto {
 	id: string;
 
 	@ApiProperty()
+	score: number;
+
+	@ApiProperty()
 	provider: ProviderUserResDto;
 
 	@ApiProperty({ type: [String] })

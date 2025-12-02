@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ServiceRepository } from './service.repository';
-import { ServiceGetAllReqDto } from './dto/requests/service-get-all-req.dto';
+import { ServiceGetAllReqDto, ServiceGetAllSortByEnum } from './dto/requests/service-get-all-req.dto';
 import { Mapper } from '@common/utils/mapper';
 import { ServiceListResDto, ServiceWithAddressResDto } from './dto/responses/service-res.dto';
 import { ResponseBuilder } from '@common/utils/response-builder';
 import { PrismaService } from '@db/prisma/prisma.service';
+import { Prisma } from '@g-prisma/index';
 
 @Injectable()
 export class ServiceService {
@@ -23,6 +24,15 @@ export class ServiceService {
 			};
 		}
 
+		const orderBy: Prisma.ServiceOrderByWithRelationInput | undefined =
+			query?.sortBy == ServiceGetAllSortByEnum.PRICE
+				? { priceMin: 'asc' }
+				: query?.sortBy == ServiceGetAllSortByEnum.RATING
+					? { score: 'desc' }
+					: query?.sortBy == ServiceGetAllSortByEnum.CREATED_AT
+						? { createdAt: 'desc' }
+						: undefined;
+
 		const [data, count] = await this.serviceRepository.findAll({
 			...filters,
 			where: {
@@ -40,7 +50,7 @@ export class ServiceService {
 					: undefined,
 				providerId: query?.providerId ? query.providerId : undefined
 			},
-			orderBy: { createdAt: 'desc' }
+			orderBy: orderBy
 		});
 
 		const transformedData = data.map(item => ({
