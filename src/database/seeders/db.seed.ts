@@ -11,19 +11,18 @@ export const seedDatabase = async () => {
 		await prismaService.$connect();
 
 		const userSeeder = new UserSeeder(prismaService);
-		await userSeeder.clear();
-		await userSeeder.run();
-
 		const ubigeoSeeder = new UbigeoSeeder(prismaService);
-		await ubigeoSeeder.clear();
-		await ubigeoSeeder.run();
-
 		const categorySeeder = new CategorySeeder(prismaService);
-		await categorySeeder.clear();
-		await categorySeeder.run();
-
 		const serviceSeeder = new ServiceSeeder(prismaService);
+
 		await serviceSeeder.clear();
+		await categorySeeder.clear();
+		await ubigeoSeeder.clear();
+		await userSeeder.clear();
+
+		await userSeeder.run();
+		await ubigeoSeeder.run();
+		await categorySeeder.run();
 		await serviceSeeder.run();
 
 		console.log('Database seeded successfully.');

@@ -46,7 +46,10 @@ export class UserSeeder {
 	}
 
 	async clear() {
+		await this.prismaService.requestItem.deleteMany();
+		await this.prismaService.requestPayment.deleteMany();
+		await this.prismaService.request.deleteMany();
 		await this.prismaService.provider.deleteMany();
-		return this.prismaService.user.deleteMany();
+		await this.prismaService.user.deleteMany();
 	}
 }
