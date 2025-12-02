@@ -251,33 +251,9 @@ exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  phone: 'phone',
-  picture: 'picture',
-  password: 'password'
-};
-
-exports.Prisma.ProviderOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  picture: 'picture',
-  address: 'address',
-  email: 'email',
-  website: 'website',
-  phone: 'phone',
-  facebook: 'facebook',
-  instagram: 'instagram'
-};
-
-exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  image: 'image'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
@@ -285,72 +261,10 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.ServiceOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  providerId: 'providerId',
-  categoryId: 'categoryId'
-};
-
-exports.Prisma.ServiceImageOrderByRelevanceFieldEnum = {
-  id: 'id',
-  publicId: 'publicId',
-  url: 'url',
-  name: 'name',
-  serviceId: 'serviceId'
-};
-
-exports.Prisma.FavoriteOrderByRelevanceFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  serviceId: 'serviceId'
-};
-
-exports.Prisma.RequestOrderByRelevanceFieldEnum = {
-  id: 'id',
-  comment: 'comment',
-  userId: 'userId',
-  providerId: 'providerId'
-};
-
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
-exports.Prisma.RequestItemOrderByRelevanceFieldEnum = {
-  id: 'id',
-  comment: 'comment',
-  serviceId: 'serviceId',
-  requestId: 'requestId'
-};
-
-exports.Prisma.RequestPaymentOrderByRelevanceFieldEnum = {
-  id: 'id',
-  method: 'method',
-  image: 'image',
-  transferNumber: 'transferNumber'
-};
-
-exports.Prisma.UbigeoOrderByRelevanceFieldEnum = {
-  id: 'id',
-  code: 'code',
-  district: 'district',
-  province: 'province',
-  department: 'department'
-};
-
-exports.Prisma.UbigeoServiceOrderByRelevanceFieldEnum = {
-  id: 'id',
-  serviceId: 'serviceId',
-  ubigeoId: 'ubigeoId'
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',

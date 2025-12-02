@@ -5,12 +5,13 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../generated"
+  provider      = "prisma-client-js"
+  output        = "../generated"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
@@ -183,7 +184,7 @@ model RequestPayment {
   method         String    @db.VarChar(50)
   image          String    @db.VarChar(255)
   transferNumber String    @db.VarChar(100)
-  paidAt         DateTime?
+  paidAt         DateTime? @default(now())
 
   request Request @relation(fields: [id], references: [id])
 }
