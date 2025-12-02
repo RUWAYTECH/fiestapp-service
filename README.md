@@ -1,98 +1,188 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🎉 Fiestapp Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Backend API para la plataforma **Fiestapp** — un marketplace que conecta usuarios con proveedores de servicios para eventos y fiestas.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📋 Descripción
 
-## Description
+Fiestapp Service es una API RESTful construida con [NestJS](https://nestjs.com/) que permite:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **Gestión de usuarios**: Registro, autenticación (local, Google, Facebook) y perfiles
+- **Proveedores**: Registro y administración de proveedores de servicios para eventos
+- **Catálogo de servicios**: Categorías y servicios con precios, duración y calificaciones
+- **Solicitudes**: Sistema de solicitudes de servicios entre usuarios y proveedores
+- **Favoritos**: Marcado de servicios favoritos por los usuarios
+- **Ubigeo**: Datos geográficos de Perú (departamentos, provincias, distritos)
+- **Imágenes**: Gestión de imágenes con Cloudinary
 
-## Project setup
+## 🛠️ Tecnologías
 
-```bash
-$ pnpm install
+| Tecnología | Versión | Descripción |
+|------------|---------|-------------|
+| [NestJS](https://nestjs.com/) | 11.x | Framework backend |
+| [Prisma](https://www.prisma.io/) | 6.x | ORM para PostgreSQL |
+| [PostgreSQL](https://www.postgresql.org/) | - | Base de datos |
+| [Zod](https://zod.dev/) | 4.x | Validación de esquemas |
+| [Cloudinary](https://cloudinary.com/) | - | Gestión de imágenes |
+| [Swagger](https://swagger.io/) | - | Documentación API |
+
+## 📁 Estructura del proyecto
+
+```
+src/
+├── common/          # Decoradores, guards, pipes, DTOs y utilidades compartidas
+├── config/          # Configuración de la aplicación
+├── database/        # Prisma, seeders y datos iniciales
+├── external/        # Servicios externos (Cloudinary)
+└── modules/         # Módulos de dominio
+    ├── auth/        # Autenticación y JWT
+    ├── category/    # Categorías de servicios
+    ├── provider/    # Proveedores
+    ├── request/     # Solicitudes de servicios
+    ├── service/     # Servicios ofrecidos
+    ├── ubigeo/      # Datos geográficos
+    └── user/        # Usuarios
 ```
 
-## Compile and run the project
+## 🚀 Instalación
+
+### Prerrequisitos
+
+- Node.js 20+
+- pnpm
+- PostgreSQL
+
+### Configuración
+
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/RUWAYTECH/fiestapp-service.git
+   cd fiestapp-service
+   ```
+
+2. **Instalar dependencias**
+   ```bash
+   pnpm install
+   ```
+
+3. **Configurar variables de entorno**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Editar `.env` con tus credenciales:
+   ```env
+   # Servidor
+   PORT=9500
+   
+   # Base de datos PostgreSQL
+   DATABASE_URL=postgresql://user:password@localhost:5432/db_fiestapp
+   
+   # JWT
+   JWT_SECRET=tu-secret-key-segura
+   JWT_EXPIRATION_TIME='1d'
+   
+   # Google OAuth
+   GOOGLE_CLIENT_ID=tu-google-client-id
+   GOOGLE_CLIENT_SECRET=tu-google-client-secret
+   
+   # CORS
+   ALLOWED_ORIGINS=http://localhost:3000,http://localhost:4300
+   
+   # Cloudinary
+   CLOUDINARY_CLOUD_NAME=tu-cloud-name
+   CLOUDINARY_API_KEY=tu-api-key
+   CLOUDINARY_API_SECRET=tu-api-secret
+   ```
+
+4. **Generar cliente de Prisma**
+   ```bash
+   pnpm prisma generate
+   ```
+
+5. **Ejecutar migraciones de Prisma**
+   ```bash
+   pnpm prisma migrate dev
+   ```
+
+6. **Poblar la base de datos (opcional)**
+   ```bash
+   pnpm seed
+   ```
+
+## ▶️ Ejecución
 
 ```bash
-# development
-$ pnpm run start
+# Desarrollo (watch mode)
+pnpm start:dev
 
-# watch mode
-$ pnpm run start:dev
+# Producción
+pnpm build
+pnpm start:prod
 
-# production mode
-$ pnpm run start:prod
+# Debug
+pnpm start:debug
 ```
 
-## Run tests
+## 🧪 Tests
 
 ```bash
-# unit tests
-$ pnpm run test
+# Tests unitarios
+pnpm test
 
-# e2e tests
-$ pnpm run test:e2e
+# Tests e2e
+pnpm test:e2e
 
-# test coverage
-$ pnpm run test:cov
+# Cobertura
+pnpm test:cov
 ```
 
-## Deployment
+## 📖 Documentación API
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Una vez el servidor esté corriendo, accede a la documentación Swagger en:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+```
+http://localhost:9500/docs
+```
+
+## 🗄️ Base de datos
+
+### Comandos útiles de Prisma
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+# Generar cliente Prisma
+pnpm prisma generate
+
+# Crear migración
+pnpm prisma migrate dev --name nombre_migracion
+
+# Ver estado de migraciones
+pnpm prisma migrate status
+
+# Abrir Prisma Studio
+pnpm prisma studio
+
+# Resetear base de datos
+pnpm prisma migrate reset
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+## 📝 Scripts disponibles
 
-## Resources
+| Script | Descripción |
+|--------|-------------|
+| `pnpm start` | Inicia la aplicación |
+| `pnpm start:dev` | Inicia en modo desarrollo (watch) |
+| `pnpm start:prod` | Inicia en modo producción |
+| `pnpm build` | Compila el proyecto |
+| `pnpm lint` | Ejecuta ESLint |
+| `pnpm format` | Formatea código con Prettier |
+| `pnpm seed` | Ejecuta los seeders de la BD |
+| `pnpm test` | Ejecuta tests unitarios |
+| `pnpm test:e2e` | Ejecuta tests end-to-end |
 
-Check out a few resources that may come in handy when working with NestJS:
+## 📄 Licencia
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Este proyecto es privado y pertenece a **RUWAYTECH**.
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Desarrollado con ❤️ por [RUWAYTECH](https://github.com/RUWAYTECH)
