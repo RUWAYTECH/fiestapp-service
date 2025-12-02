@@ -33,25 +33,25 @@ export class UserService {
 			update: {
 				name: data.name,
 				description: data.description,
-				picture: data.picture,
+				picture: data.picture ?? '',
 				address: data.address,
 				email: data.email,
 				phone: data.phone,
-				website: data.website,
-				facebook: data.facebook,
-				instagram: data.instagram
+				website: data.website ?? '',
+				facebook: data.facebook ?? '',
+				instagram: data.instagram ?? ''
 			},
 			create: {
-				id: userId,
+				user: { connect: { id: userId } },
 				name: data.name,
 				description: data.description,
-				picture: data.picture,
+				picture: data.picture ?? '',
 				address: data.address,
 				email: data.email,
 				phone: data.phone,
-				website: data.website,
-				facebook: data.facebook,
-				instagram: data.instagram
+				website: data.website ?? '',
+				facebook: data.facebook ?? '',
+				instagram: data.instagram ?? ''
 			}
 		});
 

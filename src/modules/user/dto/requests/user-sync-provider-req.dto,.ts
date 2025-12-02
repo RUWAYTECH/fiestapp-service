@@ -8,7 +8,7 @@ export class UserSyncProviderReqDto {
 	description: string;
 
 	@ApiProperty()
-	picture: string;
+	picture: string | null;
 
 	@ApiProperty()
 	email: string;
@@ -20,11 +20,11 @@ export class UserSyncProviderReqDto {
 	phone: string;
 
 	@ApiProperty()
-	website: string;
+	website: string | null;
 
 	@ApiProperty()
-	facebook: string;
+	facebook: string | null;
 
 	@ApiProperty()
-	instagram: string;
+	instagram: string | null;
 }
