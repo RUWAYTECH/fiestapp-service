@@ -224,33 +224,9 @@ exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
-exports.Prisma.UserOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  email: 'email',
-  phone: 'phone',
-  picture: 'picture',
-  password: 'password'
-};
-
-exports.Prisma.ProviderOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  picture: 'picture',
-  address: 'address',
-  email: 'email',
-  website: 'website',
-  phone: 'phone',
-  facebook: 'facebook',
-  instagram: 'instagram'
-};
-
-exports.Prisma.CategoryOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  image: 'image'
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 exports.Prisma.NullsOrder = {
@@ -258,72 +234,10 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
-exports.Prisma.ServiceOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  providerId: 'providerId',
-  categoryId: 'categoryId'
-};
-
-exports.Prisma.ServiceImageOrderByRelevanceFieldEnum = {
-  id: 'id',
-  publicId: 'publicId',
-  url: 'url',
-  name: 'name',
-  serviceId: 'serviceId'
-};
-
-exports.Prisma.FavoriteOrderByRelevanceFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  serviceId: 'serviceId'
-};
-
-exports.Prisma.RequestOrderByRelevanceFieldEnum = {
-  id: 'id',
-  comment: 'comment',
-  userId: 'userId',
-  providerId: 'providerId'
-};
-
 exports.Prisma.JsonNullValueFilter = {
   DbNull: Prisma.DbNull,
   JsonNull: Prisma.JsonNull,
   AnyNull: Prisma.AnyNull
-};
-
-exports.Prisma.QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-};
-
-exports.Prisma.RequestItemOrderByRelevanceFieldEnum = {
-  id: 'id',
-  comment: 'comment',
-  serviceId: 'serviceId',
-  requestId: 'requestId'
-};
-
-exports.Prisma.RequestPaymentOrderByRelevanceFieldEnum = {
-  id: 'id',
-  method: 'method',
-  image: 'image',
-  transferNumber: 'transferNumber'
-};
-
-exports.Prisma.UbigeoOrderByRelevanceFieldEnum = {
-  id: 'id',
-  code: 'code',
-  district: 'district',
-  province: 'province',
-  department: 'department'
-};
-
-exports.Prisma.UbigeoServiceOrderByRelevanceFieldEnum = {
-  id: 'id',
-  serviceId: 'serviceId',
-  ubigeoId: 'ubigeoId'
 };
 exports.Role = exports.$Enums.Role = {
   USER: 'USER',
@@ -372,7 +286,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\user\\Documents\\RUWAYTECH\\fiestapp\\fiestapp-service\\generated",
+      "value": "/Applications/Ruwaytech/fiestapp-service/generated",
       "fromEnvVar": null
     },
     "config": {
@@ -381,16 +295,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\user\\Documents\\RUWAYTECH\\fiestapp\\fiestapp-service\\prisma\\schema.prisma",
+    "sourceFilePath": "/Applications/Ruwaytech/fiestapp-service/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../.env",
     "schemaEnvPath": "../.env"
   },
   "relativePath": "../prisma",
@@ -399,8 +313,8 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "mysql",
-  "postinstall": false,
+  "activeProvider": "postgresql",
+  "postinstall": true,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -409,8 +323,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n\nenum AuthProvider {\n  LOCAL\n  GOOGLE\n  FACEBOOK\n}\n\nenum ImageEntityType {\n  SERVICE\n  PROVIDER\n}\n\nenum RequestStatus {\n  REQUESTED\n  IN_PROGRESS\n  COMPLETED\n  CANCELLED\n}\n\nmodel User {\n  id           String       @id @default(cuid()) @db.VarChar(36)\n  name         String       @db.VarChar(255)\n  email        String       @unique @db.VarChar(255)\n  phone        String       @db.VarChar(20)\n  picture      String       @db.VarChar(255)\n  password     String       @db.VarChar(255)\n  role         Role\n  authProvider AuthProvider\n  createdAt    DateTime     @default(now())\n  updatedAt    DateTime     @updatedAt\n\n  provider Provider?\n\n  favorites Favorite[]\n\n  requests Request[]\n}\n\nmodel Provider {\n  id          String   @id @db.VarChar(36)\n  name        String   @db.VarChar(255)\n  description String   @db.Text\n  picture     String   @db.VarChar(255)\n  address     String   @db.VarChar(300)\n  email       String   @db.VarChar(255)\n  website     String   @db.VarChar(255)\n  phone       String   @db.VarChar(20)\n  facebook    String   @db.VarChar(255)\n  instagram   String   @db.VarChar(255)\n  status      Boolean  @default(true)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  user User @relation(fields: [id], references: [id])\n\n  services Service[]\n\n  requests Request[]\n}\n\nmodel Category {\n  id          String   @id @default(cuid()) @db.VarChar(36)\n  name        String   @db.VarChar(255)\n  description String   @db.Text\n  image       String   @db.VarChar(255)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  services Service[]\n}\n\nmodel Service {\n  id          String   @id @default(cuid()) @db.VarChar(36)\n  name        String   @db.VarChar(255)\n  description String   @db.Text\n  priceMin    Float\n  priceMax    Float\n  score       Float\n  duration    Int?\n  status      Boolean  @default(true)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  providerId String   @db.VarChar(36)\n  provider   Provider @relation(fields: [providerId], references: [id])\n\n  categoryId String   @db.VarChar(36)\n  category   Category @relation(fields: [categoryId], references: [id])\n\n  favorites Favorite[]\n\n  ubigeoServices UbigeoService[]\n\n  images ServiceImage[]\n}\n\nmodel ServiceImage {\n  id        String   @id @default(cuid()) @db.VarChar(36)\n  publicId  String   @db.VarChar(255)\n  url       String   @db.VarChar(255)\n  name      String   @db.Text\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  serviceId String  @db.VarChar(36)\n  service   Service @relation(fields: [serviceId], references: [id])\n}\n\nmodel Favorite {\n  id        String   @id @default(cuid()) @db.VarChar(36)\n  createdAt DateTime @default(now())\n\n  userId String @db.VarChar(36)\n  user   User   @relation(fields: [userId], references: [id])\n\n  serviceId String  @db.VarChar(36)\n  service   Service @relation(fields: [serviceId], references: [id])\n\n  @@unique([userId, serviceId])\n}\n\n// Request and related models\n\nmodel Request {\n  id           String        @id @default(uuid()) @db.VarChar(36)\n  guestQty     Int // Number of guests\n  budgetAmount Float // Budget amount (client's budget)\n  finalPrice   Float // Final agreed price\n  eventDate    DateTime // Date of the requested service/event\n  status       RequestStatus\n  comment      String        @db.Text\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n\n  userId String @db.VarChar(36)\n  user   User   @relation(fields: [userId], references: [id])\n\n  providerId String   @db.VarChar(36)\n  provider   Provider @relation(fields: [providerId], references: [id])\n\n  items RequestItem[]\n\n  payment RequestPayment?\n}\n\nmodel RequestItem {\n  id       String @id @default(uuid()) @db.VarChar(36)\n  quantity Int\n  price    Float\n  total    Float\n  comment  String @db.Text\n\n  serviceId String @db.VarChar(36)\n  service   Json   @db.Json\n\n  requestId String  @db.VarChar(36)\n  request   Request @relation(fields: [requestId], references: [id])\n}\n\nmodel RequestPayment {\n  id             String    @id @db.VarChar(36)\n  amount         Float\n  method         String    @db.VarChar(50)\n  image          String    @db.VarChar(255)\n  transferNumber String    @db.VarChar(100)\n  paidAt         DateTime? @default(now())\n\n  request Request @relation(fields: [id], references: [id])\n}\n\n// ubigeo\nmodel Ubigeo {\n  id         String   @id @default(cuid()) @db.VarChar(36)\n  code       String   @unique @db.VarChar(6)\n  district   String   @db.VarChar(200)\n  province   String   @db.VarChar(200)\n  department String   @db.VarChar(200)\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  ubigeoServices UbigeoService[]\n}\n\nmodel UbigeoService {\n  id        String @id @default(cuid()) @db.VarChar(36)\n  latitude  Float?\n  longitude Float?\n\n  serviceId String  @db.VarChar(36)\n  service   Service @relation(fields: [serviceId], references: [id])\n\n  ubigeoId String @db.VarChar(36)\n  ubigeo   Ubigeo @relation(fields: [ubigeoId], references: [id])\n\n  @@unique([ubigeoId, serviceId])\n}\n",
-  "inlineSchemaHash": "a0339891b169c26f8d2bfe8f9b206fa2265b784853c01057bf1d461467b345b5",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated\"\n}\n\ndatasource db {\n  provider = \"postgres\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Role {\n  USER\n  ADMIN\n}\n\nenum AuthProvider {\n  LOCAL\n  GOOGLE\n  FACEBOOK\n}\n\nenum ImageEntityType {\n  SERVICE\n  PROVIDER\n}\n\nenum RequestStatus {\n  REQUESTED\n  IN_PROGRESS\n  COMPLETED\n  CANCELLED\n}\n\nmodel User {\n  id           String       @id @default(cuid()) @db.VarChar(36)\n  name         String       @db.VarChar(255)\n  email        String       @unique @db.VarChar(255)\n  phone        String       @db.VarChar(20)\n  picture      String       @db.VarChar(255)\n  password     String       @db.VarChar(255)\n  role         Role\n  authProvider AuthProvider\n  createdAt    DateTime     @default(now())\n  updatedAt    DateTime     @updatedAt\n\n  provider Provider?\n\n  favorites Favorite[]\n\n  requests Request[]\n}\n\nmodel Provider {\n  id          String   @id @db.VarChar(36)\n  name        String   @db.VarChar(255)\n  description String   @db.Text\n  picture     String   @db.VarChar(255)\n  address     String   @db.VarChar(300)\n  email       String   @db.VarChar(255)\n  website     String   @db.VarChar(255)\n  phone       String   @db.VarChar(20)\n  facebook    String   @db.VarChar(255)\n  instagram   String   @db.VarChar(255)\n  status      Boolean  @default(true)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  user User @relation(fields: [id], references: [id])\n\n  services Service[]\n\n  requests Request[]\n}\n\nmodel Category {\n  id          String   @id @default(cuid()) @db.VarChar(36)\n  name        String   @db.VarChar(255)\n  description String   @db.Text\n  image       String   @db.VarChar(255)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  services Service[]\n}\n\nmodel Service {\n  id          String   @id @default(cuid()) @db.VarChar(36)\n  name        String   @db.VarChar(255)\n  description String   @db.Text\n  priceMin    Float\n  priceMax    Float\n  score       Float\n  duration    Int?\n  status      Boolean  @default(true)\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n\n  providerId String   @db.VarChar(36)\n  provider   Provider @relation(fields: [providerId], references: [id])\n\n  categoryId String   @db.VarChar(36)\n  category   Category @relation(fields: [categoryId], references: [id])\n\n  favorites Favorite[]\n\n  ubigeoServices UbigeoService[]\n\n  images ServiceImage[]\n}\n\nmodel ServiceImage {\n  id        String   @id @default(cuid()) @db.VarChar(36)\n  publicId  String   @db.VarChar(255)\n  url       String   @db.VarChar(255)\n  name      String   @db.Text\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  serviceId String  @db.VarChar(36)\n  service   Service @relation(fields: [serviceId], references: [id])\n}\n\nmodel Favorite {\n  id        String   @id @default(cuid()) @db.VarChar(36)\n  createdAt DateTime @default(now())\n\n  userId String @db.VarChar(36)\n  user   User   @relation(fields: [userId], references: [id])\n\n  serviceId String  @db.VarChar(36)\n  service   Service @relation(fields: [serviceId], references: [id])\n\n  @@unique([userId, serviceId])\n}\n\n// Request and related models\n\nmodel Request {\n  id           String        @id @default(uuid()) @db.VarChar(36)\n  guestQty     Int // Number of guests\n  budgetAmount Float // Budget amount (client's budget)\n  finalPrice   Float // Final agreed price\n  eventDate    DateTime // Date of the requested service/event\n  status       RequestStatus\n  comment      String        @db.Text\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n\n  userId String @db.VarChar(36)\n  user   User   @relation(fields: [userId], references: [id])\n\n  providerId String   @db.VarChar(36)\n  provider   Provider @relation(fields: [providerId], references: [id])\n\n  items RequestItem[]\n\n  payment RequestPayment?\n}\n\nmodel RequestItem {\n  id       String @id @default(uuid()) @db.VarChar(36)\n  quantity Int\n  price    Float\n  total    Float\n  comment  String @db.Text\n\n  serviceId String @db.VarChar(36)\n  service   Json   @db.Json\n\n  requestId String  @db.VarChar(36)\n  request   Request @relation(fields: [requestId], references: [id])\n}\n\nmodel RequestPayment {\n  id             String    @id @db.VarChar(36)\n  amount         Float\n  method         String    @db.VarChar(50)\n  image          String    @db.VarChar(255)\n  transferNumber String    @db.VarChar(100)\n  paidAt         DateTime? @default(now())\n\n  request Request @relation(fields: [id], references: [id])\n}\n\n// ubigeo\nmodel Ubigeo {\n  id         String   @id @default(cuid()) @db.VarChar(36)\n  code       String   @unique @db.VarChar(6)\n  district   String   @db.VarChar(200)\n  province   String   @db.VarChar(200)\n  department String   @db.VarChar(200)\n  createdAt  DateTime @default(now())\n  updatedAt  DateTime @updatedAt\n\n  ubigeoServices UbigeoService[]\n}\n\nmodel UbigeoService {\n  id        String @id @default(cuid()) @db.VarChar(36)\n  latitude  Float?\n  longitude Float?\n\n  serviceId String  @db.VarChar(36)\n  service   Service @relation(fields: [serviceId], references: [id])\n\n  ubigeoId String @db.VarChar(36)\n  ubigeo   Ubigeo @relation(fields: [ubigeoId], references: [id])\n\n  @@unique([ubigeoId, serviceId])\n}\n",
+  "inlineSchemaHash": "02319f18418c701e055b16ba46e0aba87933c74ab6c91a7808a180bc9533f9f9",
   "copyEngine": true
 }
 
@@ -449,8 +363,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/query_engine-windows.dll.node")
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+path.join(process.cwd(), "generated/libquery_engine-darwin-arm64.dylib.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/schema.prisma")
