@@ -1371,7 +1371,7 @@
 		{
 			"department": "Ancash",
 			"province": "Santa",
-			"district": "Nepe�A",
+			"district": "Nepeña",
 			"ubigeo": "021806"
 		},
 		{
@@ -1779,13 +1779,13 @@
 		{
 			"department": "Apurimac",
 			"province": "Aymaraes",
-			"district": "San Juan De Chac�A",
+			"district": "San Juan De Chacña",
 			"ubigeo": "030411"
 		},
 		{
 			"department": "Apurimac",
 			"province": "Aymaraes",
-			"district": "Sa�Ayca",
+			"district": "Sañayca",
 			"ubigeo": "030412"
 		},
 		{
@@ -2097,7 +2097,7 @@
 		{
 			"department": "Arequipa",
 			"province": "Arequipa",
-			"district": "Queque�A",
+			"district": "Quequeña",
 			"ubigeo": "040115"
 		},
 		{
@@ -2217,7 +2217,7 @@
 		{
 			"department": "Arequipa",
 			"province": "Camana",
-			"district": "Oco�A",
+			"district": "Ocoña",
 			"ubigeo": "040206"
 		},
 		{
@@ -2379,7 +2379,7 @@
 		{
 			"department": "Arequipa",
 			"province": "Castilla",
-			"district": "U�On",
+			"district": "Uñon",
 			"ubigeo": "040412"
 		},
 		{
@@ -3015,7 +3015,7 @@
 		{
 			"department": "Ayacucho",
 			"province": "Lucanas",
-			"district": "Chavi�A",
+			"district": "Chaviña",
 			"ubigeo": "050605"
 		},
 		{
@@ -3057,7 +3057,7 @@
 		{
 			"department": "Ayacucho",
 			"province": "Lucanas",
-			"district": "Oca�A",
+			"district": "Ocaña",
 			"ubigeo": "050612"
 		},
 		{
@@ -3129,7 +3129,7 @@
 		{
 			"department": "Ayacucho",
 			"province": "Parinacochas",
-			"district": "Coronel Casta�Eda",
+			"district": "Coronel Castañeda",
 			"ubigeo": "050703"
 		},
 		{
@@ -3249,7 +3249,7 @@
 		{
 			"department": "Ayacucho",
 			"province": "Sucre",
-			"district": "Huaca�A",
+			"district": "Huacaña",
 			"ubigeo": "050905"
 		},
 		{
@@ -3435,7 +3435,7 @@
 		{
 			"department": "Cajamarca",
 			"province": "Cajamarca",
-			"district": "Enca�Ada",
+			"district": "Encañada",
 			"ubigeo": "060105"
 		},
 		{
@@ -3453,7 +3453,7 @@
 		{
 			"department": "Cajamarca",
 			"province": "Cajamarca",
-			"district": "Los Ba�Os Del Inca",
+			"district": "Los Baños Del Inca",
 			"ubigeo": "060108"
 		},
 		{
@@ -4125,7 +4125,7 @@
 		{
 			"department": "Cajamarca",
 			"province": "Santa Cruz",
-			"district": "Chancayba�Os",
+			"district": "Chancaybaños",
 			"ubigeo": "061304"
 		},
 		{
@@ -4539,7 +4539,7 @@
 		{
 			"department": "Cusco",
 			"province": "Chumbivilcas",
-			"district": "Qui�Ota",
+			"district": "Quiñota",
 			"ubigeo": "080707"
 		},
 		{
@@ -4791,7 +4791,7 @@
 		{
 			"department": "Cusco",
 			"province": "Paucartambo",
-			"district": "Kos�Ipata",
+			"district": "Kosñipata",
 			"ubigeo": "081106"
 		},
 		{
@@ -5433,7 +5433,7 @@
 		{
 			"department": "Huancavelica",
 			"province": "Tayacaja",
-			"district": "�Ahuimpuquio",
+			"district": "ñahuimpuquio",
 			"ubigeo": "090710"
 		},
 		{
@@ -5775,7 +5775,7 @@
 		{
 			"department": "Huanuco",
 			"province": "Huamalies",
-			"district": "Pu�Os",
+			"district": "Puños",
 			"ubigeo": "100509"
 		},
 		{
@@ -5852,31 +5852,31 @@
 		},
 		{
 			"department": "Huanuco",
-			"province": "Mara�On",
+			"province": "Marañon",
 			"district": "Huacrachuco",
 			"ubigeo": "100701"
 		},
 		{
 			"department": "Huanuco",
-			"province": "Mara�On",
+			"province": "Marañon",
 			"district": "Cholon",
 			"ubigeo": "100702"
 		},
 		{
 			"department": "Huanuco",
-			"province": "Mara�On",
+			"province": "Marañon",
 			"district": "San Buenaventura",
 			"ubigeo": "100703"
 		},
 		{
 			"department": "Huanuco",
-			"province": "Mara�On",
+			"province": "Marañon",
 			"district": "La Morada",
 			"ubigeo": "100704"
 		},
 		{
 			"department": "Huanuco",
-			"province": "Mara�On",
+			"province": "Marañon",
 			"district": "Santa Rosa De Alto Yanajanca",
 			"ubigeo": "100705"
 		},
@@ -5943,7 +5943,7 @@
 		{
 			"department": "Huanuco",
 			"province": "Lauricocha",
-			"district": "Ba�Os",
+			"district": "Baños",
 			"ubigeo": "101002"
 		},
 		{
@@ -6033,7 +6033,7 @@
 		{
 			"department": "Ica",
 			"province": "Ica",
-			"district": "La Tingui�A",
+			"district": "La Tinguiña",
 			"ubigeo": "110102"
 		},
 		{
@@ -6423,7 +6423,7 @@
 		{
 			"department": "Junin",
 			"province": "Huancayo",
-			"district": "Sa�O",
+			"district": "Saño",
 			"ubigeo": "120132"
 		},
 		{
@@ -6651,7 +6651,7 @@
 		{
 			"department": "Junin",
 			"province": "Jauja",
-			"district": "Leonor Ordo�Ez",
+			"district": "Leonor Ordoñez",
 			"ubigeo": "120413"
 		},
 		{
@@ -6855,7 +6855,7 @@
 		{
 			"department": "Junin",
 			"province": "Satipo",
-			"district": "Vizcat�N Del Ene",
+			"district": "Vizcatñn Del Ene",
 			"ubigeo": "120609"
 		},
 		{
@@ -7617,7 +7617,7 @@
 		{
 			"department": "Lambayeque",
 			"province": "Chiclayo",
-			"district": "Sa�A",
+			"district": "Saña",
 			"ubigeo": "140115"
 		},
 		{
@@ -7652,37 +7652,37 @@
 		},
 		{
 			"department": "Lambayeque",
-			"province": "Ferre�Afe",
-			"district": "Ferre�Afe",
+			"province": "Ferreñafe",
+			"district": "Ferreñafe",
 			"ubigeo": "140201"
 		},
 		{
 			"department": "Lambayeque",
-			"province": "Ferre�Afe",
-			"district": "Ca�Aris",
+			"province": "Ferreñafe",
+			"district": "Cañaris",
 			"ubigeo": "140202"
 		},
 		{
 			"department": "Lambayeque",
-			"province": "Ferre�Afe",
+			"province": "Ferreñafe",
 			"district": "Incahuasi",
 			"ubigeo": "140203"
 		},
 		{
 			"department": "Lambayeque",
-			"province": "Ferre�Afe",
+			"province": "Ferreñafe",
 			"district": "Manuel Antonio Mesones Muro",
 			"ubigeo": "140204"
 		},
 		{
 			"department": "Lambayeque",
-			"province": "Ferre�Afe",
+			"province": "Ferreñafe",
 			"district": "Pitipo",
 			"ubigeo": "140205"
 		},
 		{
 			"department": "Lambayeque",
-			"province": "Ferre�Afe",
+			"province": "Ferreñafe",
 			"district": "Pueblo Nuevo",
 			"ubigeo": "140206"
 		},
@@ -7785,7 +7785,7 @@
 		{
 			"department": "Lima",
 			"province": "Lima",
-			"district": "Bre�A",
+			"district": "Breña",
 			"ubigeo": "150105"
 		},
 		{
@@ -8120,98 +8120,98 @@
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
-			"district": "San Vicente De Ca�Ete",
+			"province": "Cañete",
+			"district": "San Vicente De Cañete",
 			"ubigeo": "150501"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Asia",
 			"ubigeo": "150502"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Calango",
 			"ubigeo": "150503"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Cerro Azul",
 			"ubigeo": "150504"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Chilca",
 			"ubigeo": "150505"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Coayllo",
 			"ubigeo": "150506"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Imperial",
 			"ubigeo": "150507"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Lunahuana",
 			"ubigeo": "150508"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Mala",
 			"ubigeo": "150509"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Nuevo Imperial",
 			"ubigeo": "150510"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Pacaran",
 			"ubigeo": "150511"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Quilmana",
 			"ubigeo": "150512"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "San Antonio",
 			"ubigeo": "150513"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "San Luis",
 			"ubigeo": "150514"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
+			"province": "Cañete",
 			"district": "Santa Cruz De Flores",
 			"ubigeo": "150515"
 		},
 		{
 			"department": "Lima",
-			"province": "Ca�Ete",
-			"district": "Zu�Iga",
+			"province": "Cañete",
+			"district": "Zuñiga",
 			"ubigeo": "150516"
 		},
 		{
@@ -8685,7 +8685,7 @@
 		{
 			"department": "Lima",
 			"province": "Yauyos",
-			"district": "Hua�Ec",
+			"district": "Huañec",
 			"ubigeo": "151017"
 		},
 		{
@@ -8775,7 +8775,7 @@
 		{
 			"department": "Lima",
 			"province": "Yauyos",
-			"district": "Vi�Ac",
+			"district": "Viñac",
 			"ubigeo": "151032"
 		},
 		{
@@ -9044,37 +9044,37 @@
 		},
 		{
 			"department": "Loreto",
-			"province": "Datem Del Mara�On",
+			"province": "Datem Del Marañon",
 			"district": "Barranca",
 			"ubigeo": "160701"
 		},
 		{
 			"department": "Loreto",
-			"province": "Datem Del Mara�On",
+			"province": "Datem Del Marañon",
 			"district": "Cahuapanas",
 			"ubigeo": "160702"
 		},
 		{
 			"department": "Loreto",
-			"province": "Datem Del Mara�On",
+			"province": "Datem Del Marañon",
 			"district": "Manseriche",
 			"ubigeo": "160703"
 		},
 		{
 			"department": "Loreto",
-			"province": "Datem Del Mara�On",
+			"province": "Datem Del Marañon",
 			"district": "Morona",
 			"ubigeo": "160704"
 		},
 		{
 			"department": "Loreto",
-			"province": "Datem Del Mara�On",
+			"province": "Datem Del Marañon",
 			"district": "Pastaza",
 			"ubigeo": "160705"
 		},
 		{
 			"department": "Loreto",
-			"province": "Datem Del Mara�On",
+			"province": "Datem Del Marañon",
 			"district": "Andoas",
 			"ubigeo": "160706"
 		},
@@ -9153,7 +9153,7 @@
 		{
 			"department": "Madre De Dios",
 			"province": "Tahuamanu",
-			"district": "I�Apari",
+			"district": "Iñapari",
 			"ubigeo": "170301"
 		},
 		{
@@ -9231,7 +9231,7 @@
 		{
 			"department": "Moquegua",
 			"province": "General Sanchez Cerro",
-			"district": "Ichu�A",
+			"district": "Ichuña",
 			"ubigeo": "180204"
 		},
 		{
@@ -9789,7 +9789,7 @@
 		{
 			"department": "Piura",
 			"province": "Talara",
-			"district": "Pari�As",
+			"district": "Pariñas",
 			"ubigeo": "200701"
 		},
 		{
@@ -9909,7 +9909,7 @@
 		{
 			"department": "Puno",
 			"province": "Puno",
-			"district": "Ma�Azo",
+			"district": "Mañazo",
 			"ubigeo": "210109"
 		},
 		{
@@ -9993,7 +9993,7 @@
 		{
 			"department": "Puno",
 			"province": "Azangaro",
-			"district": "Mu�Ani",
+			"district": "Muñani",
 			"ubigeo": "210208"
 		},
 		{
@@ -10311,7 +10311,7 @@
 		{
 			"department": "Puno",
 			"province": "Melgar",
-			"district": "Nu�Oa",
+			"district": "Nuñoa",
 			"ubigeo": "210806"
 		},
 		{
@@ -10683,7 +10683,7 @@
 		{
 			"department": "San Martin",
 			"province": "Lamas",
-			"district": "Cu�Umbuqui",
+			"district": "Cuñumbuqui",
 			"ubigeo": "220505"
 		},
 		{
