@@ -1,61 +1,188 @@
-# 🚀 Getting started with Strapi
+# 🎉 Fiestapp Service
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+Backend API para la plataforma **Fiestapp** — un marketplace que conecta usuarios con proveedores de servicios para eventos y fiestas.
 
-### `develop`
+## 📋 Descripción
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+Fiestapp Service es una API RESTful construida con [NestJS](https://nestjs.com/) que permite:
 
-```
-npm run develop
-# or
-yarn develop
-```
+- **Gestión de usuarios**: Registro, autenticación (local, Google, Facebook) y perfiles
+- **Proveedores**: Registro y administración de proveedores de servicios para eventos
+- **Catálogo de servicios**: Categorías y servicios con precios, duración y calificaciones
+- **Solicitudes**: Sistema de solicitudes de servicios entre usuarios y proveedores
+- **Favoritos**: Marcado de servicios favoritos por los usuarios
+- **Ubigeo**: Datos geográficos de Perú (departamentos, provincias, distritos)
+- **Imágenes**: Gestión de imágenes con Cloudinary
 
-### `start`
+## 🛠️ Tecnologías
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+| Tecnología | Versión | Descripción |
+|------------|---------|-------------|
+| [NestJS](https://nestjs.com/) | 11.x | Framework backend |
+| [Prisma](https://www.prisma.io/) | 6.x | ORM para PostgreSQL |
+| [PostgreSQL](https://www.postgresql.org/) | - | Base de datos |
+| [Zod](https://zod.dev/) | 4.x | Validación de esquemas |
+| [Cloudinary](https://cloudinary.com/) | - | Gestión de imágenes |
+| [Swagger](https://swagger.io/) | - | Documentación API |
 
-```
-npm run start
-# or
-yarn start
-```
-
-### `build`
-
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
-
-```
-npm run build
-# or
-yarn build
-```
-
-## ⚙️ Deployment
-
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
+## 📁 Estructura del proyecto
 
 ```
-yarn strapi deploy
+src/
+├── common/          # Decoradores, guards, pipes, DTOs y utilidades compartidas
+├── config/          # Configuración de la aplicación
+├── database/        # Prisma, seeders y datos iniciales
+├── external/        # Servicios externos (Cloudinary)
+└── modules/         # Módulos de dominio
+    ├── auth/        # Autenticación y JWT
+    ├── category/    # Categorías de servicios
+    ├── provider/    # Proveedores
+    ├── request/     # Solicitudes de servicios
+    ├── service/     # Servicios ofrecidos
+    ├── ubigeo/      # Datos geográficos
+    └── user/        # Usuarios
 ```
 
-## 📚 Learn more
+## 🚀 Instalación
 
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
+### Prerrequisitos
 
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
+- Node.js 20+
+- pnpm
+- PostgreSQL
 
-## ✨ Community
+### Configuración
 
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/RUWAYTECH/fiestapp-service.git
+   cd fiestapp-service
+   ```
+
+2. **Instalar dependencias**
+   ```bash
+   pnpm install
+   ```
+
+3. **Configurar variables de entorno**
+   ```bash
+   cp .env.example .env
+   ```
+   
+   Editar `.env` con tus credenciales:
+   ```env
+   # Servidor
+   PORT=9500
+   
+   # Base de datos PostgreSQL
+   DATABASE_URL=postgresql://user:password@localhost:5432/db_fiestapp
+   
+   # JWT
+   JWT_SECRET=tu-secret-key-segura
+   JWT_EXPIRATION_TIME='1d'
+   
+   # Google OAuth
+   GOOGLE_CLIENT_ID=tu-google-client-id
+   GOOGLE_CLIENT_SECRET=tu-google-client-secret
+   
+   # CORS
+   ALLOWED_ORIGINS=http://localhost:3000,http://localhost:4300
+   
+   # Cloudinary
+   CLOUDINARY_CLOUD_NAME=tu-cloud-name
+   CLOUDINARY_API_KEY=tu-api-key
+   CLOUDINARY_API_SECRET=tu-api-secret
+   ```
+
+4. **Generar cliente de Prisma**
+   ```bash
+   pnpm prisma generate
+   ```
+
+5. **Ejecutar migraciones de Prisma**
+   ```bash
+   pnpm prisma migrate dev
+   ```
+
+6. **Poblar la base de datos (opcional)**
+   ```bash
+   pnpm seed
+   ```
+
+## ▶️ Ejecución
+
+```bash
+# Desarrollo (watch mode)
+pnpm start:dev
+
+# Producción
+pnpm build
+pnpm start:prod
+
+# Debug
+pnpm start:debug
+```
+
+## 🧪 Tests
+
+```bash
+# Tests unitarios
+pnpm test
+
+# Tests e2e
+pnpm test:e2e
+
+# Cobertura
+pnpm test:cov
+```
+
+## 📖 Documentación API
+
+Una vez el servidor esté corriendo, accede a la documentación Swagger en:
+
+```
+http://localhost:9500/docs
+```
+
+## 🗄️ Base de datos
+
+### Comandos útiles de Prisma
+
+```bash
+# Generar cliente Prisma
+pnpm prisma generate
+
+# Crear migración
+pnpm prisma migrate dev --name nombre_migracion
+
+# Ver estado de migraciones
+pnpm prisma migrate status
+
+# Abrir Prisma Studio
+pnpm prisma studio
+
+# Resetear base de datos
+pnpm prisma migrate reset
+```
+
+## 📝 Scripts disponibles
+
+| Script | Descripción |
+|--------|-------------|
+| `pnpm start` | Inicia la aplicación |
+| `pnpm start:dev` | Inicia en modo desarrollo (watch) |
+| `pnpm start:prod` | Inicia en modo producción |
+| `pnpm build` | Compila el proyecto |
+| `pnpm lint` | Ejecuta ESLint |
+| `pnpm format` | Formatea código con Prettier |
+| `pnpm seed` | Ejecuta los seeders de la BD |
+| `pnpm test` | Ejecuta tests unitarios |
+| `pnpm test:e2e` | Ejecuta tests end-to-end |
+
+## 📄 Licencia
+
+Este proyecto es privado y pertenece a **RUWAYTECH**.
 
 ---
 
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+Desarrollado con ❤️ por [RUWAYTECH](https://github.com/RUWAYTECH)
