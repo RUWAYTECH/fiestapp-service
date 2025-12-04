@@ -1,5 +1,5 @@
 import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma } from '@g-prisma/index';
+import { Prisma } from '@g-prisma/client';
 import ubigeo from '../data/ubigeo.json';
 
 export class UbigeoSeeder {

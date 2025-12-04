@@ -1,5 +1,5 @@
 import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma } from '@g-prisma/index';
+import { Prisma } from '@g-prisma/client';
 
 export class CategorySeeder {
 	constructor(private readonly prismaService: PrismaService) {}

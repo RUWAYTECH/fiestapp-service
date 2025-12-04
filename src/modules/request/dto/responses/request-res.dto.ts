@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { RequestCommonDto } from '../request-common.dto';
 import { UserResDto } from '@modules/user/dto/responses/user-res.dto';
 import { ProviderResDto } from '@modules/provider/dto/responses/provider-res.dto';
-import { RequestStatus } from '@g-prisma/index';
+import { RequestStatus } from '@g-prisma/client';
 import { RequestItemDto } from '@modules/request-item/dto/request-item.dto';
 import { RequestPaymentDto } from '@modules/request-payment/dto/request-payment.dto';
 

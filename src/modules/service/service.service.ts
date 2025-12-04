@@ -5,7 +5,7 @@ import { Mapper } from '@common/utils/mapper';
 import { ServiceListResDto, ServiceWithAddressResDto } from './dto/responses/service-res.dto';
 import { ResponseBuilder } from '@common/utils/response-builder';
 import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma } from '@g-prisma/index';
+import { Prisma } from '@g-prisma/client';
 
 @Injectable()
 export class ServiceService {

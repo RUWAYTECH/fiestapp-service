@@ -7,7 +7,8 @@ export const config = {
 		port: parseInt(process.env.DATABASE_PORT ?? '', 10) || 5432,
 		name: process.env.DATABASE_NAME || '',
 		userName: process.env.DATABASE_USERNAME || '',
-		password: process.env.DATABASE_PASSWORD || ''
+		password: process.env.DATABASE_PASSWORD || '',
+		ssl: process.env.DATABASE_SSL === 'true'
 	},
 	jwt: {
 		secret: process.env.JWT_SECRET || '',

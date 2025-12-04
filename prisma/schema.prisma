@@ -5,14 +5,14 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider      = "prisma-client-js"
-  output        = "../generated"
+  provider      = "prisma-client"
+  output        = "./generated"
+	moduleFormat  = "commonjs"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgres"
-	url      = env("DATABASE_URL")
 }
 
 enum Role {
