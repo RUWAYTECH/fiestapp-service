@@ -29,7 +29,7 @@
 			"@db/*": ["src/database/*"],
 			"@conf/*": ["src/config/*"],
 			"@external/*": ["src/external/*"],
-			"@g-prisma/*": ["prisma/generated/*"]
+			"@g-prisma/*": ["src/prisma-generated/*"]
 		},
   }
 }

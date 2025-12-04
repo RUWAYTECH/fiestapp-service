@@ -1,10 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { RequestCommonDto } from '../request-common.dto';
-import { UserResDto } from '@modules/user/dto/responses/user-res.dto';
 import { ProviderResDto } from '@modules/provider/dto/responses/provider-res.dto';
-import { RequestStatus } from '@g-prisma/client';
 import { RequestItemDto } from '@modules/request-item/dto/request-item.dto';
 import { RequestPaymentDto } from '@modules/request-payment/dto/request-payment.dto';
+import { RequestStatusEnum } from '@modules/request/constants/request-status';
+import { UserResDto } from '@modules/user/dto/responses/user-res.dto';
+import { ApiProperty } from '@nestjs/swagger';
+import { RequestCommonDto } from '../request-common.dto';
 
 export class RequestResDto extends RequestCommonDto {
 	@ApiProperty()
@@ -16,8 +16,8 @@ export class RequestResDto extends RequestCommonDto {
 	@ApiProperty({ type: ProviderResDto })
 	provider: ProviderResDto;
 
-	@ApiProperty({ enum: RequestStatus })
-	status: RequestStatus;
+	@ApiProperty({ enum: RequestStatusEnum })
+	status: RequestStatusEnum;
 
 	@ApiProperty()
 	finalPrice: number | null;
