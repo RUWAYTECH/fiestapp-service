@@ -33,7 +33,7 @@ export class ServiceRepository {
 	}): Promise<[ServiceResult[], number]> {
 		const { skip, take, cursor, where, orderBy } = params || {};
 
-		const [data, count] = await this.prisma.$transaction([
+		const [data, count] = await Promise.all([
 			this.prisma.service.findMany({
 				skip,
 				take,
