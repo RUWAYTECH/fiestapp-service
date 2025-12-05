@@ -1,16 +1,15 @@
-import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma } from '@g-prisma/client';
+import { PrismaClient, Prisma } from '@g-prisma/client';
 
 export class ServiceSeeder {
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(private readonly prisma: PrismaClient) {}
 
 	async getRandomCategoryId(): Promise<string> {
-		const count = await this.prismaService.category.count();
+		const count = await this.prisma.category.count();
 		if (count === 0) {
 			throw new Error('No categories found in the database.');
 		}
 		const skip = Math.floor(Math.random() * count);
-		const categories = await this.prismaService.category.findMany({
+		const categories = await this.prisma.category.findMany({
 			select: { id: true },
 			take: 1,
 			skip
@@ -19,12 +18,12 @@ export class ServiceSeeder {
 	}
 
 	async getRandomUbigeoId(): Promise<string> {
-		const count = await this.prismaService.ubigeo.count();
+		const count = await this.prisma.ubigeo.count();
 		if (count === 0) {
 			throw new Error('No ubigeos found in the database.');
 		}
 		const skip = Math.floor(Math.random() * count);
-		const ubigeos = await this.prismaService.ubigeo.findMany({
+		const ubigeos = await this.prisma.ubigeo.findMany({
 			select: { id: true },
 			take: 1,
 			skip
@@ -34,12 +33,12 @@ export class ServiceSeeder {
 
 	async getRandomProviderId(): Promise<string> {
 		const where: Prisma.UserWhereInput = { role: 'USER', provider: { isNot: null } };
-		const count = await this.prismaService.user.count({ where });
+		const count = await this.prisma.user.count({ where });
 		if (count === 0) {
 			throw new Error('No providers found in the database.');
 		}
 		const skip = Math.floor(Math.random() * count);
-		const users = await this.prismaService.user.findMany({
+		const users = await this.prisma.user.findMany({
 			where,
 			select: { id: true },
 			take: 1,
@@ -186,14 +185,14 @@ export class ServiceSeeder {
 		];
 
 		for (const item of data) {
-			await this.prismaService.service.create({ data: item });
+			await this.prisma.service.create({ data: item });
 		}
 	}
 
 	async clear() {
-		await this.prismaService.serviceImage.deleteMany();
-		await this.prismaService.ubigeoService.deleteMany();
-		await this.prismaService.favorite.deleteMany();
-		await this.prismaService.service.deleteMany();
+		await this.prisma.serviceImage.deleteMany();
+		await this.prisma.ubigeoService.deleteMany();
+		await this.prisma.favorite.deleteMany();
+		await this.prisma.service.deleteMany();
 	}
 }

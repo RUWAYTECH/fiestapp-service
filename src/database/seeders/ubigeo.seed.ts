@@ -1,9 +1,8 @@
-import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma } from '@g-prisma/client';
+import { PrismaClient, Prisma } from '@g-prisma/client';
 import ubigeo from '../data/ubigeo.json';
 
 export class UbigeoSeeder {
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(private readonly prisma: PrismaClient) {}
 
 	async run() {
 		const data: Prisma.UbigeoCreateInput[] = ubigeo.data.map(item => ({
@@ -13,10 +12,10 @@ export class UbigeoSeeder {
 			code: item.ubigeo.toString().padStart(6, '0')
 		}));
 
-		return this.prismaService.ubigeo.createMany({ data });
+		return this.prisma.ubigeo.createMany({ data });
 	}
 
 	async clear() {
-		await this.prismaService.ubigeo.deleteMany();
+		await this.prisma.ubigeo.deleteMany();
 	}
 }

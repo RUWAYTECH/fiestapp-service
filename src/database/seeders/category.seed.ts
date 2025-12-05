@@ -1,8 +1,7 @@
-import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma } from '@g-prisma/client';
+import { PrismaClient, Prisma } from '@g-prisma/client';
 
 export class CategorySeeder {
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(private readonly prisma: PrismaClient) {}
 
 	async run() {
 		const data: Prisma.CategoryCreateInput[] = [
@@ -23,10 +22,10 @@ export class CategorySeeder {
 			}
 		];
 
-		return this.prismaService.category.createMany({ data });
+		return this.prisma.category.createMany({ data });
 	}
 
 	async clear() {
-		return this.prismaService.category.deleteMany();
+		return this.prisma.category.deleteMany();
 	}
 }

@@ -1,10 +1,9 @@
-import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma, Role } from '@g-prisma/client';
+import { PrismaClient, Prisma, Role } from '@g-prisma/client';
 import * as bcrypt from 'bcrypt';
 import { AuthProviderEnum } from '@common/constants/auth-provider';
 
 export class UserSeeder {
-	constructor(private readonly prismaService: PrismaService) {}
+	constructor(private readonly prisma: PrismaClient) {}
 
 	async run() {
 		const admin: Prisma.UserCreateInput = {
@@ -41,15 +40,15 @@ export class UserSeeder {
 			}
 		};
 
-		await this.prismaService.user.create({ data: admin });
-		await this.prismaService.user.create({ data: provider });
+		await this.prisma.user.create({ data: admin });
+		await this.prisma.user.create({ data: provider });
 	}
 
 	async clear() {
-		await this.prismaService.requestItem.deleteMany();
-		await this.prismaService.requestPayment.deleteMany();
-		await this.prismaService.request.deleteMany();
-		await this.prismaService.provider.deleteMany();
-		await this.prismaService.user.deleteMany();
+		await this.prisma.requestItem.deleteMany();
+		await this.prisma.requestPayment.deleteMany();
+		await this.prisma.request.deleteMany();
+		await this.prisma.provider.deleteMany();
+		await this.prisma.user.deleteMany();
 	}
 }
