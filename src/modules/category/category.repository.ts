@@ -22,7 +22,7 @@ export class CategoryRepository {
 	}): Promise<[Category[], number]> {
 		const { skip, take, cursor, where, orderBy, include } = params || {};
 
-		const [data, count] = await this.prisma.$transaction([
+		const [data, count] = await Promise.all([
 			this.prisma.category.findMany({
 				skip,
 				take,

@@ -6,7 +6,7 @@ import { RequestGetAllReqDto } from './dto/requests/request-get-all-req.dto';
 import { Mapper } from '@common/utils/mapper';
 import { RequestWithItemsResDto } from './dto/responses/request-res.dto';
 import { RequestRespondReqDto } from './dto/requests/request-respond-req.dto';
-import { RequestStatus } from '@g-prisma/index';
+import { RequestStatus } from '@g-prisma/client';
 
 @Injectable()
 export class RequestProviderService {
@@ -28,7 +28,7 @@ export class RequestProviderService {
 		const [data, count] = await this.requestRepository.findAll({
 			...filters,
 			where: {
-				...(query?.status ? { status: query.status, mode: 'insensitive' } : {}),
+				...(query?.status ? { status: query.status } : {}),
 				providerId: userId
 			},
 			orderBy: { createdAt: 'desc' }

@@ -1,5 +1,5 @@
 import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma, Role } from '@g-prisma/index';
+import { Prisma, Role } from '@g-prisma/client';
 import * as bcrypt from 'bcrypt';
 import { AuthProviderEnum } from '@common/constants/auth-provider';
 

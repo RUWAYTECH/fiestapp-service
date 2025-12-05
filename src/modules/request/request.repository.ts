@@ -1,5 +1,5 @@
 import { PrismaService } from '@db/prisma/prisma.service';
-import { Prisma, Request, RequestPayment } from '@g-prisma/index';
+import { Prisma, Request, RequestPayment } from '@g-prisma/client';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class RequestRepository {
 		[Prisma.RequestGetPayload<{ include: { provider: true; user: true; payment: true; items: true } }>[], number]
 	> {
 		const { skip, take, cursor, where, orderBy } = params || {};
-		const [data, count] = await this.prismaService.$transaction([
+		const [data, count] = await Promise.all([
 			this.prismaService.request.findMany({
 				skip,
 				take,

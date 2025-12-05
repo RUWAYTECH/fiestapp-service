@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { RequestRepository } from './request.repository';
 import { RequestCotizationReqDto } from './dto/requests/request-cotization-req.dto';
-import { RequestStatus } from '@g-prisma/index';
+import { RequestStatus } from '@g-prisma/client';
 import { ServiceRepository } from '@modules/service/service.repository';
 import { ResponseBuilder } from '@common/utils/response-builder';
 import { RequestGetAllReqDto } from './dto/requests/request-get-all-req.dto';

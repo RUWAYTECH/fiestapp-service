@@ -1,6 +1,6 @@
 import { PrismaService } from '@db/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { Prisma, User } from '@g-prisma/index';
+import { Prisma, User } from '@g-prisma/client';
 
 @Injectable()
 export class UserRepository {
@@ -28,7 +28,7 @@ export class UserRepository {
 	}): Promise<[User[], number]> {
 		const { skip, take, cursor, where, orderBy } = params || {};
 
-		const [users, count] = await this.prisma.$transaction([
+		const [users, count] = await Promise.all([
 			this.prisma.user.findMany({
 				skip,
 				take,

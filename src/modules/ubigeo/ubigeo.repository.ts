@@ -28,7 +28,7 @@ export class UbigeoRepository {
 	}): Promise<[Ubigeo[], number]> {
 		const { skip, take, cursor, where, orderBy, include } = params || {};
 
-		const [data, count] = await this.prisma.$transaction([
+		const [data, count] = await Promise.all([
 			this.prisma.ubigeo.findMany({
 				skip,
 				take,
