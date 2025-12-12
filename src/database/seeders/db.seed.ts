@@ -1,36 +1,45 @@
-import { PrismaService } from '@db/prisma/prisma.service';
+import 'dotenv/config';
+import { PrismaClient } from '@g-prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { Pool } from 'pg';
 import { UserSeeder } from './user.seed';
 import { UbigeoSeeder } from './ubigeo.seed';
 import { CategorySeeder } from './category.seed';
 import { ServiceSeeder } from './service.seed';
 
-const prismaService = new PrismaService();
+const pool = new Pool({
+	connectionString: process.env.DATABASE_URL,
+	ssl: process.env.DATABASE_SSL === 'true' ? { rejectUnauthorized: false } : false
+});
 
-export const seedDatabase = async () => {
-	try {
-		await prismaService.$connect();
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
-		const userSeeder = new UserSeeder(prismaService);
-		const ubigeoSeeder = new UbigeoSeeder(prismaService);
-		const categorySeeder = new CategorySeeder(prismaService);
-		const serviceSeeder = new ServiceSeeder(prismaService);
+async function main() {
+	const userSeeder = new UserSeeder(prisma);
+	const ubigeoSeeder = new UbigeoSeeder(prisma);
+	const categorySeeder = new CategorySeeder(prisma);
+	const serviceSeeder = new ServiceSeeder(prisma);
 
-		await serviceSeeder.clear();
-		await categorySeeder.clear();
-		await ubigeoSeeder.clear();
-		await userSeeder.clear();
+	await serviceSeeder.clear();
+	await categorySeeder.clear();
+	await ubigeoSeeder.clear();
+	await userSeeder.clear();
 
-		await userSeeder.run();
-		await ubigeoSeeder.run();
-		await categorySeeder.run();
-		await serviceSeeder.run();
+	await userSeeder.run();
+	await ubigeoSeeder.run();
+	await categorySeeder.run();
+	await serviceSeeder.run();
 
-		console.log('Database seeded successfully.');
-	} catch (error) {
-		console.error('Error seeding database:', error);
-	} finally {
-		await prismaService.$disconnect();
-	}
-};
+	console.log('Database seeded successfully.');
+}
 
-seedDatabase();
+main()
+	.then(async () => {
+		await prisma.$disconnect();
+	})
+	.catch(async e => {
+		console.error(e);
+		await prisma.$disconnect();
+		process.exit(1);
+	});

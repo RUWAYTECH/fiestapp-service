@@ -8,12 +8,18 @@ import { RequestGetAllReqDto } from './dto/requests/request-get-all-req.dto';
 import { Mapper } from '@common/utils/mapper';
 import { RequestResDto, RequestWithItemsResDto } from './dto/responses/request-res.dto';
 import { RequestPayCotizationReqDto } from './dto/requests/request-pay-cotization-req.dto';
+import { UserRepository } from '@modules/user/user.repository';
+import { MailService } from '@modules/mail/mail.service';
+import { CreateMailReqDto } from '@modules/mail/dto/requests/create-mail-req.dto';
+import { ServiceRequestMailReqDto } from '@modules/mail/dto/requests/service-request-mail-req.dto';
 
 @Injectable()
 export class RequestService {
 	constructor(
 		private readonly requestRepository: RequestRepository,
-		private readonly serviceRepository: ServiceRepository
+		private readonly serviceRepository: ServiceRepository,
+		private readonly userRepository: UserRepository,
+		private readonly mailService: MailService
 	) {}
 
 	async getAll(userId: string, query?: RequestGetAllReqDto) {
@@ -95,6 +101,34 @@ export class RequestService {
 			},
 			user: { connect: { id: userId } }
 		});
+		const user = await this.userRepository.findById(userId);
+		if (!user) {
+			throw new BadRequestException(ResponseBuilder.error(null, ['El usuario no existe.']));
+		} else {
+			const emailData = new CreateMailReqDto();
+			emailData.name = user?.name;
+			emailData.subject = 'Solicitud de Cotización Creada';
+
+			// Calcular servicios con quantity, price y total correctamente
+			emailData.services = items.map(item => {
+				const itemData = data.items.find(i => i.id === item.id); // ← lo obtenemos solo UNA VEZ
+				const quantity = itemData?.quantity ?? 1;
+				const price = item.priceMin ?? 0;
+
+				return {
+					quantity,
+					price,
+					total: price * quantity,
+					comment: '',
+					service: item.description
+				} as ServiceRequestMailReqDto;
+			});
+
+			// Calcular total general
+			emailData.totalPrice = emailData.services.reduce((sum, s) => sum + s.total, 0);
+
+			await this.mailService.sendEmailWithTemplate(user.email, emailData);
+		}
 
 		return ResponseBuilder.build(null, ['Solicitud de cotización creada exitosamente.']);
 	}
