@@ -6,8 +6,18 @@ import { ServiceModule } from './service/service.module';
 import { ProviderModule } from './provider/provider.module';
 import { UbigeoModule } from './ubigeo/ubigeo.module';
 import { RequestModule } from './request/request.module';
+import { MailModule } from './mail/mail.module';
 
 @Module({
-	imports: [AuthModule, UserModule, CategoryModule, ServiceModule, ProviderModule, UbigeoModule, RequestModule]
+	imports: [
+		AuthModule,
+		UserModule,
+		CategoryModule,
+		ServiceModule,
+		ProviderModule,
+		UbigeoModule,
+		RequestModule,
+		MailModule
+	]
 })
 export class ModulesModule {}
