@@ -109,9 +109,8 @@ export class RequestService {
 			emailData.name = user?.name;
 			emailData.subject = 'Solicitud de Cotización Creada';
 
-			// Calcular servicios con quantity, price y total correctamente
 			emailData.services = items.map(item => {
-				const itemData = data.items.find(i => i.id === item.id); // ← lo obtenemos solo UNA VEZ
+				const itemData = data.items.find(i => i.id === item.id);
 				const quantity = itemData?.quantity ?? 1;
 				const price = item.priceMin ?? 0;
 
@@ -124,7 +123,6 @@ export class RequestService {
 				} as ServiceRequestMailReqDto;
 			});
 
-			// Calcular total general
 			emailData.totalPrice = emailData.services.reduce((sum, s) => sum + s.total, 0);
 
 			await this.mailService.sendEmailWithTemplate(user.email, emailData);

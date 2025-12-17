@@ -25,4 +25,25 @@ export class MailService {
 			throw error;
 		}
 	}
+
+	async sendEmailByResponseProvider(email: string, data: CreateMailReqDto) {
+		try {
+			await this.mailerService.sendMail({
+				to: email,
+				subject: data.subject,
+				template: 'mail-response-provider-template',
+				context: {
+					name: data.name,
+					subject: data.subject,
+					comment: data.comment,
+					totalPrice: data.totalPrice,
+					services: data.services
+				}
+			});
+			return { success: true };
+		} catch (error) {
+			console.error('Error enviando correo:', error);
+			throw error;
+		}
+	}
 }

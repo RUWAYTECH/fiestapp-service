@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>{{subject}}</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #F67B9C;
+        }
+
+        .primary {
+            color: #F67B9C;
+        }
+
+        .service-box {
+            border: 1px solid #ddd;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+
+        .service-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .service-info {
+            font-size: 14px;
+            margin-top: 6px;
+            color: #444;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #111;
+            text-align: right;
+        }
+
+        .footer {
+            margin-top: 32px;
+            font-size: 13px;
+            text-align: center;
+            color: #666;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #fde7ee;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-left: 8px;
+            color: #F67B9C;
+            font-weight: 600;
+        }
+
+        .message-box {
+            margin-top: 20px;
+            padding: 14px 16px;
+            background: #fafafa;
+            border-left: 4px solid #F67B9C;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="title">
+            {{subject}}
+        </div>
+
+        <p>Hola <strong>{{name}}</strong>,</p>
+
+        <p>
+            El proveedor <strong class="primary">{{providerName}}</strong> ha respondido a tu
+            <strong class="primary">solicitud de cotización</strong>.
+        </p>
+
+        <p>
+            Estado de la cotización:
+            <strong class="primary">{{status}}</strong>
+        </p>
+
+        <h3 style="margin-top: 24px;">Detalle de la cotización</h3>
+
+        {{#each services}}
+        <div class="service-box">
+            <div class="service-title">
+                {{service}}
+                <span class="badge">x{{quantity}}</span>
+            </div>
+
+            <div class="service-info">
+                Precio unitario: <strong>S/ {{price}}</strong><br />
+                Importe: <strong>S/ {{total}}</strong>
+            </div>
+            
+
+            {{#if comment}}
+                <p style="
+                    margin-top: 10px;
+                    padding-left: 10px;
+                    border-left: 3px solid #F67B9C;
+                    font-size: 14px;
+                    color: #444;
+                ">
+                    <strong style="color:#F67B9C;">Respuesta del proveedor:</strong>
+                    {{comment}}
+                </p>
+            {{/if}}
+        </div>
+        {{/each}}
+
+        <div class="total">
+            Total cotizado: S/ {{totalPrice}}
+        </div>
+
+        <div class="footer">
+            Puedes aceptar o rechazar esta cotización desde la plataforma.<br />
+            El equipo de <strong>FIESTAPP</strong>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

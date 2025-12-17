@@ -7,12 +7,15 @@ import { Mapper } from '@common/utils/mapper';
 import { RequestWithItemsResDto } from './dto/responses/request-res.dto';
 import { RequestRespondReqDto } from './dto/requests/request-respond-req.dto';
 import { RequestStatus } from '@g-prisma/client';
+import { CreateMailReqDto } from '@modules/mail/dto/requests/create-mail-req.dto';
+import { MailService } from '@modules/mail/mail.service';
 
 @Injectable()
 export class RequestProviderService {
 	constructor(
 		private readonly requestRepository: RequestRepository,
-		private readonly serviceRepository: ServiceRepository
+		private readonly serviceRepository: ServiceRepository,
+		private readonly mailService: MailService
 	) {}
 
 	async getAll(userId: string, query?: RequestGetAllReqDto) {
@@ -55,9 +58,11 @@ export class RequestProviderService {
 			throw new BadRequestException(ResponseBuilder.error(null, ['Uno o más ítems de la solicitud no existen.']));
 		}
 
+		const finalPrice = data.items.reduce((sum, item) => sum + (item.priceFinal || 0), 0);
+
 		await this.requestRepository.update(id, {
 			status: RequestStatus.IN_PROGRESS,
-			finalPrice: data.items.reduce((sum, item) => sum + (item.priceFinal || 0), 0),
+			finalPrice: finalPrice,
 			items: {
 				updateMany: data.items.map(item => ({
 					where: { id: item.id },
@@ -68,6 +73,31 @@ export class RequestProviderService {
 				}))
 			}
 		});
+		const emailData = new CreateMailReqDto();
+		emailData.name = request.user.name;
+		emailData.subject = 'Solicitud de Cotización Respondida por el Proveedor';
+
+		const servicesForMail = data.items.map(item => {
+			const originalItem = request.items.find(i => i.id === item.id);
+
+			if (!originalItem) {
+				throw new BadRequestException(ResponseBuilder.error(null, ['Ítem de la solicitud no encontrado.']));
+			}
+
+			const service = originalItem.service as { description?: string };
+
+			return {
+				service: service.description ?? '',
+				quantity: originalItem.quantity,
+				price: item.priceFinal ?? 0,
+				total: (item.priceFinal ?? 0) * originalItem.quantity,
+				comment: item.comment ?? ''
+			};
+		});
+		emailData.services = servicesForMail;
+		emailData.totalPrice = servicesForMail.reduce((sum, s) => sum + s.total, 0);
+
+		await this.mailService.sendEmailByResponseProvider(request.user.email, emailData);
 
 		return ResponseBuilder.build(null, ['Respuesta enviada correctamente.']);
 	}

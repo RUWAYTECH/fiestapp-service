@@ -4,5 +4,6 @@ export class CreateMailReqDto {
 	name: string;
 	subject: string;
 	totalPrice: number;
+	comment?: string;
 	services: ServiceRequestMailReqDto[];
 }
