@@ -1,28 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { CreateMailReqDto } from './dto/requests/create-mail-req.dto';
+import { MailRequestCreatedDto, MoreInfo } from './dto/mail-request-created.dto';
+import { config } from '@conf/index';
 
 @Injectable()
 export class MailService {
+	private company = {
+		name: 'FiestApp',
+		logoUrl: config.company.logoUrl
+	};
+
 	constructor(private mailerService: MailerService) {}
 
-	async sendEmailWithTemplate(email: string, data: CreateMailReqDto) {
-		try {
-			await this.mailerService.sendMail({
-				to: email,
-				subject: data.subject,
-				template: 'mail-request-template',
-				context: {
-					name: data.name,
-					subject: data.subject,
-					totalPrice: data.totalPrice,
-					services: data.services
-				}
-			});
-			return { success: true };
-		} catch (error) {
-			console.error('Error enviando correo:', error);
-			throw error;
-		}
+	async sendRequestCreatedEmail(
+		to: string,
+		toName: string,
+		subject: string,
+		data: { order: MailRequestCreatedDto; moreInfo?: MoreInfo[] },
+		description = 'Hemos recibido tu solicitud de cotización y pronto nos pondremos en contacto contigo.'
+	) {
+		const emailData = {
+			subtitle: description,
+			company: this.company,
+			order: data.order,
+			toName: toName,
+			moreInfo: data.moreInfo
+		};
+
+		await this.mailerService.sendMail({
+			to: to,
+			subject: subject,
+			template: 'mail-request-created',
+			context: emailData
+		});
 	}
 }

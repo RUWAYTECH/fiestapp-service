@@ -7,12 +7,19 @@ import { Mapper } from '@common/utils/mapper';
 import { RequestWithItemsResDto } from './dto/responses/request-res.dto';
 import { RequestRespondReqDto } from './dto/requests/request-respond-req.dto';
 import { RequestStatus } from '@g-prisma/client';
+import { MailService } from '@modules/mail/mail.service';
+import { MailRequestCreatedDto } from '@modules/mail/dto/mail-request-created.dto';
+import { UserRepository } from '@modules/user/user.repository';
+import { getStatusLabel } from '@common/constants/order-status';
+import { RequestStatusEnum } from './constants/request-status';
 
 @Injectable()
 export class RequestProviderService {
 	constructor(
 		private readonly requestRepository: RequestRepository,
-		private readonly serviceRepository: ServiceRepository
+		private readonly serviceRepository: ServiceRepository,
+		private readonly userRepository: UserRepository,
+		private readonly mailService: MailService
 	) {}
 
 	async getAll(userId: string, query?: RequestGetAllReqDto) {
@@ -55,9 +62,17 @@ export class RequestProviderService {
 			throw new BadRequestException(ResponseBuilder.error(null, ['Uno o más ítems de la solicitud no existen.']));
 		}
 
-		await this.requestRepository.update(id, {
+		const user = await this.userRepository.findById(request.userId);
+
+		if (!user) {
+			throw new BadRequestException(ResponseBuilder.error(null, ['El usuario asociado a la solicitud no existe.']));
+		}
+
+		const finalPrice = data.items.reduce((sum, item) => sum + (item.priceFinal || 0), 0);
+
+		const savedRequest = await this.requestRepository.update(id, {
 			status: RequestStatus.IN_PROGRESS,
-			finalPrice: data.items.reduce((sum, item) => sum + (item.priceFinal || 0), 0),
+			finalPrice,
 			items: {
 				updateMany: data.items.map(item => ({
 					where: { id: item.id },
@@ -68,6 +83,42 @@ export class RequestProviderService {
 				}))
 			}
 		});
+
+		// Enviar correo al usuario sin afectar el flujo
+		try {
+			const userEmailData: MailRequestCreatedDto = {
+				state: getStatusLabel(savedRequest.status as RequestStatusEnum),
+				date: new Date().toLocaleDateString('es-ES', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				}),
+				items: data.items.map(item => {
+					const requestItem = request.items.find(i => i.id === item.id);
+					return {
+						name: (requestItem?.service as any)?.description || '',
+						quantity: requestItem?.quantity || 1,
+						price: item.priceFinal || requestItem?.price || 0,
+						subtotal: item.priceFinal || requestItem?.total || 0,
+						comment: item.comment || ''
+					};
+				}),
+				subtotal: finalPrice,
+				total: finalPrice
+			};
+
+			await this.mailService.sendRequestCreatedEmail(
+				user.email,
+				user.name,
+				'Respuesta a tu Solicitud de Cotización',
+				{
+					order: userEmailData
+				},
+				'Tu solicitud de cotización ha sido respondida. Revisa los detalles a continuación.'
+			);
+		} catch (error) {
+			console.error('Error enviando correo de respuesta de solicitud:', error);
+		}
 
 		return ResponseBuilder.build(null, ['Respuesta enviada correctamente.']);
 	}

@@ -22,6 +22,17 @@ export const config = {
 		cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
 		apiKey: process.env.CLOUDINARY_API_KEY || '',
 		apiSecret: process.env.CLOUDINARY_API_SECRET || ''
+	},
+	mail: {
+		host: process.env.MAIL_HOST || '',
+		port: parseInt(process.env.MAIL_PORT ?? '', 10) || 587,
+		user: process.env.MAIL_USER || '',
+		password: process.env.MAIL_PASSWORD || '',
+		fromAddress: process.env.MAIL_FROM || '',
+		platformAddress: process.env.MAIL_PLATFORM || ''
+	},
+	company: {
+		logoUrl: process.env.COMPANY_LOGO_URL || ''
 	}
 };
 

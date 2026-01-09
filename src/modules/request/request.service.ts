@@ -10,8 +10,9 @@ import { RequestResDto, RequestWithItemsResDto } from './dto/responses/request-r
 import { RequestPayCotizationReqDto } from './dto/requests/request-pay-cotization-req.dto';
 import { UserRepository } from '@modules/user/user.repository';
 import { MailService } from '@modules/mail/mail.service';
-import { CreateMailReqDto } from '@modules/mail/dto/requests/create-mail-req.dto';
-import { ServiceRequestMailReqDto } from '@modules/mail/dto/requests/service-request-mail-req.dto';
+import { MailRequestCreatedDto } from '@modules/mail/dto/mail-request-created.dto';
+import { getStatusLabel } from '@common/constants/order-status';
+import { config } from '@conf/index';
 
 @Injectable()
 export class RequestService {
@@ -76,7 +77,13 @@ export class RequestService {
 			);
 		}
 
-		await this.requestRepository.create({
+		const user = await this.userRepository.findById(userId);
+
+		if (!user) {
+			throw new BadRequestException(ResponseBuilder.error(null, ['El usuario no existe.']));
+		}
+
+		const request = await this.requestRepository.create({
 			guestQty: data.guestQty,
 			budgetAmount: data.budgetAmount,
 			finalPrice: items.reduce((sum, item) => {
@@ -101,33 +108,87 @@ export class RequestService {
 			},
 			user: { connect: { id: userId } }
 		});
-		const user = await this.userRepository.findById(userId);
-		if (!user) {
-			throw new BadRequestException(ResponseBuilder.error(null, ['El usuario no existe.']));
-		} else {
-			const emailData = new CreateMailReqDto();
-			emailData.name = user?.name;
-			emailData.subject = 'Solicitud de Cotización Creada';
 
-			// Calcular servicios con quantity, price y total correctamente
-			emailData.services = items.map(item => {
-				const itemData = data.items.find(i => i.id === item.id); // ← lo obtenemos solo UNA VEZ
-				const quantity = itemData?.quantity ?? 1;
-				const price = item.priceMin ?? 0;
+		// Obtener el proveedor
+		const provider = await this.userRepository.findById(items[0].providerId);
 
-				return {
-					quantity,
-					price,
-					total: price * quantity,
-					comment: '',
-					service: item.description
-				} as ServiceRequestMailReqDto;
+		// Enviar correos sin afectar el flujo
+		const emailServices = items.map(item => {
+			const itemData = data.items.find(i => i.id === item.id);
+			const quantity = itemData?.quantity ?? 1;
+			const price = item.priceMin ?? 0;
+
+			return {
+				quantity,
+				price,
+				total: price * quantity,
+				comment: '',
+				service: item.description
+			};
+		});
+
+		const totalPrice = emailServices.reduce((sum, s) => sum + s.total, 0);
+
+		// Enviar correo al usuario
+		try {
+			const userEmailData: MailRequestCreatedDto = {
+				state: getStatusLabel(request.status),
+				date: new Date(request.createdAt).toLocaleDateString('es-ES', {
+					year: 'numeric',
+					month: 'long',
+					day: 'numeric'
+				}),
+				items: emailServices.map(s => ({
+					name: s.service,
+					quantity: s.quantity,
+					price: s.price,
+					subtotal: s.total,
+					comment: s.comment
+				})),
+				subtotal: totalPrice,
+				total: totalPrice
+			};
+
+			await this.mailService.sendRequestCreatedEmail(user.email, user.name, 'Nueva Solicitud de Cotización Creada', {
+				order: userEmailData
 			});
+		} catch (error) {
+			console.error('Error enviando correo al usuario:', error);
+		}
 
-			// Calcular total general
-			emailData.totalPrice = emailData.services.reduce((sum, s) => sum + s.total, 0);
+		// Enviar correo al proveedor
+		if (provider && provider.email) {
+			try {
+				const providerEmailData: MailRequestCreatedDto = {
+					state: getStatusLabel(request.status),
+					date: new Date(request.createdAt).toLocaleDateString('es-ES', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric'
+					}),
+					items: emailServices.map(s => ({
+						name: s.service,
+						quantity: s.quantity,
+						price: s.price,
+						subtotal: s.total,
+						comment: s.comment
+					})),
+					subtotal: totalPrice,
+					total: totalPrice
+				};
 
-			await this.mailService.sendEmailWithTemplate(user.email, emailData);
+				await this.mailService.sendRequestCreatedEmail(
+					provider.email,
+					provider.name,
+					'Nueva Solicitud de Cotización Recibida',
+					{
+						order: providerEmailData
+					},
+					'Se ha recibido una nueva solicitud de cotización. Por favor, revisa los detalles y responde a la brevedad.'
+				);
+			} catch (error) {
+				console.error('Error enviando correo al proveedor:', error);
+			}
 		}
 
 		return ResponseBuilder.build(null, ['Solicitud de cotización creada exitosamente.']);
@@ -146,7 +207,7 @@ export class RequestService {
 			);
 		}
 
-		await this.requestRepository.update(id, {
+		const savedRequest = await this.requestRepository.update(id, {
 			status: RequestStatus.COMPLETED
 		});
 
@@ -157,6 +218,41 @@ export class RequestService {
 			amount: data.amount,
 			method: data.method
 		});
+
+		// Enviar correo al proveedor sin afectar el flujo
+		if (request.provider && request.provider.email) {
+			try {
+				const providerEmailData: MailRequestCreatedDto = {
+					state: getStatusLabel(savedRequest.status),
+					date: new Date().toLocaleDateString('es-ES', {
+						year: 'numeric',
+						month: 'long',
+						day: 'numeric'
+					}),
+					items: request.items.map(item => ({
+						name: (item.service as any)?.description || '',
+						quantity: item.quantity,
+						price: item.price,
+						subtotal: item.total,
+						comment: ''
+					})),
+					subtotal: savedRequest.finalPrice,
+					total: savedRequest.finalPrice
+				};
+
+				await this.mailService.sendRequestCreatedEmail(
+					config.mail.platformAddress,
+					'',
+					'Pago de Cotización Recibido',
+					{
+						order: providerEmailData
+					},
+					`Se ha recibido el pago de la cotización con número de operación <b>${data.operationNumber}</b>. Por favor, revisa los detalles de la solicitud.`
+				);
+			} catch (error) {
+				console.error('Error enviando correo al proveedor:', error);
+			}
+		}
 
 		return ResponseBuilder.build(null, ['Solicitud de cotización pagada exitosamente.']);
 	}
