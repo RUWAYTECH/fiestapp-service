@@ -23,7 +23,7 @@ export class RequestService {
 		private readonly mailService: MailService
 	) {}
 
-	async getAll(userId: string, query?: RequestGetAllReqDto) {
+	async getAll(query?: RequestGetAllReqDto) {
 		let filters = {};
 
 		if (query?.pageSize) {
@@ -36,8 +36,9 @@ export class RequestService {
 		const [data, count] = await this.requestRepository.findAll({
 			...filters,
 			where: {
-				...(query?.status ? { status: query.status, mode: 'insensitive' } : {}),
-				userId
+				...(query?.status ? { status: query.status } : {}),
+				...(query?.providerId ? { providerId: query.providerId } : {}),
+				...(query?.userId ? { userId: query.userId } : {})
 			},
 			orderBy: { createdAt: 'desc' }
 		});
@@ -52,10 +53,10 @@ export class RequestService {
 		});
 	}
 
-	async getById(id: string, userId: string) {
+	async getById(id: string, userId?: string) {
 		const request = await this.requestRepository.findById(id);
 
-		if (!request || request.userId !== userId) {
+		if (!request || (userId && request.userId !== userId)) {
 			throw new BadRequestException(ResponseBuilder.error(null, ['La solicitud no existe.']));
 		}
 

@@ -16,15 +16,29 @@ export class RequestController {
 	constructor(private readonly requestService: RequestService) {}
 
 	@Get()
-	@Roles(UserRoleEnum.USER)
-	async getAll(@AuthUser('sub') userId: string, @Query() query?: RequestGetAllReqDto) {
-		return this.requestService.getAll(userId, query);
+	@Roles(UserRoleEnum.USER, UserRoleEnum.ADMIN)
+	async getAll(
+		@AuthUser('sub') userId: string,
+		@AuthUser('role') role: UserRoleEnum,
+		@Query() query?: RequestGetAllReqDto
+	) {
+		let queryParams = { ...query };
+		if (role === UserRoleEnum.USER) {
+			queryParams = { ...queryParams, userId };
+		}
+
+		return this.requestService.getAll(queryParams);
 	}
 
 	@Get(':id')
-	@Roles(UserRoleEnum.USER)
-	async getById(@AuthUser('sub') userId: string, @Param('id') id: string) {
-		return this.requestService.getById(id, userId);
+	@Roles(UserRoleEnum.USER, UserRoleEnum.ADMIN)
+	async getById(@AuthUser('sub') userId: string, @AuthUser('role') role: UserRoleEnum, @Param('id') id: string) {
+		let queryUserId: string | undefined = undefined;
+		if (role === UserRoleEnum.USER) {
+			queryUserId = userId;
+		}
+
+		return this.requestService.getById(id, queryUserId);
 	}
 
 	@Post('cotization')

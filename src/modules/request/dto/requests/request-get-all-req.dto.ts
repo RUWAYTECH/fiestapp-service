@@ -5,4 +5,8 @@ import { ApiProperty } from '@nestjs/swagger';
 export class RequestGetAllReqDto extends GetAllReqDto {
 	@ApiProperty({ enum: RequestStatusEnum })
 	status?: RequestStatusEnum;
+
+	providerId?: string;
+
+	userId?: string;
 }
