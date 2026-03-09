@@ -20,7 +20,13 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "seed": "tsx src/database/seeders/db.seed.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "migrate:status": "source ~/.nvm/nvm.sh && nvm use 22.21.1 && npx prisma migrate status",
+    "migrate:deploy": "source ~/.nvm/nvm.sh && nvm use 22.21.1 && npx prisma migrate deploy",
+    "migrate:dev": "source ~/.nvm/nvm.sh && nvm use 22.21.1 && npx prisma migrate dev",
+    "db:push": "source ~/.nvm/nvm.sh && nvm use 22.21.1 && npx prisma db push",
+    "db:reset": "source ~/.nvm/nvm.sh && nvm use 22.21.1 && npx prisma migrate reset",
+    "prisma:generate": "source ~/.nvm/nvm.sh && nvm use 22.21.1 && npx prisma generate"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "^2.0.2",
